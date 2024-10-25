@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { motion } from 'framer-motion'
 import SplashLogo from '@/components/Icons/SplashLogo'
 import SplashTop from '@/components/Icons/SplashTop'
 import SplashBottom from '@/components/Icons/SplashBottom'
-import { AnimatePresence, color, motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const [isSplash, setIsSplash] = useState(true)
@@ -90,6 +90,7 @@ export default function Home() {
           >
             <button
               onClick={() => handleSocialLogin('kakao')}
+              type="button"
               className="bg-[#FFE819] w-[342px] h-[56px] flex justify-center items-center rounded-12 text-black font-semibold mb-10"
             >
               <img src="/images/kakao-icon.png" alt="Kakao" className="mr-8" />
@@ -97,6 +98,7 @@ export default function Home() {
             </button>
             <button
               onClick={() => handleSocialLogin('naver')}
+              type="button"
               className="bg-[#03C75A] w-[342px] h-[56px] flex justify-center items-center rounded-12 text-white font-semibold mb-10"
             >
               <img src="/images/naver-icon.png" alt="Naver" className="mr-8" />
@@ -105,6 +107,7 @@ export default function Home() {
 
             <button
               onClick={() => handleSocialLogin('google')}
+              type="button"
               className="bg-white border w-[342px] h-[56px] flex justify-center items-center rounded-12 text-black font-semibold mb-10"
             >
               <img
