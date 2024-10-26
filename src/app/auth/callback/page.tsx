@@ -13,19 +13,20 @@ export default function LoginCheck() {
   const state = searchParams.get('state')
 
   const sendUserHomeOrStart = (userState: string) => {
-    if (userState == 'GUEST') router.push('/start')
-    if (userState == 'MEMBER') router.push('/home')
+    if (userState === 'GUEST') router.push('/start')
+    if (userState === 'MEMBER') router.push('/home')
   }
 
   const getUserData = async (socialType: string, sendDataArr: SendData[]) => {
     let url: string = `https://cnergy.p-e.kr/v1/oauth/login/${socialType}?`
-    for (let i = 0; i < sendDataArr.length; i++) {
-      if (i == 0) {
+    for (let i = 0; i < sendDataArr.length; i += 1) {
+      if (i === 0) {
         url += `${sendDataArr[i].name}=${sendDataArr[i].value}`
-        continue
       }
 
-      url += `&${sendDataArr[i].name}=${sendDataArr[i].value}`
+      if (i !== 0) {
+        url += `&${sendDataArr[i].name}=${sendDataArr[i].value}`
+      }
     }
 
     try {
@@ -39,7 +40,7 @@ export default function LoginCheck() {
 
       const data = await res.json()
 
-      console.log('reponse Data', data)
+      // console.log('reponse Data', data)
 
       // 토근 설정
       localStorage.setItem('accessToken', data.data.accessToken)

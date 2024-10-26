@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import SplashLogo from '@/components/Icons/SplashLogo'
 import SplashTop from '@/components/Icons/SplashTop'
 import SplashBottom from '@/components/Icons/SplashBottom'
-import { social_types } from './components/Oauth/SocialTypeData'
+import { socialTypes } from './components/Oauth/SocialTypeData'
 import OauthBtn from './components/Oauth/OauthBtn'
 
 export default function Home() {
@@ -47,7 +47,7 @@ export default function Home() {
 
         <motion.div
           initial={{ x: 0, y: -200, opacity: 1 }}
-          animate={{ x: 0, y: 0, opacity: 1 }}
+          animate={{ x: 0, y: -17, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
           <SplashTop
@@ -84,15 +84,14 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            {social_types &&
-              social_types.map((socialData) => {
+            {socialTypes &&
+              socialTypes.map((socialData) => {
                 return (
                   <OauthBtn
                     key={socialData.id}
                     type={socialData.type}
                     text={socialData.text}
                     auth_uri={socialData.auth_uri}
-                    style={socialData.style && socialData.style}
                   />
                 )
               })}

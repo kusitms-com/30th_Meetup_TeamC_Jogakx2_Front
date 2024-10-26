@@ -1,6 +1,6 @@
 import { OauthBtnData } from './type'
 
-export const social_types: OauthBtnData[] = [
+export const socialTypes: OauthBtnData[] = [
   {
     id: 1,
     type: 'kakao',
@@ -18,6 +18,5 @@ export const social_types: OauthBtnData[] = [
     type: 'google',
     text: '구글',
     auth_uri: 'https://cnergy.p-e.kr/v1/oauth/google',
-    style: 'border',
   },
 ]
