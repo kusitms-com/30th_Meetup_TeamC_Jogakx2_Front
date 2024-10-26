@@ -1,17 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import SplashLogo from '@/components/Icons/SplashLogo'
 import SplashTop from '@/components/Icons/SplashTop'
 import SplashBottom from '@/components/Icons/SplashBottom'
+import { social_types } from './components/Oauth/SocialTypeData'
+import OauthBtn from './components/Oauth/OauthBtn'
 
 export default function Home() {
   const [isSplash, setIsSplash] = useState(true)
   const [logoColor, setlogoColor] = useState('white')
   const [splashBoxColor, setSplashBoxColor] = useState('#31313B')
-  const router = useRouter()
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,17 +21,13 @@ export default function Home() {
 
     const logotimer = setTimeout(() => {
       setlogoColor('#1A1A25')
-    }, 1500)
+    }, 1700)
 
     return () => {
       clearTimeout(timer)
       clearTimeout(logotimer)
     }
   }, [])
-
-  const handleSocialLogin = async (social: string) => {
-    router.push(`https://cnergy.p-e.kr/v1/oauth/${social}`)
-  }
 
   return (
     <div className=" flex justify-center items-center w-screen h-screen">
@@ -88,35 +84,18 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <button
-              onClick={() => handleSocialLogin('kakao')}
-              type="button"
-              className="bg-[#FFE819] w-[342px] h-[56px] flex justify-center items-center rounded-12 text-black font-semibold mb-10"
-            >
-              <img src="/images/kakao-icon.png" alt="Kakao" className="mr-8" />
-              카카오로 시작하기
-            </button>
-            <button
-              onClick={() => handleSocialLogin('naver')}
-              type="button"
-              className="bg-[#03C75A] w-[342px] h-[56px] flex justify-center items-center rounded-12 text-white font-semibold mb-10"
-            >
-              <img src="/images/naver-icon.png" alt="Naver" className="mr-8" />
-              네이버로 시작하기
-            </button>
-
-            <button
-              onClick={() => handleSocialLogin('google')}
-              type="button"
-              className="bg-white border w-[342px] h-[56px] flex justify-center items-center rounded-12 text-black font-semibold mb-10"
-            >
-              <img
-                src="/images/google-icon.png"
-                alt="Google"
-                className="mr-8"
-              />
-              구글로 시작하기
-            </button>
+            {social_types &&
+              social_types.map((socialData) => {
+                return (
+                  <OauthBtn
+                    key={socialData.id}
+                    type={socialData.type}
+                    text={socialData.text}
+                    auth_uri={socialData.auth_uri}
+                    style={socialData.style && socialData.style}
+                  />
+                )
+              })}
           </motion.div>
         </>
       )}
