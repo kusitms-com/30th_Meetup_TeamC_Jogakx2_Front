@@ -59,7 +59,7 @@ export default function LoginCheck() {
     if (code) {
       if (state) {
         sendDataArr.push({ name: 'code', value: code })
-        sendDataArr.push({ name: 'state', value: code })
+        sendDataArr.push({ name: 'state', value: state })
         getUserData('naver', sendDataArr)
         return
       }
@@ -71,7 +71,7 @@ export default function LoginCheck() {
       sendDataArr.push({ name: 'code', value: code })
       getUserData('kakao', sendDataArr)
     }
-  }, [])
+  }, [code, state, scope])
 
   return <div>로그인 정보를 확인중입니다...</div>
 }
