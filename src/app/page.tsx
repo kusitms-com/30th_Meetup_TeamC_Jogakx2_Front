@@ -91,7 +91,7 @@ export default function Home() {
                     key={socialData.id}
                     type={socialData.type}
                     text={socialData.text}
-                    auth_uri={socialData.auth_uri}
+                    style={socialData.style}
                   />
                 )
               })}
