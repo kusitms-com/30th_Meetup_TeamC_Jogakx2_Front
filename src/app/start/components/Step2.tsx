@@ -60,7 +60,7 @@ export default function Step2({ setError }: Step2Props) {
       />
 
       <h2 className="subtitle">성별</h2>
-      <div className="flex justify-between mt-10">
+      <div className="flex justify-between mt-10 gap-20">
         <CheckboxWithLabel
           id="1"
           isChecked={gender === 'female'}

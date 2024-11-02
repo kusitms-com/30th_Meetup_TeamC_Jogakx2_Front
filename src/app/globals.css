@@ -14,7 +14,7 @@ body {
   margin: 0 auto;
   min-height: 600px;
   color: #1a1a25;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 input[type='number'] {
@@ -25,4 +25,8 @@ input[type='number'] {
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+.rounded-main {
+  border-radius: 12px;
 }
