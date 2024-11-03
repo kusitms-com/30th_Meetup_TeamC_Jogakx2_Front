@@ -6,6 +6,7 @@ import '@/app/start/start.css'
 import Div from '@/components/common/Div'
 import CheckboxWithLabel from '@/components/common/CheckBox'
 import { useRouter } from 'next/navigation'
+import { usePostQuickStart } from '../../api/queries'
 
 export default function FastPage() {
   const [hasError, setHasError] = useState<boolean>(true)
@@ -21,6 +22,8 @@ export default function FastPage() {
   const [isOffline, setIsOffline] = useState<boolean>(false)
 
   const router = useRouter()
+
+  const { mutate } = usePostQuickStart()
 
   const validateName = (value: string): void => {
     setErrorName(
@@ -44,7 +47,6 @@ export default function FastPage() {
         setTime('오후')
         setHour((parsedHour > 12 ? parsedHour - 12 : parsedHour).toString())
       } else {
-        setTime('오전')
         setHour((parsedHour === 0 ? 12 : parsedHour).toString())
       }
     }
@@ -83,9 +85,22 @@ export default function FastPage() {
   ])
 
   const handleSubmit = (): void => {
-    validateName(name)
-    validateTime()
-    validateExtraTime(extraTime)
+    mutate({
+      name,
+      hour: parseInt(hour, 10),
+      minute: parseInt(minute, 10),
+      spareTime: parseInt(extraTime, 10),
+      meridiem: time,
+      type: (() => {
+        if (isOnline && isOffline) {
+          return 'ONLINE_AND_OFFLINE'
+        }
+        if (isOnline) {
+          return 'ONLINE'
+        }
+        return 'OFFLINE'
+      })(),
+    })
   }
 
   return (
