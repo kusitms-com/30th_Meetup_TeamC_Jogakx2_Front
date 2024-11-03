@@ -1,22 +1,22 @@
 import Badge from '@/components/common/Badge'
 import { Right } from '@/components'
-import { IFast } from '../../type'
+import { QuickStart } from '../../api/type'
 
 export default function FastCard({
-  title,
+  name,
   hour,
   minute,
   spareTime,
   meridiem,
   type,
-}: IFast) {
+}: QuickStart) {
   return (
     <button
       type="button"
       className="px-16 py-12 flex justify-between w-full items-center border border-primary_foundation_10"
     >
       <div className="flex flex-col items-start gap-12">
-        <p>{title}</p>
+        <p>{name}</p>
         <div className="flex gap-8">
           <Badge>
             {meridiem} {hour}시 {minute}분

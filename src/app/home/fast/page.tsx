@@ -14,8 +14,8 @@ export default function FastPage() {
         <div>
           <FastCard
             meridiem="오전"
-            type="온라인"
-            title="hi"
+            type="ONLINE"
+            name="hi"
             hour={1}
             minute={1}
             spareTime={2}

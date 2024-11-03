@@ -1,5 +1,7 @@
+import { AsyncBoundaryWithQuery } from '@/react-utils'
 import { StrictPropsWithChildren } from '@/types'
 import type { Metadata } from 'next'
+import QuickStartFetcher from './fast/components/Fetcher'
 
 export const metadata: Metadata = {
   title: '나의 시간조각을 모아, 조각조각',
@@ -7,5 +9,13 @@ export const metadata: Metadata = {
 }
 
 export default function HomeLayout({ children }: StrictPropsWithChildren) {
-  return <div>{children}</div>
+  return (
+    // TODO: fallback 구현
+    <AsyncBoundaryWithQuery
+      pendingFallback={<> Loading...</>}
+      errorFallback={<>error..</>}
+    >
+      <QuickStartFetcher>{children}</QuickStartFetcher>
+    </AsyncBoundaryWithQuery>
+  )
 }

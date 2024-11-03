@@ -18,7 +18,6 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={pretendard.variable}>
-        {' '}
         <GlobalErrorBoundary renderFallback={<div>에러가 발생했어요 !</div>}>
           <Suspense fallback={<div>로딩 중입니다...</div>}>
             <QueryProvider>{children}</QueryProvider>
