@@ -12,14 +12,15 @@ import { BaseResponse, ErrorResponse } from './types'
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 100000,
+  timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 })
 
 axiosInstance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
-    const accessToken = Cookies.get(ACCESS_TOKEN) as string
+    // const accessToken = Cookies.get(ACCESS_TOKEN) as string
+    const accessToken = process.env.NEXT_PUBLIC_MASTER_TOKEN
 
     if (!accessToken) {
       return config
@@ -33,31 +34,12 @@ axiosInstance.interceptors.request.use(
 )
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response.data,
-  async (error: AxiosError): Promise<ErrorResponse> => {
+  async (error: AxiosError) => {
     if (!error.response) {
-      throw {
-        success: false,
-        timestamp: new Date(),
-        statusCode: 0,
-        code: 'NETWORK_ERROR',
-        message: 'Network Error',
-      } as ErrorResponse
+      return Promise.reject(error)
     }
-
-    const { status: statusCode } = error.response
-    const message =
-      (error.response.data as { message?: string })?.message ||
-      'An error occurred'
-    const code =
-      (error.response.data as { code?: string })?.code || 'UNKNOWN_ERROR'
-
-    throw {
-      success: false,
-      timestamp: new Date(),
-      statusCode,
-      code,
-      message,
-    } as ErrorResponse
+    // TODO: 에러 세분화
+    return error
   },
 )
 
