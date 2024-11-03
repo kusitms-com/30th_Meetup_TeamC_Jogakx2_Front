@@ -1,6 +1,6 @@
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 import { getQuickList, postQuickStart } from './api'
-import { QuickStart, QuickStartRequest } from './type'
+import { QuickStartRequest } from './type'
 
 export const useGetQuickList = () =>
   useSuspenseQuery({

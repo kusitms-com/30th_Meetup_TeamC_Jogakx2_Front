@@ -8,7 +8,7 @@ import axios, {
 } from 'axios'
 import Cookies from 'js-cookie'
 import { ACCESS_TOKEN, HTTP_METHODS } from '@/constants'
-import { BaseResponse, ErrorResponse } from './types'
+import { BaseResponse } from './types'
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -19,13 +19,13 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
-    // const accessToken = Cookies.get(ACCESS_TOKEN) as string
-    const accessToken = process.env.NEXT_PUBLIC_MASTER_TOKEN
+    const accessToken = Cookies.get(ACCESS_TOKEN) as string
+    const accessTokenTest = process.env.NEXT_PUBLIC_MASTER_TOKEN
 
     if (!accessToken) {
       return config
     }
-    config.headers.set('Authorization', `Bearer ${accessToken}`)
+    config.headers.set('Authorization', `Bearer ${accessTokenTest}`)
     return config
   },
   (error: AxiosError) => {
