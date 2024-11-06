@@ -1,8 +1,10 @@
-import Badge from '@/components/common/Badge'
-import { Right } from '@/components'
+import { Badge, Pencil, Right } from '@/components'
+import { useRouter } from 'next/navigation'
+import { ActiveTypeMap } from '@/types'
 import { QuickStart } from '../../api/type'
 
 export default function FastCard({
+  id,
   name,
   hour,
   minute,
@@ -10,21 +12,23 @@ export default function FastCard({
   meridiem,
   type,
 }: QuickStart) {
+  const { push } = useRouter()
   return (
-    <button
-      type="button"
-      className="px-16 py-12 flex justify-between w-full items-center border border-primary_foundation_10"
-    >
+    <div className="px-16 py-12 flex justify-between w-full items-center border border-primary_foundation_10">
       <div className="flex flex-col items-start gap-12">
-        <p>{name}</p>
+        <div className="flex gap-10 items-center">
+          <p>{name}</p>
+          <Pencil onClick={() => push(`/fast/${id}`)} />
+        </div>
+
         <div className="flex gap-8">
           <Badge>
             {meridiem} {hour}시 {minute}분
           </Badge>
-          <Badge>{spareTime}분</Badge> <Badge>{type}</Badge>
+          <Badge>{spareTime}분</Badge> <Badge>{ActiveTypeMap[type]}</Badge>
         </div>
       </div>
       <Right color="#333333" />
-    </button>
+    </div>
   )
 }

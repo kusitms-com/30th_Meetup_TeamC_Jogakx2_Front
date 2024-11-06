@@ -1,33 +1,33 @@
 'use client'
 
-import { Button, HeaderWithBack } from '@/components'
-import Div from '@/components/common/Div'
+import { Button, HeaderWithBack, Div, Plus } from '@/components'
 import { useRouter } from 'next/navigation'
 import FastCard from './components/FastCard'
 import { useQuickStartContext } from './components/Fetcher'
-import Plus from '@/components/Icons/\bPlus'
 
 export default function FastPage() {
   const router = useRouter()
-  const { quickStartResponse } = useQuickStartContext()
+  const { quickStartResponses } = useQuickStartContext()
 
   return (
     <HeaderWithBack title="빠른 시작" onBack={() => router.back()}>
       <Div className="flex flex-col gap-15 pb-100">
-        {quickStartResponse.map((item) => (
-          <FastCard
-            key={item.id}
-            meridiem={item.meridiem}
-            type={item.type}
-            name={item.name}
-            hour={item.hour}
-            minute={item.minute}
-            spareTime={item.spareTime}
-          />
-        ))}
+        {quickStartResponses.map(
+          ({ id, meridiem, type, name, hour, minute, spareTime }) => (
+            <FastCard
+              key={id}
+              meridiem={meridiem}
+              type={type}
+              name={name}
+              hour={hour}
+              minute={minute}
+              spareTime={spareTime}
+            />
+          ),
+        )}
       </Div>
       <Button
-        className="fixed inset-x-0 bottom-20 w-[60%] whitespace-nowrap"
+        className="fixed inset-x-0 bottom-30 mx-auto w-[60%] whitespace-nowrap"
         onClick={() => router.push('/fast/add')}
         rightIcon={<Plus />}
       >
