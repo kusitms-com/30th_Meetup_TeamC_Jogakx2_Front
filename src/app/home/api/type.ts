@@ -20,3 +20,21 @@ export interface QuickStartRequest {
   spareTime: number
   type: 'ONLINE' | 'OFFLINE' | 'ONLINE_AND_OFFLINE'
 }
+export interface HomeResponse {
+  member: {
+    id: string
+    nickname: string
+    profileImage: string
+  }
+  quickStart: QuickStart
+  totalSavedTime: number
+  activities: {
+    id: number
+    keyword: {
+      category: string
+      image: string
+    }
+    title: string
+    savedTime: number
+  }[]
+}

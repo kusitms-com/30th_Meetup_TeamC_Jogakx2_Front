@@ -1,5 +1,11 @@
 import { http } from '@/api'
-import { QuickStartRequest, QuickStartResponse } from './type'
+import { HomeResponse, QuickStartRequest, QuickStartResponse } from './type'
+
+export const getHomeData = () => {
+  return http.get<HomeResponse>({
+    url: '/home',
+  })
+}
 
 export const getQuickList = () => {
   return http.get<QuickStartResponse>({

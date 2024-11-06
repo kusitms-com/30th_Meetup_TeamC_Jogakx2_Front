@@ -1,6 +1,13 @@
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
-import { getQuickList, postQuickStart } from './api'
+import { getHomeData, getQuickList, postQuickStart } from './api'
 import { QuickStartRequest } from './type'
+
+export const useGetHomeData = () =>
+  useSuspenseQuery({
+    queryKey: ['home'],
+    queryFn: () => getHomeData(),
+    select: (data) => data.data,
+  })
 
 export const useGetQuickList = () =>
   useSuspenseQuery({
