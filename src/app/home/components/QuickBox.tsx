@@ -1,19 +1,15 @@
-import { Clock, Right } from '@/components'
+import { Clock, Right, Div, Badge } from '@/components'
 import { useRouter } from 'next/navigation'
-import Div from '@/components/common/Div'
-import Badge from '@/components/common/Badge'
-import { useHomeContext } from '../fast/components/Fetcher'
 import { ActiveTypeMap } from '@/types'
+import { useHomeContext } from '../fast/components/Fetcher'
 
 export function QuickBox() {
   const { push } = useRouter()
   const { name, hour, meridiem, minute, type, spareTime } =
     useHomeContext().quickStart
 
-  const quickType = ActiveTypeMap[type]
-
   return (
-    <Div>
+    <>
       <div className="flex justify-between mb-20">
         <div className="flex gap-8 items-center">
           <Clock />
@@ -37,12 +33,12 @@ export function QuickBox() {
               {meridiem}
               {hour}시{minute}분
             </Badge>
-            <Badge>{quickType}</Badge>
+            <Badge>{ActiveTypeMap[type]}</Badge>
           </div>
         </div>
         {/* TODO: 추천경로 */}
         <Right color="#FF4F38" width={20} onClick={() => push('/home/fast')} />
       </Div>
-    </Div>
+    </>
   )
 }

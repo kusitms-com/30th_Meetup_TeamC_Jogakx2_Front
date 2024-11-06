@@ -9,7 +9,7 @@ export interface QuickStart {
 }
 
 export interface QuickStartResponse {
-  quickStartResponse: QuickStart[]
+  quickStartResponses: QuickStart[]
 }
 
 export interface QuickStartRequest {

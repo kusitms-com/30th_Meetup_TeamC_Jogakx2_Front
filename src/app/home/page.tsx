@@ -1,7 +1,6 @@
 'use client'
 
-import { Button, Category, HomeHeader, House, If, Right } from '@/components'
-import Div from '@/components/common/Div'
+import { Button, Category, HomeHeader, House, Div, Right } from '@/components'
 import { useHomeContext } from './fast/components/Fetcher'
 import { QuickBox } from './components/QuickBox'
 import NoQuickBox from './components/NoQuickBox'
