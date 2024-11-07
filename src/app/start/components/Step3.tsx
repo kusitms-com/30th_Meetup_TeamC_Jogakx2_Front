@@ -10,7 +10,7 @@ import {
   Profile7,
   SelectProfile,
 } from '@/components'
-import useUserInfo from '@/hooks/store/useUserInfo'
+import useUserInfo from '@/store/useUserInfo'
 import { cn } from '@/util'
 import { useState } from 'react'
 

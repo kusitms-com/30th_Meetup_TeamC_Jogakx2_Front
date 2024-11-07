@@ -1,6 +1,6 @@
 'use client'
 
-import useUserInfo from '@/hooks/store/useUserInfo'
+import useUserInfo from '@/store/useUserInfo'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 

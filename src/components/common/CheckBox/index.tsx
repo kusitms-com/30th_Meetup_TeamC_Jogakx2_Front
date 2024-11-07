@@ -20,7 +20,7 @@ export default function CheckboxWithLabel({
   return (
     <div
       className={cn(
-        'flex items-center pb-8 pt-4 border-b-2 w-106',
+        'flex items-center pb-8 pt-4 border-b-2 w-full',
         isChecked && 'border-black',
       )}
     >

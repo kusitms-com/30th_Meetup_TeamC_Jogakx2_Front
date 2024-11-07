@@ -3,11 +3,8 @@
 import { Button, If } from '@/components/common'
 import { useState } from 'react'
 import { cn } from '@/util'
-import Step1 from './components/Step1'
-import Step2 from './components/Step2'
-import StartHeader from './components/StartHeader'
-import Step3 from './components/Step3'
-import Step4 from './components/Step4'
+import { HeaderWithBack } from '@/components'
+import { Step1, Step2, Step3, Step4 } from './components'
 
 export default function Start() {
   const [step, setStep] = useState(1)
@@ -34,7 +31,7 @@ export default function Start() {
 
   return (
     <div className="w-full h-screen overflow-hidden">
-      <StartHeader onBack={handleBack}>
+      <HeaderWithBack onBack={handleBack} title="조각조각 시작하기">
         <div className={cn('relative mt-15 mx-20', step === 4 && 'opacity-0')}>
           <div className="bg-black h-10 w-10 absolute bottom-0" />
           <div className="bg-[#E9E9EA] h-4" />
@@ -68,7 +65,7 @@ export default function Start() {
             {text}
           </Button>
         </div>
-      </StartHeader>
+      </HeaderWithBack>
     </div>
   )
 }

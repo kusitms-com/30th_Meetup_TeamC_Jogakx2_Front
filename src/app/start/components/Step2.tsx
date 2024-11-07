@@ -2,7 +2,7 @@
 
 import { Input } from '@/components/common'
 import CheckboxWithLabel from '@/components/common/CheckBox'
-import useUserInfo from '@/hooks/store/useUserInfo'
+import useUserInfo from '@/store/useUserInfo'
 import Image from 'next/image'
 import { ChangeEvent, useState } from 'react'
 
@@ -60,7 +60,7 @@ export default function Step2({ setError }: Step2Props) {
       />
 
       <h2 className="subtitle">성별</h2>
-      <div className="flex justify-between mt-10">
+      <div className="flex justify-between mt-10 gap-20">
         <CheckboxWithLabel
           id="1"
           isChecked={gender === 'female'}

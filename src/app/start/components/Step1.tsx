@@ -1,7 +1,7 @@
 'use client'
 
 import { Input } from '@/components/common'
-import useUserInfo from '@/hooks/store/useUserInfo'
+import useUserInfo from '@/store/useUserInfo'
 import Image from 'next/image'
 import { useState } from 'react'
 

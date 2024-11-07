@@ -32,6 +32,10 @@ const config: Config = {
         system_red: '#FF5D5E',
         system_blue: '#528DFF',
         accent_100: '#FF4F38',
+        accent: {
+          10: '#FFEEEC',
+          100: '#FF4F38',
+        },
         primary_foundation_100: '#1A1A25',
         primary_foundation_40: '#A3A3A8',
         primary_foundation_10: '#E9E9EA',
@@ -48,7 +52,7 @@ const config: Config = {
       minWidth: px0To500,
       minHeight: px0To500,
       spacing: px0To500,
-      borderRadius: { ...px0To100, button: 6 },
+      borderRadius: { ...px0To100, button: 12, div: 12 },
     },
     fontFamily: {
       pretendard: ['var(--pretendard)'],

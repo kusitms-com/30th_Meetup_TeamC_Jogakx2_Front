@@ -32,7 +32,7 @@ export function useButton(props: UseButtonProp) {
       ref: domRef,
       onClick: handleClick,
       className: cn(
-        `py-10 px-40 rounded-12 h-51 text-22 text-[#fff] bg-black flex items-center gap-10 justify-center focus:outline-none whitespace-nowrap`,
+        `py-10 rounded-12 h-51 text-22 text-[#fff] bg-black flex items-center gap-10 justify-center focus:outline-none whitespace-nowrap`,
         disabled &&
           'cursor-not-allowed bg-primary_foundation_10 text-primary_foundation_40',
         className,
