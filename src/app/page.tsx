@@ -5,8 +5,8 @@ import { motion } from 'framer-motion'
 import SplashLogo from '@/components/Icons/SplashLogo'
 import SplashTop from '@/components/Icons/SplashTop'
 import SplashBottom from '@/components/Icons/SplashBottom'
-import { socialTypes } from './components/Oauth/SocialTypeData'
-import OauthBtn from './components/Oauth/OauthBtn'
+import { socialTypes } from './_components/Oauth/SocialTypeData'
+import OauthBtn from './_components/Oauth/OauthBtn'
 
 export default function Home() {
   const [isSplash, setIsSplash] = useState(true)
@@ -30,9 +30,9 @@ export default function Home() {
   }, [])
 
   return (
-    <div className=" flex justify-center items-center w-screen h-screen">
+    <div className="flex justify-center items-center w-screen h-screen">
       <motion.div
-        className=" relative w-full h-full bg-primary_foundation_100"
+        className="relative w-full h-full bg-primary_foundation_100"
         initial={{ opacity: 1 }}
         animate={{
           opacity: 1,
