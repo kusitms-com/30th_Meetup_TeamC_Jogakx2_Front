@@ -28,7 +28,7 @@ export default function FastPage() {
       </Div>
       <Button
         className="fixed inset-x-0 bottom-30 mx-auto w-[60%] whitespace-nowrap"
-        onClick={() => router.push('/fast/add')}
+        onClick={() => router.push('/home/fast/add')}
         rightIcon={<Plus />}
       >
         빠른 시작 추가하기
