@@ -151,7 +151,7 @@ export default function Step4() {
       <div className="absolute -z-1 w-screen h-screen bg-gradient-to-b from-white via-[#fffbfb] to-[#ffa89c]" />
       <div className="flex flex-col items-center mt-34">
         <h2 className="text-primary_foundation_60 relative">
-          환영해요, {userInfo.name}님!
+          환영해요, {userInfo.nickname}님!
         </h2>
         <h1 className="relative title !mt-0">
           조각조각이 고망님의 흩어진 <br />

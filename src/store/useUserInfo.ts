@@ -1,26 +1,33 @@
 import { create } from 'zustand'
 
-interface UserInfoType {
-  name: string
-  gender: string
-  age: number | undefined
-  profileIcon?: string
+export interface UserInfo {
+  nickname: string
+  birthYear: number
+  gender: GenderType
+  profileImage: string
 }
 
+export type GenderType = 'FEMALE' | 'MALE' | 'NONE'
+
 interface UserInfoState {
-  userInfo: UserInfoType
+  userInfo: UserInfo
 }
 
 interface UserInfoActions {
-  setUserInfo: (userinfo: UserInfoType) => void
+  setUserInfo: (userinfo: UserInfo) => void
   deleteUserInfo: () => void
 }
 
-const defaultState = { name: '', gender: '', age: undefined, profileIcon: '1' }
+const defaultState: UserInfo = {
+  nickname: '',
+  gender: 'FEMALE',
+  birthYear: 0,
+  profileImage: '1',
+}
 
 const useUserInfo = create<UserInfoState & UserInfoActions>((set) => ({
   userInfo: defaultState,
-  setUserInfo: (userInfo: UserInfoType) => {
+  setUserInfo: (userInfo: UserInfo) => {
     set({ userInfo })
   },
   deleteUserInfo: () => {
