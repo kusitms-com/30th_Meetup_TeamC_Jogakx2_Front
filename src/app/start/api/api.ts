@@ -12,10 +12,10 @@ export const postOnboard = (data: UserInfo) => {
 
 export const usePostOnboard = () => {
   const router = useRouter()
-  
+
   return useMutation({
     mutationFn: (data: UserInfo) => postOnboard(data),
-    onSuccess: (data) => {
+    onSuccess: () => {
       router.push('/home')
     },
     onError: (error) => {
