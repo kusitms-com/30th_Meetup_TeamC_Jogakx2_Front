@@ -40,8 +40,7 @@ axiosInstance.interceptors.response.use(
     if (!error.response) {
       return Promise.reject(error)
     }
-    // TODO: 에러 세분화
-    return error
+    return Promise.reject(error.response.data)
   },
 )
 
