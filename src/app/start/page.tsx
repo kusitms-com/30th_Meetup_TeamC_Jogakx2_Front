@@ -4,12 +4,19 @@ import { Button, If } from '@/components/common'
 import { useState } from 'react'
 import { cn } from '@/util'
 import { HeaderWithBack } from '@/components'
+import useUserInfo from '@/store/useUserInfo'
+import { useRouter } from 'next/navigation'
 import { Step1, Step2, Step3, Step4 } from './components'
+import { usePostOnboard } from './api/api'
 
 export default function Start() {
   const [step, setStep] = useState(1)
   const [text, setText] = useState('다음')
   const [error, setError] = useState(true)
+
+  const { mutate } = usePostOnboard()
+  const { userInfo } = useUserInfo()
+  const router = useRouter()
 
   const handleBack = () => {
     setStep((prevStep) => Math.max(prevStep - 1, 1))
@@ -24,6 +31,14 @@ export default function Start() {
     if (step === 3) {
       setError(false)
       setText('시작하기')
+    }
+    if (step === 4) {
+      mutate({
+        nickname: userInfo.nickname,
+        birthYear: userInfo.birthYear,
+        gender: userInfo.gender,
+        profileImage: userInfo.profileImage,
+      })
     }
   }
 

@@ -22,15 +22,15 @@ export default function Caution({ ...props }: SVGProps<SVGSVGElement>) {
             id="Line"
             d="M8 5.00033L8 7.66699"
             stroke="white"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             id="Line_2"
             d="M8 9.66667L8 10"
             stroke="white"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </g>
       </g>
