@@ -33,19 +33,12 @@ export default function Start() {
       setText('시작하기')
     }
     if (step === 4) {
-      mutate(
-        {
-          nickname: userInfo.nickname,
-          birthYear: userInfo.birthYear,
-          gender: userInfo.gender,
-          profileImage: userInfo.profileImage,
-        },
-        {
-          onSuccess: () => {
-            router.push('/home')
-          },
-        },
-      )
+      mutate({
+        nickname: userInfo.nickname,
+        birthYear: userInfo.birthYear,
+        gender: userInfo.gender,
+        profileImage: userInfo.profileImage,
+      })
     }
   }
 

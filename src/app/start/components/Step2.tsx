@@ -15,9 +15,7 @@ export default function Step2({ setError }: Step2Props) {
   const { userInfo, setUserInfo } = useUserInfo()
   const { nickname, birthYear, gender } = userInfo
 
-  const [userAge, setUserAge] = useState<string>(
-    birthYear ? String(birthYear) : '0',
-  )
+  const [userAge, setUserAge] = useState<string>(birthYear || '')
 
   const handleGenderChange = (data: GenderType) => {
     setUserInfo({ ...userInfo, gender: data })
@@ -36,7 +34,7 @@ export default function Step2({ setError }: Step2Props) {
       if (regex.test(value)) {
         setUserInfo({
           ...userInfo,
-          birthYear: value ? Number(value) : 0,
+          birthYear: value || '',
         })
         setErrorMessage('')
         if (gender) {
@@ -52,7 +50,7 @@ export default function Step2({ setError }: Step2Props) {
   return (
     <div className="px-20">
       <h1 className="title">
-        {nickname} birthYear 나이와 성별을 <br />
+        {nickname} 님의 나이와 성별을 <br />
         알려주세요.
       </h1>
 
