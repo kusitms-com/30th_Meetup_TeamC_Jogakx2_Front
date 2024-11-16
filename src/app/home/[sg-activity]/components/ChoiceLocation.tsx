@@ -1,7 +1,7 @@
 'use client'
 
-import useKakaoMap from '@/hooks/useKakaoMap'
-import { useEffect, useRef, useState } from 'react'
+// import useKakaoMap from '@/hooks/useKakaoMap'
+// import { useEffect, useRef, useState } from 'react'
 
 // interface Coordinates {
 //   latitude: number
