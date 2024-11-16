@@ -1,9 +1,8 @@
 'use client'
 
-import { Button, HeaderWithBack, Input, Toggle } from '@/components'
+import { Button, HeaderWithBack, Input, Toggle, Div } from '@/components'
 import { useState, useEffect } from 'react'
 import '@/app/start/start.css'
-import Div from '@/components/common/Div'
 import CheckboxWithLabel from '@/components/common/CheckBox'
 import { useRouter } from 'next/navigation'
 import { usePostQuickStart } from '../../api/queries'
@@ -85,22 +84,31 @@ export default function FastPage() {
   ])
 
   const handleSubmit = (): void => {
-    mutate({
-      name,
-      hour: parseInt(hour, 10),
-      minute: parseInt(minute, 10),
-      spareTime: parseInt(extraTime, 10),
-      meridiem: time,
-      type: (() => {
-        if (isOnline && isOffline) {
-          return 'ONLINE_AND_OFFLINE'
-        }
-        if (isOnline) {
-          return 'ONLINE'
-        }
-        return 'OFFLINE'
-      })(),
-    })
+    mutate(
+      {
+        name,
+        hour: parseInt(hour, 10),
+        minute: parseInt(minute, 10),
+        spareTime: parseInt(extraTime, 10),
+        meridiem: time,
+        type: (() => {
+          if (isOnline && isOffline) {
+            return 'ONLINE_AND_OFFLINE'
+          }
+          if (isOnline) {
+            return 'ONLINE'
+          }
+          return 'OFFLINE'
+        })(),
+      },
+      {
+        onSuccess: () => {
+          // TODO: toast 구현
+          alert('빠른 시작이 등록되었습니다.')
+          router.push('/home/fast')
+        },
+      },
+    )
   }
 
   return (

@@ -11,7 +11,7 @@ interface Step1Props {
 
 export default function Step1({ setError }: Step1Props) {
   const { userInfo, setUserInfo } = useUserInfo()
-  const [username, setUsername] = useState(userInfo.name)
+  const [username, setUsername] = useState(userInfo.nickname)
   const [errorMessage, setErrorMessage] = useState<string>()
 
   const validateName = (name: string) => {
@@ -28,7 +28,7 @@ export default function Step1({ setError }: Step1Props) {
     } else {
       setError(false)
       setErrorMessage('')
-      setUserInfo({ ...userInfo, name: newName })
+      setUserInfo({ ...userInfo, nickname: newName })
     }
   }
   return (

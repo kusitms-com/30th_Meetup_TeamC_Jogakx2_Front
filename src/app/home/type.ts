@@ -1,4 +1,4 @@
-export interface IFast {
+export interface QuickItem {
   title: string
   hour: number
   minute: number

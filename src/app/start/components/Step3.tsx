@@ -26,11 +26,11 @@ const profiles = [
 
 export default function Step3() {
   const { userInfo, setUserInfo } = useUserInfo()
-  const [selectedProfile, setSelectedProfile] = useState(userInfo.profileIcon)
+  const [selectedProfile, setSelectedProfile] = useState(userInfo.profileImage)
 
   const handleProfileSelect = (profile: string) => {
     setSelectedProfile(profile)
-    setUserInfo({ ...userInfo, profileIcon: profile })
+    setUserInfo({ ...userInfo, profileImage: profile })
   }
 
   return (

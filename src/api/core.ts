@@ -22,11 +22,13 @@ axiosInstance.interceptors.request.use(
     const accessToken = Cookies.get(ACCESS_TOKEN) as string
     const accessTokenTest = process.env.NEXT_PUBLIC_MASTER_TOKEN
 
+    // TODO: 마스터토큰제거
+    config.headers.set('Authorization', `Bearer ${accessTokenTest}`)
+    return config
+
     if (!accessToken) {
       return config
     }
-    config.headers.set('Authorization', `Bearer ${accessTokenTest}`)
-    return config
   },
   (error: AxiosError) => {
     throw error
@@ -38,8 +40,7 @@ axiosInstance.interceptors.response.use(
     if (!error.response) {
       return Promise.reject(error)
     }
-    // TODO: 에러 세분화
-    return error
+    return Promise.reject(error.response.data)
   },
 )
 

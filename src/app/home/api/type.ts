@@ -9,7 +9,7 @@ export interface QuickStart {
 }
 
 export interface QuickStartResponse {
-  quickStartResponse: QuickStart[]
+  quickStartResponses: QuickStart[]
 }
 
 export interface QuickStartRequest {
@@ -19,4 +19,22 @@ export interface QuickStartRequest {
   meridiem: '오전' | '오후'
   spareTime: number
   type: 'ONLINE' | 'OFFLINE' | 'ONLINE_AND_OFFLINE'
+}
+export interface HomeResponse {
+  member: {
+    id: string
+    nickname: string
+    profileImage: string
+  }
+  quickStart: QuickStart
+  totalSavedTime: number
+  activities: {
+    id: number
+    keyword: {
+      category: string
+      image: string
+    }
+    title: string
+    savedTime: number
+  }[]
 }

@@ -2,7 +2,7 @@
 
 import { Input } from '@/components/common'
 import CheckboxWithLabel from '@/components/common/CheckBox'
-import useUserInfo from '@/store/useUserInfo'
+import useUserInfo, { GenderType } from '@/store/useUserInfo'
 import Image from 'next/image'
 import { ChangeEvent, useState } from 'react'
 
@@ -13,11 +13,11 @@ interface Step2Props {
 export default function Step2({ setError }: Step2Props) {
   const [errorMessage, setErrorMessage] = useState<string>()
   const { userInfo, setUserInfo } = useUserInfo()
-  const { name, age, gender } = userInfo
+  const { nickname, birthYear, gender } = userInfo
 
-  const [userAge, setUserAge] = useState<string>(age ? String(age) : '')
+  const [userAge, setUserAge] = useState<string>(birthYear || '')
 
-  const handleGenderChange = (data: string) => {
+  const handleGenderChange = (data: GenderType) => {
     setUserInfo({ ...userInfo, gender: data })
 
     if (!errorMessage) {
@@ -32,7 +32,10 @@ export default function Step2({ setError }: Step2Props) {
       const regex = /^[0-9]{4}$/
 
       if (regex.test(value)) {
-        setUserInfo({ ...userInfo, age: value ? Number(value) : undefined })
+        setUserInfo({
+          ...userInfo,
+          birthYear: value || '',
+        })
         setErrorMessage('')
         if (gender) {
           setError(false)
@@ -47,7 +50,7 @@ export default function Step2({ setError }: Step2Props) {
   return (
     <div className="px-20">
       <h1 className="title">
-        {name} 님의 나이와 성별을 <br />
+        {nickname} 님의 나이와 성별을 <br />
         알려주세요.
       </h1>
 
@@ -63,22 +66,22 @@ export default function Step2({ setError }: Step2Props) {
       <div className="flex justify-between mt-10 gap-20">
         <CheckboxWithLabel
           id="1"
-          isChecked={gender === 'female'}
+          isChecked={gender === 'FEMALE'}
           label="여성"
-          onChange={() => handleGenderChange('female')}
+          onChange={() => handleGenderChange('FEMALE')}
         />
 
         <CheckboxWithLabel
           id="2"
-          isChecked={gender === 'male'}
+          isChecked={gender === 'MALE'}
           label="남성"
-          onChange={() => handleGenderChange('male')}
+          onChange={() => handleGenderChange('MALE')}
         />
         <CheckboxWithLabel
           id="3"
-          isChecked={gender === 'no'}
+          isChecked={gender === 'NONE'}
           label="미선택"
-          onChange={() => handleGenderChange('no')}
+          onChange={() => handleGenderChange('NONE')}
         />
       </div>
 

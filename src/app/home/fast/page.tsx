@@ -1,27 +1,38 @@
 'use client'
 
-import { HeaderWithBack } from '@/components'
-import Div from '@/components/common/Div'
+import { Button, HeaderWithBack, Div, Plus } from '@/components'
 import { useRouter } from 'next/navigation'
 import FastCard from './components/FastCard'
+import { useQuickStartContext } from './components/Fetcher'
 
 export default function FastPage() {
   const router = useRouter()
+  const { quickStartResponses } = useQuickStartContext()
 
   return (
     <HeaderWithBack title="빠른 시작" onBack={() => router.back()}>
-      <Div>
-        <div>
-          <FastCard
-            meridiem="오전"
-            type="ONLINE"
-            name="hi"
-            hour={1}
-            minute={1}
-            spareTime={2}
-          />
-        </div>
+      <Div className="flex flex-col gap-15 pb-100">
+        {quickStartResponses.map(
+          ({ id, meridiem, type, name, hour, minute, spareTime }) => (
+            <FastCard
+              key={id}
+              meridiem={meridiem}
+              type={type}
+              name={name}
+              hour={hour}
+              minute={minute}
+              spareTime={spareTime}
+            />
+          ),
+        )}
       </Div>
+      <Button
+        className="fixed inset-x-0 bottom-30 mx-auto w-[60%] whitespace-nowrap"
+        onClick={() => router.push('/home/fast/add')}
+        rightIcon={<Plus />}
+      >
+        빠른 시작 추가하기
+      </Button>
     </HeaderWithBack>
   )
 }

@@ -32,8 +32,7 @@ export default function CheckboxWithLabel({
           isChecked && 'bg-black',
         )}
       >
-        {!isChecked && <Check color="#BBBBBE" />}
-        {isChecked && <Check />}
+        <Check color={isChecked ? '' : '#BBBBBE'} />
       </Button>
       <span className="font-semibold">
         {label}
