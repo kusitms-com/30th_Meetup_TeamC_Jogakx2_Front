@@ -1,11 +1,16 @@
 'use client'
 
 import { Button, Category, HomeHeader, House, Div, Right } from '@/components'
+import useUserInfo from '@/store/useUserInfo'
 import { useHomeContext } from './fast/components/Fetcher'
 import { QuickBox } from './components/QuickBox'
 import NoQuickBox from './components/NoQuickBox'
 import NoTimePiece from './components/NoTimePiece'
 import TimePiece from './components/TimePiece'
+
+export default function Home() {
+  const { quickStart, totalSavedTime, activities } = useHomeContext()
+
 import useUserInfo from '@/store/useUserInfo'
 
 export default function Home() {
