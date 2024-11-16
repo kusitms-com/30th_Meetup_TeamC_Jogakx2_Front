@@ -11,11 +11,6 @@ import TimePiece from './components/TimePiece'
 export default function Home() {
   const { quickStart, totalSavedTime, activities } = useHomeContext()
 
-import useUserInfo from '@/store/useUserInfo'
-
-export default function Home() {
-  const { quickStart, totalSavedTime, activities } = useHomeContext()
-
   const { userInfo } = useUserInfo()
 
   return (
