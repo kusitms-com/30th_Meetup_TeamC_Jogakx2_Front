@@ -5,8 +5,8 @@ import { motion } from 'framer-motion'
 import SplashLogo from '@/components/Icons/SplashLogo'
 import SplashTop from '@/components/Icons/SplashTop'
 import SplashBottom from '@/components/Icons/SplashBottom'
-import { socialTypes } from './_components/Oauth/SocialTypeData'
-import OauthBtn from './_components/Oauth/OauthBtn'
+import { socialTypes } from '@/components/Oauth/SocialTypeData'
+import OauthBtn from '@/components/Oauth/OauthBtn'
 
 export default function Home() {
   const [isSplash, setIsSplash] = useState(true)

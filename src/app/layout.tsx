@@ -3,7 +3,7 @@ import './globals.css'
 import { GlobalErrorBoundary } from '@/react-utils/ErrorBoundary'
 import { Suspense } from 'react'
 import { QueryProvider } from '@/lib'
-import { pretendard } from './fonts'
+import { pretendard } from '../../public/fonts'
 
 export const metadata: Metadata = {
   title: '나의 시간조각을 모아, 조각조각',
