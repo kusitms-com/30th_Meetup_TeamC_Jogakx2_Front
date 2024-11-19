@@ -7,6 +7,7 @@ const getQueryClient = cache(
       defaultOptions: {
         queries: {
           retry: false,
+          gcTime: Infinity,
         },
         mutations: {
           retry: false,
