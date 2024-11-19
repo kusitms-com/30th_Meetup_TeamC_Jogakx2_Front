@@ -38,7 +38,8 @@ const config: Config = {
           20: '#FFDCD7',
           100: '#FF4F38',
         },
-        primay_foundation: {
+        primary_foundation: {
+          20: '#E7E7E7',
           100: '#1A1A25',
           40: '#A3A3A8',
           10: '#E9E9EA',
@@ -67,6 +68,12 @@ const config: Config = {
     },
     fontFamily: {
       pretendard: ['var(--pretendard)'],
+    },
+    translate: {
+      '0': '0%',
+      '100': '100%',
+      '200': '200%',
+      '300': '300%',
     },
   },
   plugins: [],
