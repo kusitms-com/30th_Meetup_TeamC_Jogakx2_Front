@@ -14,9 +14,9 @@ export default function Home() {
   const { userInfo } = useUserInfo()
 
   return (
-    <HomeHeader>
+    <HomeHeader title="홈">
       <div className="bg-[#F3F3F4]">
-        <Div className="bg-primary_foundation_100 flex flex-col gap-20 rounded-t-0 pt-60">
+        <Div className="bg-primary_foundation_100 flex flex-col gap-20 rounded-t-0">
           <h1 className="text-white text-24 mt-10">
             {userInfo.nickname}님, <br /> 지금 시간 조각을 모아볼까요?
           </h1>
