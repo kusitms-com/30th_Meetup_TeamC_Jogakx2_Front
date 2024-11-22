@@ -54,6 +54,7 @@ const config: Config = {
         primary_foundation_60: '#76767C',
         primary_foundation_50: '#8D8D92',
         primary_foundation_40: '#A3A3A8',
+        primary_foundation_20: '#D1D1D3',
         primary_foundation_10: '#E9E9EA',
         primary_foundation_5: '#F3F3F4',
       },
