@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
+import { ActivityData } from '@/types/activityTypes'
 
 export interface setErrorProps {
   error?: boolean
@@ -11,17 +12,6 @@ export interface ChoiceSuggestionProps {
   setText: Dispatch<SetStateAction<string>>
   setSeletedActivity: Dispatch<SetStateAction<ActivityData | undefined>>
   setActivityLink: Dispatch<SetStateAction<string>>
-}
-
-export interface ActivityData {
-  order: number
-  title: string
-  content: string
-  keywordCategory: string
-  placeName?: string
-  mapx?: string
-  mapy?: string
-  placeUrl?: string
 }
 
 export interface ActivityResponse {

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { ActivityStore } from '@/types/activityType'
+import { ActivityStore } from '@/types/activityTypes'
 
 export const useActivityStore = create<ActivityStore>((set) => ({
   spareTime: '',

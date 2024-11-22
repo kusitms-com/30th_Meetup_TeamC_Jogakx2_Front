@@ -11,7 +11,7 @@ import ChoiceKeyword from './components/ChoiceKeyword'
 import ChoiceSuggestion from './components/ChoiceSuggestions'
 import ArrowIcon from '@/components/Icons/ArrowIcon'
 
-import { ActivityData } from './types/types'
+import { ActivityData } from '@/types/activityTypes'
 import { useActivityStore } from '@/store/activityStore'
 import { useRouter } from 'next/navigation'
 

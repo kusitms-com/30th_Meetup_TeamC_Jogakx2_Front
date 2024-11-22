@@ -50,7 +50,7 @@ export default function SuggestionWait({
       />
 
       <Image
-        src="/images/suggestchoice_background.png"
+        src="/images/bg-suggestchoice.png"
         alt="suggestchoice_background"
         width={390}
         height={304}
