@@ -2,20 +2,20 @@ import { create } from 'zustand'
 import { ActivityStore } from '@/types/activityType'
 
 export const useActivityStore = create<ActivityStore>((set) => ({
-  spareTime: null,
-  activityType: null,
+  spareTime: '',
+  activityType: [],
   keywords: [],
-  location: null,
+  address: '',
 
   setSpareTime: (time) => set(() => ({ spareTime: time })),
-  setActivityType: (type) => set(() => ({ activityType: type })),
+  setActivityType: (activityType) => set(() => ({ activityType })),
   setKeywords: (keywords) => set(() => ({ keywords })),
-  setLocation: (location) => set(() => ({ location })),
+  setAddress: (address) => set(() => ({ address })),
   reset: () =>
     set(() => ({
-      spareTime: null,
-      activityType: null,
+      spareTime: '',
+      activityType: [],
       keywords: [],
-      location: null,
+      address: '',
     })),
 }))

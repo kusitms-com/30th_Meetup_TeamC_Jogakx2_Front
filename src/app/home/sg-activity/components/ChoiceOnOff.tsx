@@ -1,7 +1,8 @@
 'use client'
 
 import CheckboxWithLabel from '@/components/common/CheckBox'
-import { useState } from 'react'
+import { useEffect } from 'react'
+import { useActivityStore } from '@/store/activityStore'
 
 export default function ChoiceOnOff({
   setError,
@@ -10,54 +11,73 @@ export default function ChoiceOnOff({
   setError: (error: boolean) => void
   setSeletOnOff: (options: string[]) => void
 }) {
-  const [options, setOptions] = useState<string[]>([])
+  const { activityType, setActivityType } = useActivityStore()
 
   const handleOptionChange = (option: string) => {
-    const includeOption = options.includes(option)
+    const includeOption = activityType.includes(option)
 
     const updateOptions = includeOption
-      ? options.filter((item) => item != option)
-      : [...options, option]
+      ? activityType.filter((item) => item != option)
+      : [...activityType, option]
 
-    setOptions(updateOptions)
-    setSeletOnOff(updateOptions)
-    errorContrl()
+    setActivityType(updateOptions)
   }
 
-  const errorContrl = () => {
-    if (options.length > 0) {
+  useEffect(() => {
+    if (activityType.length > 0) {
       setError(false)
     }
-  }
+    if (activityType.length <= 0) {
+      setError(true)
+    }
+
+    setSeletOnOff(activityType)
+  }, [activityType])
 
   const getSeletOption = () => {
-    return options.length > 0 ? options.join(', ') : '활동유형을 선택해주세요'
+    if (activityType.length === 2) {
+      return '온라인, 오프라인'
+    }
+
+    return activityType.length > 0
+      ? activityType.join(', ')
+      : '활동유형을 선택해주세요'
   }
 
   return (
-    <div className="">
+    <div className="w-342 mx-auto mt-50">
       <div>
-        <p>저는 지금,</p>
-        <p>{getSeletOption()}</p>
-        <p>활동을 하고 싶어요!</p>
+        <p className="font-semibold text-28 mb-8">저는 지금,</p>
+        <p
+          className={` ${
+            activityType.length > 0
+              ? 'font-medium text-32 text-accent_100'
+              : 'text-20 font-normal text-primay_foundation-40'
+          } mb-8`}
+        >
+          {getSeletOption()}
+        </p>
+        <p className="font-semibold text-28">활동을 하고 싶어요!</p>
       </div>
 
-      <div>
+      <div className="flex gap-20 mt-40">
         <CheckboxWithLabel
           id="1"
-          isChecked={options.includes('온라인')}
+          isChecked={activityType.includes('온라인')}
           label="온라인"
           onChange={() => handleOptionChange('온라인')}
         />
         <CheckboxWithLabel
           id="2"
-          isChecked={options.includes('오프라인')}
+          isChecked={activityType.includes('오프라인')}
           label="오프라인"
           onChange={() => handleOptionChange('오프라인')}
         />
       </div>
 
-      <p>복수 선택도 가능해요</p>
+      <p className="font-medium text-12 text-primay_foundation-50 mt-8">
+        복수 선택도 가능해요
+      </p>
     </div>
   )
 }

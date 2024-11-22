@@ -40,6 +40,7 @@ const config: Config = {
         },
         primay_foundation: {
           100: '#1A1A25',
+          20: '#D1D1D3',
           40: '#A3A3A8',
           10: '#E9E9EA',
           50: '#8D8D92',
@@ -48,6 +49,7 @@ const config: Config = {
           5: '#F3F3F4',
         },
         primary_foundation_100: '#1A1A25',
+        primary_foundation_90: '#31313B',
         primary_foundation_40: '#A3A3A8',
         primary_foundation_10: '#E9E9EA',
         primary_foundation_50: '#8D8D92',

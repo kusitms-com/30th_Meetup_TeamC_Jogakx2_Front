@@ -8,14 +8,32 @@ import ChoiceTime from './components/ChoiceTime'
 import ChoiceOnOff from './components/ChoiceOnOff'
 import ChoiceLocation from './components/ChoiceLocation'
 import ChoiceKeyword from './components/ChoiceKeyword'
+import ChoiceSuggestion from './components/ChoiceSuggestions'
+import ArrowIcon from '@/components/Icons/ArrowIcon'
+
+import { ActivityData } from './types/types'
+import { useActivityStore } from '@/store/activityStore'
+import { useRouter } from 'next/navigation'
 
 export default function SuggestActivity() {
   const [step, setStep] = useState(1)
   const [error, setError] = useState(true)
+  const [text, setText] = useState('다음')
   const [selectOnOff, setSeletOnOff] = useState<string[]>([])
+  const [isSuggestLoading, setIsSuggestLoading] = useState(false)
+
+  const [selectedActivity, setSeletedActivity] = useState<ActivityData>()
+  const [activityLink, setActivityLink] = useState('')
+  const { spareTime } = useActivityStore()
+  const router = useRouter()
 
   const handleBack = () => {
-    setStep((prevStep) => Math.max(prevStep - 1, 1))
+    setStep((prevStep) => {
+      if (prevStep === 4 && !selectOnOff.includes('오프라인')) {
+        return 2
+      }
+      return Math.max(prevStep - 1, 1)
+    })
   }
 
   const handleNext = () => {
@@ -29,6 +47,23 @@ export default function SuggestActivity() {
       case 4:
         nextStep = step + 1
         break
+      case 5:
+        if (selectedActivity) {
+          if (typeof window !== 'undefined') {
+            window.open(activityLink, '_blank')
+          }
+
+          const seletedActivityData = {
+            selectedActivity,
+            spareTime,
+          }
+          localStorage.setItem(
+            'selectedActivity',
+            JSON.stringify(seletedActivityData),
+          )
+          router.push('/activity')
+        }
+
       default:
         nextStep = step + 1
         break
@@ -42,8 +77,8 @@ export default function SuggestActivity() {
 
   return (
     <div className="w-full h-screen overflow-hidden">
-      <HeaderWithBack onBack={handleBack} title="활동 추천 ">
-        <div className={cn('relative mt-15 mx-20', step === 4 && 'opacity-0')}>
+      <HeaderWithBack onBack={handleBack} title="활동 추천받기">
+        <div className={cn('relative mt-15 mx-20', step === 5 && 'opacity-0')}>
           <div className="bg-black h-10 w-10 absolute bottom-0" />
           <div className="bg-[#E9E9EA] h-4" />
           <div
@@ -60,22 +95,34 @@ export default function SuggestActivity() {
             <ChoiceOnOff setError={setError} setSeletOnOff={setSeletOnOff} />
           </If>
           <If condition={step === 3}>
-            <ChoiceLocation />
+            <ChoiceLocation setError={setError} />
           </If>
           <If condition={step === 4}>
-            <ChoiceKeyword />
+            <ChoiceKeyword setError={setError} />
+          </If>
+          <If condition={step === 5}>
+            <ChoiceSuggestion
+              setError={setError}
+              setIsSuggestLoading={setIsSuggestLoading}
+              setText={setText}
+              setSeletedActivity={setSeletedActivity}
+              setActivityLink={setActivityLink}
+            />
           </If>
         </div>
 
-        <div className="absolute bottom-50 w-full py-4 flex justify-center">
-          <Button
-            className="w-[90%] mx-auto"
-            disabled={!!error}
-            onClick={handleNext}
-          >
-            다음
-          </Button>
-        </div>
+        {!isSuggestLoading && (
+          <div className="absolute bottom-50 w-full py-4 flex justify-center">
+            <Button
+              className={`w-[90%] mx-auto ${text === '이 활동하기' && 'bg-accent_100 px-16 justify-between'}`}
+              disabled={!!error}
+              onClick={handleNext}
+            >
+              {text}
+              {text === '이 활동하기' && <ArrowIcon />}
+            </Button>
+          </div>
+        )}
       </HeaderWithBack>
     </div>
   )

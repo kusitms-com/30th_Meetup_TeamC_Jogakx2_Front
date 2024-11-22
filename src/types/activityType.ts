@@ -1,11 +1,11 @@
 export interface ActivityStore {
-  spareTime: string | null
-  activityType: 'ONLINE' | 'OFFLINE' | 'ONLINE_AND_OFFLINE' | null
+  spareTime: string
+  activityType: string[]
   keywords: string[]
-  location: string | null
+  address: string
   setSpareTime: (time: string) => void
-  setActivityType: (type: 'ONLINE' | 'OFFLINE' | 'ONLINE_AND_OFFLINE') => void
+  setActivityType: (type: string[]) => void
   setKeywords: (keywords: string[]) => void
-  setLocation: (location: string) => void
+  setAddress: (location: string) => void
   reset: () => void
 }
