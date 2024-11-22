@@ -52,7 +52,7 @@ export default function ChoiceOnOff({
           className={` ${
             activityType.length > 0
               ? 'font-medium text-32 text-accent_100'
-              : 'text-20 font-normal text-primay_foundation-40'
+              : 'text-20 font-normal text-primary_foundation-40'
           } mb-8`}
         >
           {getSeletOption()}
@@ -75,7 +75,7 @@ export default function ChoiceOnOff({
         />
       </div>
 
-      <p className="font-medium text-12 text-primay_foundation-50 mt-8">
+      <p className="font-medium text-12 text-primary_foundation-50 mt-8">
         복수 선택도 가능해요
       </p>
     </div>

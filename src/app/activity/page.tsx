@@ -137,10 +137,10 @@ export default function ActivityPage() {
             <div className="absolute bottom-125 w-full z-10">
               <div className="w-351 h-104 bg-white flex justify-between mx-auto px-20 rounded-12">
                 <div className="w-160 h-70 my-auto">
-                  <p className="text-12 text-primay_foundation-50">
+                  <p className="text-12 text-primary_foundation-50">
                     휴식에는 역시 명상이 최고!
                   </p>
-                  <p className="font-medium text-16 text-primay_foundation-100 mt-5">
+                  <p className="font-medium text-16 text-primary_foundation-100 mt-5">
                     마음의 편안을 가져다주는 명상 음악 20분 듣기
                   </p>
                 </div>
@@ -171,7 +171,7 @@ export default function ActivityPage() {
       ) : (
         <article className="w-full h-screen bg-primary_foundation_100 pt-100">
           <div className="w-267 mx-auto text-center">
-            <p className="font-medium text-14 text-primay_foundation-40">
+            <p className="font-medium text-14 text-primary_foundation-40">
               지금 {nickname}님은
             </p>
             <h3 className="w-260 font-medium text-20 text-white text-center mt-8">

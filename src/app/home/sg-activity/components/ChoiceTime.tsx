@@ -73,7 +73,7 @@ export default function ChoiceTime({ setError }: setErrorProps) {
       </div>
       <p
         className={`flex font-medium text-12 gap-5 mt-8 
-          ${state !== '시간은 최소 10분부터 최대 300분까지 입력할 수 있어요.' ? 'text-system_red' : 'text-primay_foundation-50'}
+          ${state !== '시간은 최소 10분부터 최대 300분까지 입력할 수 있어요.' ? 'text-system_red' : 'text-primary_foundation-50'}
         `}
       >
         {state !== '시간은 최소 10분부터 최대 300분까지 입력할 수 있어요.' && (

@@ -140,7 +140,7 @@ export default function ChoiceSuggestion({
             조각조각이 {nickname} 님에게
             <br />딱 맞는 활동을 가져왔어요!
           </h1>
-          <p className="text-14 text-primay_foundation-60 mt-8">
+          <p className="text-14 text-primary_foundation-60 mt-8">
             아 중 원하는 활동을 하나 선택해 보세요.
           </p>
         </section>
@@ -160,7 +160,7 @@ export default function ChoiceSuggestion({
           >
             {dummy.map((cardData) => (
               <SwiperSlide key={cardData.order}>
-                <div className="bg-primay_foundation-100 w-320 h-320 rounded-16 flex flex-col items-center">
+                <div className="bg-primary_foundation-100y_foundation-100 w-320 h-320 rounded-16 flex flex-col items-center">
                   <Image
                     src={'/images/NATURE_result.png'}
                     alt={cardData.title}
@@ -169,10 +169,10 @@ export default function ChoiceSuggestion({
                     className="mt-10"
                   />
                   <div className="w-270 mx-auto">
-                    <p className="text-16 text-primay_foundation-30">
+                    <p className="text-16 text-primary_foundation-30">
                       {cardData.content}
                     </p>
-                    <h3 className="font-semibold text-24 text-primay_foundation-5 w-260">
+                    <h3 className="font-semibold text-24 text-primary_foundation-5 w-260">
                       {cardData.title}
                     </h3>
                   </div>

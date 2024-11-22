@@ -70,7 +70,7 @@ export default function ChoiceKeyword({ setError }: setErrorProps) {
           <br />
           활동 키워드를 선택해 주세요
         </h3>
-        <p className="text-14 text-primay_foundation-50 mt-10">
+        <p className="text-14 text-primary_foundation-50 mt-10">
           키워드는 최대 5개까지 선택 가능해요
         </p>
         {/* <button>

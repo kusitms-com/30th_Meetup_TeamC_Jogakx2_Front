@@ -213,7 +213,7 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
         <div className="w-342 h-50 border border-gray-300 rounded-lg mt-20 px-16 flex items-center justify-between">
           <p className="font-medium text-16 text-black truncate">{address}</p>
           <button
-            className="text-14 text-primay_foundation-50 underline ml-4"
+            className="text-14 text-primary_foundation-50 underline ml-4"
             onClick={() => {
               setIsSearch(true)
             }}
@@ -242,11 +242,11 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
               <h3 className="font-semibold text-20">주소 직접 입력하기</h3>
               <div
                 className={`w-342 mt-16 border-b-1 flex justify-between
-                ${searchQuery ? 'border-black' : 'border-primay_foundation-20'}
+                ${searchQuery ? 'border-black' : 'border-primary_foundation-20'}
                 `}
               >
                 <input
-                  className="text-16 font-medium text-primary_foundation_90 placeholder:text-primay_foundation-40 pb-8 outline-none no-underline"
+                  className="text-16 font-medium text-primary_foundation_90 placeholder:text-primary_foundation-40 pb-8 outline-none no-underline"
                   placeholder="주소를 입력해주세요"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     searchAddress(e.target.value)
