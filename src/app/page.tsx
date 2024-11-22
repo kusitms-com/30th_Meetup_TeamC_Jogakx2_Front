@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <div className="flex justify-center items-center w-screen h-screen">
       <motion.div
-        className="relative w-full h-full bg-primary_foundation_100"
+        className="relative w-full h-full bg-primary_foundation-100"
         initial={{ opacity: 1 }}
         animate={{
           opacity: 1,

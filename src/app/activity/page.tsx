@@ -169,7 +169,7 @@ export default function ActivityPage() {
           </article>
         </div>
       ) : (
-        <article className="w-full h-screen bg-primary_foundation_100 pt-100">
+        <article className="w-full h-screen bg-primary_foundation-100 pt-100">
           <div className="w-267 mx-auto text-center">
             <p className="font-medium text-14 text-primary_foundation-40">
               지금 {nickname}님은
