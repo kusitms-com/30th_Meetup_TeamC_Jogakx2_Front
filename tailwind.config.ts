@@ -70,6 +70,12 @@ const config: Config = {
     fontFamily: {
       pretendard: ['var(--pretendard)'],
     },
+    translate: {
+      '0': '0%',
+      '100': '100%',
+      '200': '200%',
+      '300': '300%',
+    },
   },
   plugins: [],
 }

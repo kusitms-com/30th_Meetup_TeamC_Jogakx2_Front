@@ -5,7 +5,11 @@ import { Logo } from '@/components/Icons'
 import { StrictPropsWithChildren } from '@/types'
 import { cn } from '@/util'
 
-export default function HomeHeader({ children }: StrictPropsWithChildren) {
+interface HomeHeaderProps extends StrictPropsWithChildren {
+  title: string
+}
+
+export default function HomeHeader({ children, title }: HomeHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -27,15 +31,16 @@ export default function HomeHeader({ children }: StrictPropsWithChildren) {
       >
         <div className="flex gap-12 items-center">
           <Logo />
+          {/* TODO: 글꼴 변경 */}
           <span
             className={cn('text-20 text-white', isScrolled && 'text-textColor')}
           >
-            홈
+            {title}
           </span>
         </div>
         <div className="rounded w-15 h-15 bg-black" />
       </header>
-      <main className="h-full">{children}</main>
+      <main className="h-full mt-52">{children}</main>
     </div>
   )
 }
