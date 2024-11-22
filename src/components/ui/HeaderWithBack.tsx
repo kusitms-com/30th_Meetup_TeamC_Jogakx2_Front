@@ -1,5 +1,5 @@
-import { Left } from '@/components/Icons'
 import { StrictPropsWithChildren } from '@/types'
+import { IconLeft } from '../Icons'
 
 interface StartHeaderProps extends StrictPropsWithChildren {
   onBack: () => void
@@ -14,7 +14,7 @@ export default function HeaderWithBack({
   return (
     <div className="flex flex-col h-screen mt-10 overflow-hidden">
       <header className="relative font-semibold flex justify-center items-center py-4 min-h-52">
-        <Left className="absolute left-20" onClick={onBack} />
+        <IconLeft className="absolute left-20" onClick={onBack} />
         <span>{title}</span>
       </header>
       <main className="h-full relative">{children}</main>

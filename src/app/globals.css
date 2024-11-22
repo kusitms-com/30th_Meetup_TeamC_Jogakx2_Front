@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --pretendard: 'Pretendard', sans-serif;
+}
+
 html,
 body {
   height: 100vh;
@@ -15,6 +19,7 @@ body {
   min-height: 600px;
   color: #1a1a25;
   overflow-x: hidden;
+  font-family: var(--pretendard), sans-serif;
 }
 
 input[type='number'] {
