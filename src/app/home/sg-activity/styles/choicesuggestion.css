@@ -1,5 +1,5 @@
 .custom-pagination .swiper-pagination-bullet {
-  @apply w-24 h-2 bg-primay_foundation-5 rounded-12 opacity-100;
+  @apply w-24 h-2 bg-primary_foundation-5 rounded-12 opacity-100;
 }
 
 .custom-pagination .swiper-pagination-bullet-active {
