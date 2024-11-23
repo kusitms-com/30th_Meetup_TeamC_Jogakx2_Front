@@ -1,0 +1,4 @@
+.red-gradient {
+  border-radius: 0px 0px 20px 20px;
+  background: linear-gradient(180deg, #fff 0%, #fffafa 34.96%, #ffdcd7 100%);
+}

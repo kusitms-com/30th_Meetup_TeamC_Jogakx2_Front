@@ -68,6 +68,7 @@ const config: Config = {
     },
     fontFamily: {
       pretendard: ['var(--pretendard)'],
+      wavvepado: ['var(--wavvepado)'],
     },
     translate: {
       '0': '0%',

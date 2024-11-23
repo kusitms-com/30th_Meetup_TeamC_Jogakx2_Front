@@ -25,18 +25,13 @@ export default function HomeHeader({ children, title }: HomeHeaderProps) {
     <div className="flex flex-col w-full h-screen">
       <header
         className={cn(
-          'fixed z-10 w-full font-semibold flex items-center justify-between py-10 h-52 bg-primary_foundation_100 px-24 transition-colors duration-300',
-          isScrolled && 'bg-white',
+          'fixed z-10 w-full font-semibold flex items-center justify-between py-10 h-52 px-24 transition-colors duration-300 font-wavvepado',
         )}
       >
-        <div className="flex gap-12 items-center">
+        <div className="flex gap-12 items-center h-32">
           <Logo />
           {/* TODO: 글꼴 변경 */}
-          <span
-            className={cn('text-20 text-white', isScrolled && 'text-textColor')}
-          >
-            {title}
-          </span>
+          <span className="text-20 pt-3">{title}</span>
         </div>
         <div className="rounded w-15 h-15 bg-black" />
       </header>

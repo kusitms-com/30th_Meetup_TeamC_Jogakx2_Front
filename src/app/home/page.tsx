@@ -7,23 +7,26 @@ import { QuickBox } from './components/QuickBox'
 import NoQuickBox from './components/NoQuickBox'
 import NoTimePiece from './components/NoTimePiece'
 import TimePiece from './components/TimePiece'
+import { useRouter } from 'next/navigation'
+import './home.css'
 
 export default function Home() {
   const { quickStart, totalSavedTime, activities } = useHomeContext()
-
   const { userInfo } = useUserInfo()
+  const { push } = useRouter()
 
   return (
     <HomeHeader title="홈">
       <div className="bg-[#F3F3F4]">
-        <Div className="bg-primary_foundation_100 flex flex-col gap-20 rounded-t-0">
-          <h1 className="text-white text-24 mt-10">
+        <Div className="red-gradient flex flex-col gap-20 rounded-t-0">
+          <h1 className="text-24 mt-10 font-semibold">
             {userInfo.nickname}님, <br /> 지금 시간 조각을 모아볼까요?
           </h1>
           <Button
             type="button"
             className="bg-accent_100 text-white flex justify-between px-20 py-18 rounded-main"
             rightIcon={<Right />}
+            onClick={() => push('/home/sg-activity')}
           >
             시간 조각 모으러 가기
           </Button>

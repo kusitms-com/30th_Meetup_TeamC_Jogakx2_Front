@@ -9,7 +9,7 @@ export default function Badge({ className, children }: IBadge) {
   return (
     <div
       className={cn(
-        'flex text-14 items-center justify-center bg-accent-10 text-accent_100 px-8 py-2 rounded-6 w-fit',
+        'flex text-14 items-center justify-center bg-accent-10 text-accent_100 px-8 py-2 rounded-6 w-fit whitespace-nowrap',
         className,
       )}
     >
