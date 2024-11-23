@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction } from 'react'
 import { ActivityData } from '@/types/activityTypes'
 
 export interface setErrorProps {
-  error?: boolean
   setError: Dispatch<SetStateAction<boolean>>
 }
 
@@ -18,4 +17,19 @@ export interface ActivityResponse {
   success: boolean
   timestamp: string
   data: ActivityData[]
+}
+
+export interface LocationDataType {
+  address_name: string
+  category_group_code?: string
+  category_group_name?: string
+  category_name: string
+  distance?: string
+  id: string
+  phone: string
+  place_name: string
+  place_url: string
+  road_address_name: string
+  x: string
+  y: string
 }

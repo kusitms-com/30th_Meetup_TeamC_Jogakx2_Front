@@ -1,19 +1,21 @@
 'use client'
+
 import { useRouter } from 'next/navigation'
 import { useEffect, useState, useRef } from 'react'
 import { Button } from '@/components'
 import useUserInfo from '@/store/useUserInfo'
+import { ActivityData } from '@/types/activityTypes'
 import Image from 'next/image'
 import { PayloadType } from './types/type'
-import { ActivityData } from '@/types/activityTypes'
 
 export default function ActivityPage() {
   const router = useRouter()
   const { userInfo } = useUserInfo()
   const { nickname } = userInfo
   const [isTimeUp, setIsTimeUp] = useState(false)
-  const [selectedActivity, setSelectedActivity] = useState<ActivityData>()
-  const [elapsedTime, setElapsedTime] = useState<number>(0) // 경과 시간
+  const [selectedActivitylocal, setSelectedActivitylocal] =
+    useState<ActivityData>()
+  const [elapsedTimelocal, setElapsedTimelocal] = useState<number>(0) // 경과 시간
 
   // 타이머 ID를 useRef로 관리
   const intervalId = useRef<number | null>(null)
@@ -22,14 +24,13 @@ export default function ActivityPage() {
   useEffect(() => {
     const payload = localStorage.getItem('selectedActivity')
     if (!payload) {
-      console.log('선택된 활동 데이터 없음')
       setIsTimeUp(true)
       return
     }
 
     const selectedActivityData: PayloadType = JSON.parse(payload)
     const { selectedActivity, spareTime } = selectedActivityData
-    const spareTimeMs = parseInt(spareTime) * 60 * 1000
+    const spareTimeMs = parseInt(spareTime, 10) * 60 * 1000
     let startTime = localStorage.getItem('startTime')
     const now = Date.now()
 
@@ -44,14 +45,10 @@ export default function ActivityPage() {
     const remainingTimeMs = spareTimeMs - elapsed
 
     const updateRemainingTime = () => {
-      const currentTime = Date.now()
-      const elapsed = currentTime - startTimeValue
-      const remainingTimeMs = spareTimeMs - elapsed
-
       if (remainingTimeMs <= 0) {
-        console.log('남은 시간: 0초')
+        // console.log('남은 시간: 0초')
         setIsTimeUp(true)
-        setElapsedTime(Math.ceil(elapsed / 60000))
+        setElapsedTimelocal(Math.ceil(elapsed / 60000))
         if (intervalId.current !== null) clearInterval(intervalId.current)
       } else {
         const remainingSeconds = Math.ceil(remainingTimeMs / 1000)
@@ -62,7 +59,7 @@ export default function ActivityPage() {
     if (elapsed >= spareTimeMs) {
       // 시간이 이미 지난 경우
       setIsTimeUp(true)
-      setElapsedTime(Math.ceil(elapsed / 60000))
+      setElapsedTimelocal(Math.ceil(elapsed / 60000))
     } else {
       timeoutId.current = window.setTimeout(
         () => setIsTimeUp(true),
@@ -72,7 +69,7 @@ export default function ActivityPage() {
       intervalId.current = window.setInterval(updateRemainingTime, 1000)
     }
 
-    setSelectedActivity(selectedActivity)
+    setSelectedActivitylocal(selectedActivity)
 
     return () => {
       if (intervalId.current !== null) clearInterval(intervalId.current)
@@ -93,7 +90,7 @@ export default function ActivityPage() {
       if (startTime) {
         const elapsedMs = now - parseInt(startTime, 10)
         const elapsedMinutes = Math.round(elapsedMs / 60000)
-        setElapsedTime(elapsedMinutes)
+        setElapsedTimelocal(elapsedMinutes)
       }
     }
 
@@ -123,7 +120,7 @@ export default function ActivityPage() {
             <h3 className="font-semibold text-24 mt-70 mx-20">
               {nickname || '사용자'}님 오늘도
               <br />
-              {elapsedTime}분의 시간 조각을 모았어요!
+              {elapsedTimelocal}분의 시간 조각을 모았어요!
             </h3>
 
             <Image
@@ -175,7 +172,8 @@ export default function ActivityPage() {
               지금 {nickname}님은
             </p>
             <h3 className="w-260 font-medium text-20 text-white text-center mt-8">
-              {selectedActivity && selectedActivity.title}를 하고 있어요.
+              {selectedActivitylocal && selectedActivitylocal.title}를 하고
+              있어요.
             </h3>
           </div>
           <Image

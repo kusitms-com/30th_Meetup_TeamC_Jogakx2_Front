@@ -1,12 +1,13 @@
 'use client'
 
+import Xcircle from '@/components/Icons/XcircleIcon'
 import useUserInfo from '@/store/useUserInfo'
+import { LocationDataType } from '../types/types'
 import { useActivityStore } from '@/store/activityStore'
 import { cn } from '@/util'
 import { useEffect, useState } from 'react'
 import { Map, MapMarker, useKakaoLoader } from 'react-kakao-maps-sdk'
 import { setErrorProps } from '../types/types'
-import Xcircle from '@/components/Icons/XcircleIcon'
 
 export default function ChoiceLocation({ setError }: setErrorProps) {
   const { userInfo } = useUserInfo()
@@ -25,7 +26,7 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
     isLoading: true,
   })
 
-  const [_, error] = useKakaoLoader({
+  const [kakaoLoaded, kakaoerror] = useKakaoLoader({
     appkey: process.env.NEXT_PUBLIC_KAKAO_KEY!,
   })
 
@@ -43,7 +44,7 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
       )
 
       if (!addressResponse.ok) {
-        console.log('api error', addressResponse.status)
+        console.log(`api error, ${addressResponse.status}`)
       }
 
       const addressData = await addressResponse.json()
@@ -54,7 +55,7 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
         )
       }
     } catch (error) {
-      console.error('Error getting location:', error)
+      console.error(`Error getting location:, ${error}`)
     }
   }
 
@@ -63,8 +64,7 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const latitude = position.coords.latitude
-          const longitude = position.coords.longitude
+          const { latitude, longitude } = position.coords
 
           setLocation((prev) => ({
             ...prev,
@@ -95,14 +95,17 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
   }, [])
 
   // 위치 검색 데이터를 가져와 state에 넣는 로직
-  const filterAddress = (data: any[]) => {
+  const filterAddress = (data: LocationDataType[]) => {
+    console.log('필터에 전달한 데이터', data)
     const filterData = data
       .map((item) => {
         const match = item.address_name.match(/.+(구|군|시)\s.+?(동|리)/)
         return match ? match[0] : null
       })
-      .filter((address) => address !== null)
-      .filter((address, index, self) => self.indexOf(address) === index)
+      .filter((addressone) => addressone !== null)
+      .filter(
+        (addressResult, index, self) => self.indexOf(addressResult) === index,
+      )
 
     return filterData
   }
@@ -130,17 +133,17 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
         const filterData: string[] = filterAddress(resultData.documents)
 
         setSearchlist(filterData)
-      } catch (error) {
-        console.error('Error getting location:', error)
+      } catch (error_search) {
+        console.error('Error getting location:', error_search)
       }
     }
   }
 
   // 검색 후 선택한 위치에 대한 경도 위도 값을 Map location으로 전달
-  const locationTransGPS = async (address: string) => {
+  const locationTransGPS = async (addressOrigin: string) => {
     try {
       const response = await fetch(
-        `https://dapi.kakao.com/v2/local/search/address.json?query=${address}`,
+        `https://dapi.kakao.com/v2/local/search/address.json?query=${addressOrigin}`,
         {
           method: 'GET',
           headers: {
@@ -167,8 +170,8 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
           },
         }))
       }
-    } catch (error) {
-      console.error('Error getting location:', error)
+    } catch (error_trans) {
+      console.error('Error getting location:', error_trans)
     }
   }
 
@@ -178,7 +181,8 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
     setSearchlist([])
   }
 
-  if (error) return <div>Error</div>
+  if (kakaoLoaded) return <div>Loaded</div>
+  if (kakaoerror) return <div>Error</div>
 
   return (
     <div className="w-full">
@@ -213,6 +217,8 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
         <div className="w-342 h-50 border border-gray-300 rounded-lg mt-20 px-16 flex items-center justify-between">
           <p className="font-medium text-16 text-black truncate">{address}</p>
           <button
+            tabIndex={0}
+            role="button"
             className="text-14 text-primary_foundation-50 underline ml-4"
             onClick={() => {
               setIsSearch(true)
@@ -265,18 +271,19 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
 
               <div className="overflow-scroll max-h-400">
                 {searchlist &&
-                  searchlist.map((address, index) => {
+                  searchlist.map((addressResultOne, index) => {
                     return (
                       <div
                         key={index}
+                        tabIndex={0}
                         onClick={() => {
-                          setAddress(address)
-                          locationTransGPS(address)
+                          setAddress(addressResultOne)
+                          locationTransGPS(addressResultOne)
                           setIsSearch(false)
                         }}
                         className="font-medium text-14 text-primary_foundation_90 w-342 h-46 px-8 py-12 "
                       >
-                        {address}
+                        {addressResultOne}
                       </div>
                     )
                   })}

@@ -17,7 +17,7 @@ export default function ChoiceOnOff({
     const includeOption = activityType.includes(option)
 
     const updateOptions = includeOption
-      ? activityType.filter((item) => item != option)
+      ? activityType.filter((item) => item !== option)
       : [...activityType, option]
 
     setActivityType(updateOptions)

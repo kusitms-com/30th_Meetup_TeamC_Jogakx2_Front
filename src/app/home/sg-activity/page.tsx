@@ -4,16 +4,15 @@ import { Button, If } from '@/components/common'
 import { HeaderWithBack } from '@/components'
 import { useState } from 'react'
 import { cn } from '@/util'
+import { ActivityData } from '@/types/activityTypes'
+import { useActivityStore } from '@/store/activityStore'
+import { useRouter } from 'next/navigation'
+import ArrowIcon from '@/components/Icons/ArrowIcon'
 import ChoiceTime from './components/ChoiceTime'
 import ChoiceOnOff from './components/ChoiceOnOff'
 import ChoiceLocation from './components/ChoiceLocation'
 import ChoiceKeyword from './components/ChoiceKeyword'
 import ChoiceSuggestion from './components/ChoiceSuggestions'
-import ArrowIcon from '@/components/Icons/ArrowIcon'
-
-import { ActivityData } from '@/types/activityTypes'
-import { useActivityStore } from '@/store/activityStore'
-import { useRouter } from 'next/navigation'
 
 export default function SuggestActivity() {
   const [step, setStep] = useState(1)
@@ -63,6 +62,8 @@ export default function SuggestActivity() {
           )
           router.push('/activity')
         }
+        nextStep = step + 1
+        break
 
       default:
         nextStep = step + 1

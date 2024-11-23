@@ -3,19 +3,19 @@
 import { useEffect } from 'react'
 import useUserInfo from '@/store/useUserInfo'
 import { useActivityStore } from '@/store/activityStore'
-import { ChoiceSuggestionProps } from '../types/types'
-import { ActivityResponse } from '../types/types'
 
 // import useFetch from '@/hooks/useFetch'
 // import SuggestionWait from './SuggestionWait'
 import Image from 'next/image'
 import '../styles/choicesuggestion.css'
 
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { Swiper, SwiperSlide, SwiperClass } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { Pagination } from 'swiper/modules'
+
+import { ChoiceSuggestionProps } from '../types/types'
 
 const dummy = [
   {
@@ -91,14 +91,14 @@ export default function ChoiceSuggestion({
 }: ChoiceSuggestionProps) {
   const { userInfo } = useUserInfo()
   const { nickname } = userInfo
-  const { spareTime, activityType, keywords, address } = useActivityStore()
+  // const { spareTime, activityType, keywords, address } = useActivityStore()
   // const masterToken = process.env.NEXT_PUBLIC_MASTER_TOKEN
-  const postData = {
-    spareTime: parseInt(spareTime),
-    activityType: getActiveType(activityType),
-    keywords,
-    ...(address && { address }),
-  }
+  // const postData = {
+  //   spareTime: parseInt(spareTime, 10),
+  //   activityType: getActiveType(activityType),
+  //   keywords,
+  //   ...(address && { address }),
+  // }
   // const { data, error, loading, refetch } = useFetch<ActivityResponse>(
   //   `https://cnergy.p-e.kr/v1/recommendations`,
   //   {
@@ -124,7 +124,7 @@ export default function ChoiceSuggestion({
 
   // if (error) return <div>err</div>
 
-  const handleSlide = (swiper: any) => {
+  const handleSlide = (swiper: SwiperClass) => {
     setSeletedActivity(dummy[swiper.activeIndex])
 
     // 링크 생성 로직 작성 후 setActivityLink에 넣어주기
@@ -162,7 +162,7 @@ export default function ChoiceSuggestion({
               <SwiperSlide key={cardData.order}>
                 <div className="bg-primary_foundation-100y_foundation-100 w-320 h-320 rounded-16 flex flex-col items-center">
                   <Image
-                    src={'/images/NATURE_result.png'}
+                    src="/images/NATURE_result.png"
                     alt={cardData.title}
                     width={170}
                     height={170}
@@ -181,7 +181,7 @@ export default function ChoiceSuggestion({
             ))}
           </Swiper>
 
-          <div className="custom-pagination relative flex justify-center mt-20 z-10"></div>
+          <div className="custom-pagination relative flex justify-center mt-20 z-10" />
         </section>
       </div>
       <img

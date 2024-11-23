@@ -42,7 +42,7 @@ export default function ChoiceKeyword({ setError }: setErrorProps) {
 
   const toggleKeyword = (keyword: string) => {
     if (keywords.includes(keyword)) {
-      const updateKeywords = keywords.filter((k) => k != keyword)
+      const updateKeywords = keywords.filter((k) => k !== keyword)
 
       setKeywords(updateKeywords)
     } else if (keywords.length < MAX_KEYWORDS) {
@@ -82,12 +82,16 @@ export default function ChoiceKeyword({ setError }: setErrorProps) {
         {filteredKeywordList.map((keyword) => (
           <div
             key={keyword}
+            tabIndex={0}
             className={`flex flex-col items-center cursor-pointer ${
               keywords.length >= MAX_KEYWORDS && !keywords.includes(keyword)
                 ? 'pointer-events-none opacity-50' // 비활성화 상태
                 : ''
             }`}
             onClick={() => toggleKeyword(keyword)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') toggleKeyword(keyword)
+            }}
           >
             <Image
               src={`/images/${getImageName(keyword)}`}

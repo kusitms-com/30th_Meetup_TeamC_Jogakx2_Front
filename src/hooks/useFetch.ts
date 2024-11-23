@@ -27,14 +27,15 @@ export default function useFetch<T>(
       })
 
       if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.message || 'Something went wrong')
+        const responseError = await response.json() // 로컬 변수 이름 변경
+        throw new Error(responseError.message || 'Something went wrong')
       }
 
       const result = await response.json()
       setData(result)
-    } catch (err: any) {
-      setError(err.message || 'Failed to fetch data')
+    } catch (fetchError: any) {
+      // 로컬 변수 이름 변경
+      setError(fetchError.message || 'Failed to fetch data')
     } finally {
       setLoading(false)
     }

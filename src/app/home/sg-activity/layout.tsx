@@ -7,12 +7,6 @@ export const metadata: Metadata = {
   description: '조각조각 - 활동 추천받기',
 }
 
-declare global {
-  interface Window {
-    kakao: any
-  }
-}
-
 export default function SGactivityLayout({
   children,
 }: StrictPropsWithChildren) {

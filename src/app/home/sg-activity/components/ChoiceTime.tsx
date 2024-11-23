@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { setErrorProps } from '../types/types'
 import { useActivityStore } from '@/store/activityStore'
 import { Caution } from '@/components'
+import { setErrorProps } from '../types/types'
 
 export default function ChoiceTime({ setError }: setErrorProps) {
   const [state, setState] = useState(
@@ -13,14 +13,14 @@ export default function ChoiceTime({ setError }: setErrorProps) {
   const { spareTime, setSpareTime } = useActivityStore()
 
   const validateTime = (inputTime: string) => {
-    const timetoNum: number = parseInt(inputTime)
+    const timetoNum: number = parseInt(inputTime, 10)
 
     if (inputTime === '') {
       setState('시간은 최소 10분부터 최대 300분까지 입력할 수 있어요.')
       return false
     }
 
-    if (isNaN(timetoNum)) {
+    if (isFinite(timetoNum)) {
       setState('숫자만 입력할 수 있어요.')
       return false
     }
@@ -65,7 +65,7 @@ export default function ChoiceTime({ setError }: setErrorProps) {
                   : `${Math.max((spareTime.length - 1) * 10 + 60, 60)}px`,
               transition: 'width 0.3s ease-in-out',
             }}
-            className={`outline-none caret-black font-normal text-40 placeholder:text-20`}
+            className="outline-none caret-black font-normal text-40 placeholder:text-20"
           />
           <span className="font-medium text-28 my-auto">분</span>
         </div>
