@@ -6,12 +6,12 @@ import { useQuickStart } from '../../hook/useQuickStart'
 
 export default function FastCard(quickStart: QuickStart) {
   const { push } = useRouter()
-  const { setQuickStart, goWithQuick } = useQuickStart()
+  const { setQuickStartLocal, goToActivity } = useQuickStart()
 
   const { name, hour, minute, spareTime, meridiem, type } = quickStart
 
   const handleClickEdit = () => {
-    setQuickStart(quickStart)
+    setQuickStartLocal(quickStart)
     push('fast/add')
   }
   return (
@@ -29,7 +29,7 @@ export default function FastCard(quickStart: QuickStart) {
           <Badge>{spareTime}분</Badge> <Badge>{ActiveTypeMap[type]}</Badge>
         </div>
       </div>
-      <Right color="#333333" onClick={() => goWithQuick(quickStart)} />
+      <Right color="#333333" onClick={() => goToActivity(quickStart)} />
     </div>
   )
 }

@@ -6,10 +6,10 @@ import { useQuickStart } from '../hook/useQuickStart'
 
 export function QuickBox() {
   const { push } = useRouter()
-  const { name, hour, meridiem, minute, type, spareTime } =
-    useHomeContext().quickStart
+  const quickstart = useHomeContext().quickStart
+  const { name, spareTime, meridiem, hour, minute, type } = quickstart
 
-  const { setQuickStart } = useQuickStart()
+  const { goToActivity } = useQuickStart()
 
   return (
     <>
@@ -47,7 +47,7 @@ export function QuickBox() {
         <Right
           color="#1A1A25"
           width={20}
-          onClick={() => push('/home/sg-activity')}
+          onClick={() => goToActivity(quickstart)}
         />
       </Div>
     </>

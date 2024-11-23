@@ -1,26 +1,17 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { Logo } from '@/components/Icons'
 import { StrictPropsWithChildren } from '@/types'
 import { cn } from '@/util'
+import Image from 'next/image'
+import useUserInfo from '@/store/useUserInfo'
 
 interface HomeHeaderProps extends StrictPropsWithChildren {
   title: string
 }
 
 export default function HomeHeader({ children, title }: HomeHeaderProps) {
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
+  const { profileImage } = useUserInfo().userInfo
   return (
     <div className="flex flex-col w-full h-screen">
       <header
@@ -30,10 +21,17 @@ export default function HomeHeader({ children, title }: HomeHeaderProps) {
       >
         <div className="flex gap-12 items-center h-32">
           <Logo />
-          {/* TODO: 글꼴 변경 */}
           <span className="text-20 pt-3">{title}</span>
         </div>
-        <div className="rounded w-15 h-15 bg-black" />
+        <div className="h-full aspect-square rounded-full bg-primary_foundation-10">
+          <Image
+            alt="profile"
+            src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/profile/profile${profileImage}.svg`}
+            width={208}
+            height={208}
+            className="p-1"
+          />
+        </div>
       </header>
       <main className="h-full mt-52">{children}</main>
     </div>

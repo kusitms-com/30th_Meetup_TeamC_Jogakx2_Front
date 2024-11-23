@@ -2,12 +2,12 @@
 
 import { Button, Category, HomeHeader, House, Div, Right } from '@/components'
 import useUserInfo from '@/store/useUserInfo'
+import { useRouter } from 'next/navigation'
 import { useHomeContext } from './fast/components/Fetcher'
 import { QuickBox } from './components/QuickBox'
 import NoQuickBox from './components/NoQuickBox'
 import NoTimePiece from './components/NoTimePiece'
 import TimePiece from './components/TimePiece'
-import { useRouter } from 'next/navigation'
 import './home.css'
 
 export default function Home() {

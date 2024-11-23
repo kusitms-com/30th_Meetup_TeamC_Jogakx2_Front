@@ -36,6 +36,7 @@ const config: Config = {
           5: ' #FFF6F5',
           10: '#FFEEEC',
           20: '#FFDCD7',
+          50: '#FFA89C',
           100: '#FF4F38',
         },
         primary_foundation: {

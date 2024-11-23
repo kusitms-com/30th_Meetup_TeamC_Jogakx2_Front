@@ -4,7 +4,7 @@ import { QuickStart } from '../api/type'
 export const useQuickStart = () => {
   const { push } = useRouter()
 
-  const setQuickStart = ({
+  const setQuickStartLocal = ({
     id,
     name,
     hour,
@@ -14,9 +14,9 @@ export const useQuickStart = () => {
     type,
   }: QuickStart) => {
     localStorage.setItem(
-      'quickstart',
+      'quickStart',
       JSON.stringify({
-        quickstart: {
+        quickStart: {
           id,
           name,
           hour,
@@ -29,10 +29,10 @@ export const useQuickStart = () => {
     )
   }
 
-  const goWithQuick = (quickstart: QuickStart) => {
-    setQuickStart(quickstart)
+  const goToActivity = (data: QuickStart) => {
+    setQuickStartLocal(data)
     push('/home/sg-activity')
   }
 
-  return { setQuickStart, goWithQuick }
+  return { setQuickStartLocal, goToActivity }
 }

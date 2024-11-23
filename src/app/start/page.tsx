@@ -46,7 +46,7 @@ export default function Start() {
         nickname: userInfo.nickname,
         birthYear: userInfo.birthYear,
         gender: userInfo.gender,
-        profileImage: userInfo.profileImage,
+        profileImage: `${process.env.NEXT_PUBLIC_IMAGE_URL}/profile/profile/${userInfo.profileImage}.svg`,
       })
     }
   }
@@ -67,8 +67,7 @@ export default function Start() {
 
         <div className="h-full">
           <If condition={step === 1}>
-            <Step3 />
-            {/* <Step1 setError={setError} /> */}
+            <Step1 setError={setError} />
           </If>
           <If condition={step === 2}>
             <Step2 setError={setError} />
