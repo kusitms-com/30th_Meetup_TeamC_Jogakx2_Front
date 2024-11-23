@@ -3,6 +3,7 @@
 import { Suspense, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { SendData } from './type'
+import Cookies from 'js-cookie'
 
 function LoginCheck() {
   const searchParams = useSearchParams()
@@ -39,12 +40,7 @@ function LoginCheck() {
       }
 
       const data = await res.json()
-
-      // console.log('reponse Data', data)
-
-      // 토근 설정
-      localStorage.setItem('accessToken', data.data.accessToken)
-      localStorage.setItem('refreshToken', data.data.refreshToken)
+      Cookies.set('accessToken', data.data.accessToken)
 
       // role에 따라 페이지 이동 차이
       sendUserHomeOrStart(data.data.role)

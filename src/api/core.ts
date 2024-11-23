@@ -20,10 +20,10 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     const accessToken = Cookies.get(ACCESS_TOKEN) as string
-    const accessTokenTest = process.env.NEXT_PUBLIC_MASTER_TOKEN
+    // const accessTokenTest = process.env.NEXT_PUBLIC_MASTER_TOKEN
 
     // TODO: 마스터토큰제거
-    config.headers.set('Authorization', `Bearer ${accessTokenTest}`)
+    config.headers.set('Authorization', `Bearer ${accessToken}`)
     return config
 
     if (!accessToken) {
