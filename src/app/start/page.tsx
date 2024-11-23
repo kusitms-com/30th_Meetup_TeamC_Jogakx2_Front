@@ -67,7 +67,8 @@ export default function Start() {
 
         <div className="h-full">
           <If condition={step === 1}>
-            <Step1 setError={setError} />
+            <Step3 />
+            {/* <Step1 setError={setError} /> */}
           </If>
           <If condition={step === 2}>
             <Step2 setError={setError} />

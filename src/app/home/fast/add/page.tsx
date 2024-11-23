@@ -24,6 +24,27 @@ export default function FastPage() {
 
   const { mutate } = usePostQuickStart()
 
+  useEffect(() => {
+    const quickStartData = localStorage.getItem('quickstart')
+    if (quickStartData) {
+      const { quickstart } = JSON.parse(quickStartData)
+
+      setName(quickstart.name)
+      setHour(quickstart.hour?.toString())
+      setMinute(quickstart.minute?.toString())
+      setExtraTime(quickstart.spareTime?.toString())
+      setTime(quickstart.meridiem)
+      setIsOnline(
+        quickstart.type === 'ONLINE' ||
+          quickstart.type === 'ONLINE_AND_OFFLINE',
+      )
+      setIsOffline(
+        quickstart.type === 'OFFLINE' ||
+          quickstart.type === 'ONLINE_AND_OFFLINE',
+      )
+    }
+  }, [])
+
   const validateName = (value: string): void => {
     setErrorName(
       !value.match(/^[a-zA-Z가-힣0-9]{1,10}$/)

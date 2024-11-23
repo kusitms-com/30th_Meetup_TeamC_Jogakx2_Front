@@ -2,11 +2,14 @@ import { Clock, Right, Div, Badge } from '@/components'
 import { useRouter } from 'next/navigation'
 import { ActiveTypeMap } from '@/types'
 import { useHomeContext } from '../fast/components/Fetcher'
+import { useQuickStart } from '../hook/useQuickStart'
 
 export function QuickBox() {
   const { push } = useRouter()
   const { name, hour, meridiem, minute, type, spareTime } =
     useHomeContext().quickStart
+
+  const { setQuickStart } = useQuickStart()
 
   return (
     <>
@@ -24,20 +27,28 @@ export function QuickBox() {
         </button>
       </div>
 
-      <Div className="flex justify-between items-center bg-accent-5 px-16 py-12 border-[1.5px] border-accent-20">
+      <Div className="flex justify-between items-center bg-white px-16 py-12 border-[1.5px] border-primary_foundation-10">
         <div className="flex flex-col gap-8">
           <p className="text-16 font-medium">{name}</p>
-          <div className="flex gap-4 whitespace-nowrap">
-            <Badge>{spareTime}분</Badge>
-            <Badge>
+          <div className="flex flex-wrap gap-4">
+            <Badge className="bg-primary_foundation-10 text-textColor">
+              {spareTime}분
+            </Badge>
+            <Badge className="bg-primary_foundation-10 text-textColor">
               {meridiem}
               {hour}시{minute}분
             </Badge>
-            <Badge>{ActiveTypeMap[type]}</Badge>
+            <Badge className="bg-primary_foundation-10 text-textColor">
+              {ActiveTypeMap[type]}
+            </Badge>
           </div>
         </div>
-        {/* TODO: 추천경로 */}
-        <Right color="#FF4F38" width={20} onClick={() => push('/home/fast')} />
+
+        <Right
+          color="#1A1A25"
+          width={20}
+          onClick={() => push('/home/sg-activity')}
+        />
       </Div>
     </>
   )

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { HomeHeader, TabList } from '@/components'
+import { HomeHeader, If, TabList } from '@/components'
 import { subMonths, addMonths, getYear, getMonth } from 'date-fns'
 import { AsyncBoundaryWithQuery } from '@/react-utils'
 import ArchiveTotal from './components/ArchiveTotal'
@@ -55,7 +55,7 @@ export default function ArchivePage() {
               goToPreviousMonth={goToPreviousMonth}
               goToNextMonth={goToNextMonth}
             />
-            {activeTab === 'calendar' && (
+            <If condition={activeTab === 'calendar'}>
               <div>
                 <AsyncBoundaryWithQuery>
                   <CalendarFetcher
@@ -66,7 +66,7 @@ export default function ArchivePage() {
                   </CalendarFetcher>
                 </AsyncBoundaryWithQuery>
               </div>
-            )}
+            </If>
           </div>
         </div>
       </main>
