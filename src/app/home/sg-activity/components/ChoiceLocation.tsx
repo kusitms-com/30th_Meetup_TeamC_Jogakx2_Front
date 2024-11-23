@@ -2,14 +2,13 @@
 
 import Xcircle from '@/components/Icons/XcircleIcon'
 import useUserInfo from '@/store/useUserInfo'
-import { LocationDataType } from '../types/types'
 import { useActivityStore } from '@/store/activityStore'
 import { cn } from '@/util'
 import { useEffect, useState } from 'react'
 import { Map, MapMarker, useKakaoLoader } from 'react-kakao-maps-sdk'
-import { setErrorProps } from '../types/types'
+import { SetErrorProps, LocationDataType } from '../types/types'
 
-export default function ChoiceLocation({ setError }: setErrorProps) {
+export default function ChoiceLocation({ setError }: SetErrorProps) {
   const { userInfo } = useUserInfo()
   const { nickname } = userInfo
   const [isSearch, setIsSearch] = useState(false)
@@ -218,7 +217,7 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
           <p className="font-medium text-16 text-black truncate">{address}</p>
           <button
             tabIndex={0}
-            role="button"
+            type="button"
             className="text-14 text-primary_foundation-50 underline ml-4"
             onClick={() => {
               setIsSearch(true)
@@ -232,9 +231,16 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
       {isSearch && (
         <>
           <div
+            role="button" // 버튼 역할을 명시
+            tabIndex={0}
             className="fixed inset-0 bg-black bg-opacity-60 z-20"
             onClick={() => setIsSearch(false)}
-          ></div>
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                setIsSearch(false) // Enter 키로도 동작하게 설정
+              }
+            }}
+          />
 
           <section
             className={cn(
@@ -271,15 +277,23 @@ export default function ChoiceLocation({ setError }: setErrorProps) {
 
               <div className="overflow-scroll max-h-400">
                 {searchlist &&
-                  searchlist.map((addressResultOne, index) => {
+                  searchlist.map((addressResultOne) => {
                     return (
                       <div
-                        key={index}
+                        key={addressResultOne}
+                        role="button"
                         tabIndex={0}
                         onClick={() => {
                           setAddress(addressResultOne)
                           locationTransGPS(addressResultOne)
                           setIsSearch(false)
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            setAddress(addressResultOne)
+                            locationTransGPS(addressResultOne)
+                            setIsSearch(false)
+                          }
                         }}
                         className="font-medium text-14 text-primary_foundation_90 w-342 h-46 px-8 py-12 "
                       >

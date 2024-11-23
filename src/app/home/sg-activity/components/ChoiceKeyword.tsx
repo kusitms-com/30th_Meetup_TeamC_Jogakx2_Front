@@ -4,9 +4,9 @@ import useUserInfo from '@/store/useUserInfo'
 import { useActivityStore } from '@/store/activityStore'
 import { useEffect, useMemo } from 'react'
 import Image from 'next/image'
-import { setErrorProps } from '../types/types'
+import { SetErrorProps } from '../types/types'
 
-export default function ChoiceKeyword({ setError }: setErrorProps) {
+export default function ChoiceKeyword({ setError }: SetErrorProps) {
   const { userInfo } = useUserInfo()
   const { nickname } = userInfo
   const { activityType, keywords, setKeywords } = useActivityStore()
@@ -38,7 +38,7 @@ export default function ChoiceKeyword({ setError }: setErrorProps) {
       return keywordList.filter((keyword) => keyword !== 'NATURE')
     }
     return keywordList
-  }, [activityType])
+  }, [activityType, keywordList])
 
   const toggleKeyword = (keyword: string) => {
     if (keywords.includes(keyword)) {
@@ -83,6 +83,8 @@ export default function ChoiceKeyword({ setError }: setErrorProps) {
           <div
             key={keyword}
             tabIndex={0}
+            role="button"
+            aria-label={`키워드 ${keyword} 선택`}
             className={`flex flex-col items-center cursor-pointer ${
               keywords.length >= MAX_KEYWORDS && !keywords.includes(keyword)
                 ? 'pointer-events-none opacity-50' // 비활성화 상태

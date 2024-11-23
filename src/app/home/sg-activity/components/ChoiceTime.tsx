@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react'
 import { useActivityStore } from '@/store/activityStore'
 import { Caution } from '@/components'
-import { setErrorProps } from '../types/types'
+import { SetErrorProps } from '../types/types'
 
-export default function ChoiceTime({ setError }: setErrorProps) {
+export default function ChoiceTime({ setError }: SetErrorProps) {
   const [state, setState] = useState(
     '시간은 최소 10분부터 최대 300분까지 입력할 수 있어요.',
   )
@@ -20,7 +20,7 @@ export default function ChoiceTime({ setError }: setErrorProps) {
       return false
     }
 
-    if (isFinite(timetoNum)) {
+    if (Number.isNaN(timetoNum)) {
       setState('숫자만 입력할 수 있어요.')
       return false
     }

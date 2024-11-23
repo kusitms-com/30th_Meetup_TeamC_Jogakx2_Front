@@ -13,24 +13,26 @@ export default function ActivityPage() {
   const { userInfo } = useUserInfo()
   const { nickname } = userInfo
   const [isTimeUp, setIsTimeUp] = useState(false)
-  const [selectedActivitylocal, setSelectedActivitylocal] =
-    useState<ActivityData>()
-  const [elapsedTimelocal, setElapsedTimelocal] = useState<number>(0) // 경과 시간
+  const [selectedActivityData, setSelectedActivityData] =
+    useState<ActivityData | null>(null)
+  const [elapsedTime, setElapsedTime] = useState<number>(0) // 경과 시간 (분 단위)
 
-  // 타이머 ID를 useRef로 관리
+  // 타이머 ID를 useRef로 관리하여 리렌더링 방지
   const intervalId = useRef<number | null>(null)
   const timeoutId = useRef<number | null>(null)
 
   useEffect(() => {
     const payload = localStorage.getItem('selectedActivity')
     if (!payload) {
+      // 선택된 활동이 없을 경우 바로 활동 종료 화면으로 전환
       setIsTimeUp(true)
-      return
+      return () => {
+        // 빈 클린업 함수
+      }
     }
 
-    const selectedActivityData: PayloadType = JSON.parse(payload)
-    const { selectedActivity, spareTime } = selectedActivityData
-    const spareTimeMs = parseInt(spareTime, 10) * 60 * 1000
+    const { selectedActivity, spareTime }: PayloadType = JSON.parse(payload)
+    const spareTimeMs = parseInt(spareTime, 10) * 60 * 1000 // 분을 밀리초로 변환
     let startTime = localStorage.getItem('startTime')
     const now = Date.now()
 
@@ -41,17 +43,25 @@ export default function ActivityPage() {
     }
 
     const startTimeValue = parseInt(startTime, 10)
-    const elapsed = now - startTimeValue
-    const remainingTimeMs = spareTimeMs - elapsed
+    const elapsed = now - startTimeValue // 경과 시간
+    const remainingTimeMs = spareTimeMs - elapsed // 남은 시간
 
     const updateRemainingTime = () => {
-      if (remainingTimeMs <= 0) {
-        // console.log('남은 시간: 0초')
+      const currentTime = Date.now()
+      const elapsedRm = currentTime - startTimeValue
+      const remainingTimeMsRm = spareTimeMs - elapsedRm
+
+      if (remainingTimeMsRm <= 0) {
+        // 시간이 다 되었을 때 처리
         setIsTimeUp(true)
-        setElapsedTimelocal(Math.ceil(elapsed / 60000))
-        if (intervalId.current !== null) clearInterval(intervalId.current)
+        setElapsedTime(Math.ceil(elapsed / 60000)) // 경과 시간을 분 단위로 저장
+        if (intervalId.current !== null) {
+          clearInterval(intervalId.current)
+          intervalId.current = null
+        }
       } else {
-        const remainingSeconds = Math.ceil(remainingTimeMs / 1000)
+        // 남은 시간 로그 (디버깅 용도)
+        const remainingSeconds = Math.ceil(remainingTimeMsRm / 1000)
         console.log(`남은 시간: ${remainingSeconds}초`)
       }
     }
@@ -59,8 +69,9 @@ export default function ActivityPage() {
     if (elapsed >= spareTimeMs) {
       // 시간이 이미 지난 경우
       setIsTimeUp(true)
-      setElapsedTimelocal(Math.ceil(elapsed / 60000))
+      setElapsedTime(Math.ceil(elapsed / 60000))
     } else {
+      // 타이머 설정
       timeoutId.current = window.setTimeout(
         () => setIsTimeUp(true),
         remainingTimeMs,
@@ -69,13 +80,20 @@ export default function ActivityPage() {
       intervalId.current = window.setInterval(updateRemainingTime, 1000)
     }
 
-    setSelectedActivitylocal(selectedActivity)
+    setSelectedActivityData(selectedActivity)
 
+    // 컴포넌트 언마운트 시 타이머 정리
     return () => {
-      if (intervalId.current !== null) clearInterval(intervalId.current)
-      if (timeoutId.current !== null) clearTimeout(timeoutId.current)
+      if (intervalId.current !== null) {
+        clearInterval(intervalId.current)
+        intervalId.current = null
+      }
+      if (timeoutId.current !== null) {
+        clearTimeout(timeoutId.current)
+        timeoutId.current = null
+      }
     }
-  }, [router])
+  }, [])
 
   const handleFinishActivity = () => {
     if (!isTimeUp) {
@@ -89,13 +107,16 @@ export default function ActivityPage() {
       const now = Date.now()
       if (startTime) {
         const elapsedMs = now - parseInt(startTime, 10)
-        const elapsedMinutes = Math.round(elapsedMs / 60000)
-        setElapsedTimelocal(elapsedMinutes)
+        const elapsedMinutes = Math.ceil(elapsedMs / 60000)
+        setElapsedTime(elapsedMinutes)
+      } else {
+        setElapsedTime(0)
       }
     }
 
     // 활동 종료 처리
     localStorage.removeItem('startTime')
+    localStorage.removeItem('selectedActivity')
     setIsTimeUp(true)
 
     // 타이머 정리
@@ -120,12 +141,12 @@ export default function ActivityPage() {
             <h3 className="font-semibold text-24 mt-70 mx-20">
               {nickname || '사용자'}님 오늘도
               <br />
-              {elapsedTimelocal}분의 시간 조각을 모았어요!
+              {elapsedTime}분의 시간 조각을 모았어요!
             </h3>
 
             <Image
-              src={`/images/${'NATURE'}_result.png`}
-              alt={'NATURE'}
+              src="/images/NATURE_result.png"
+              alt="NATURE"
               width={256}
               height={256}
               className="mx-auto mt-40"
@@ -133,17 +154,17 @@ export default function ActivityPage() {
 
             <div className="absolute bottom-125 w-full z-10">
               <div className="w-351 h-104 bg-white flex justify-between mx-auto px-20 rounded-12">
-                <div className="w-160 h-70 my-auto">
+                <div className="w-200 h-70 my-auto items-center">
                   <p className="text-12 text-primary_foundation-50">
-                    휴식에는 역시 명상이 최고!
+                    {selectedActivityData?.content}
                   </p>
                   <p className="font-medium text-16 text-primary_foundation-100 mt-5">
-                    마음의 편안을 가져다주는 명상 음악 20분 듣기
+                    {selectedActivityData?.title}
                   </p>
                 </div>
 
                 <p className="font-semibold text-24 text-accent_100 my-auto">
-                  +{'20'}분
+                  +{elapsedTime}분
                 </p>
               </div>
             </div>
@@ -161,7 +182,7 @@ export default function ActivityPage() {
               alt="bg-activity_fine"
               width={390}
               height={844}
-              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-0"
+              className="absolute bottom-0 transform -translate-x-1/2 z-0"
             />
           </article>
         </div>
@@ -169,16 +190,15 @@ export default function ActivityPage() {
         <article className="w-full h-screen bg-primary_foundation-100 pt-100">
           <div className="w-267 mx-auto text-center">
             <p className="font-medium text-14 text-primary_foundation-40">
-              지금 {nickname}님은
+              지금 {nickname && nickname}님은
             </p>
             <h3 className="w-260 font-medium text-20 text-white text-center mt-8">
-              {selectedActivitylocal && selectedActivitylocal.title}를 하고
-              있어요.
+              {selectedActivityData?.title}를 하고 있어요.
             </h3>
           </div>
           <Image
-            src={`/gif/${'NATURE'}_ing.gif`}
-            alt="NATURE"
+            src={`/gif/${selectedActivityData?.keywordCategory || 'NATURE'}_ing.gif`}
+            alt={selectedActivityData?.title || '활동 이미지'}
             width={390}
             height={390}
             unoptimized

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import { ActivityData } from '@/types/activityTypes'
 
-export interface setErrorProps {
+export interface SetErrorProps {
   setError: Dispatch<SetStateAction<boolean>>
 }
 

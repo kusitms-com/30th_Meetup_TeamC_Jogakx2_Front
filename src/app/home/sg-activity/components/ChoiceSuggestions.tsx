@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import useUserInfo from '@/store/useUserInfo'
-import { useActivityStore } from '@/store/activityStore'
+// import { useActivityStore } from '@/store/activityStore'
 
 // import useFetch from '@/hooks/useFetch'
 // import SuggestionWait from './SuggestionWait'
@@ -70,18 +70,18 @@ const dummy = [
   },
 ]
 
-const getActiveType = (typeArr: string[]) => {
-  if (typeArr.length >= 2) {
-    return 'ONLINE_AND_OFFLINE'
-  }
-  if (typeArr.includes('온라인')) {
-    return 'ONLINE'
-  }
-  if (typeArr.includes('오프라인')) {
-    return 'OFFLINE'
-  }
-  return ''
-}
+// const getActiveType = (typeArr: string[]) => {
+//   if (typeArr.length >= 2) {
+//     return 'ONLINE_AND_OFFLINE'
+//   }
+//   if (typeArr.includes('온라인')) {
+//     return 'ONLINE'
+//   }
+//   if (typeArr.includes('오프라인')) {
+//     return 'OFFLINE'
+//   }
+//   return ''
+// }
 
 export default function ChoiceSuggestion({
   setError,
@@ -160,7 +160,7 @@ export default function ChoiceSuggestion({
           >
             {dummy.map((cardData) => (
               <SwiperSlide key={cardData.order}>
-                <div className="bg-primary_foundation-100y_foundation-100 w-320 h-320 rounded-16 flex flex-col items-center">
+                <div className="bg-primary_foundation-100 w-320 h-320 rounded-16 flex flex-col items-center">
                   <Image
                     src="/images/NATURE_result.png"
                     alt={cardData.title}
