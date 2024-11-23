@@ -20,8 +20,5 @@ export const usePostQuickStart = () => {
   return useMutation({
     mutationKey: ['quick-start'],
     mutationFn: (data: QuickStartRequest) => postQuickStart(data),
-    onMutate: () => {},
-    onSuccess: () => {},
-    onError: () => {},
   })
 }
