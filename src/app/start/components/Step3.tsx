@@ -1,35 +1,21 @@
 'use client'
 
-import {
-  Profile1,
-  Profile2,
-  Profile3,
-  Profile4,
-  Profile5,
-  Profile6,
-  Profile7,
-  SelectProfile,
-} from '@/components'
+import { SelectProfile } from '@/components'
 import useUserInfo from '@/store/useUserInfo'
 import { cn } from '@/util'
+import Image from 'next/image'
 import { useState } from 'react'
 
-const profiles = [
-  { id: '1', Component: Profile1 },
-  { id: '2', Component: Profile2 },
-  { id: '3', Component: Profile3 },
-  { id: '4', Component: Profile4 },
-  { id: '5', Component: Profile5 },
-  { id: '6', Component: Profile6 },
-  { id: '7', Component: Profile7 },
-]
+const profiles = ['1', '2', '3', '4', '5', '6', '7']
 
 export default function Step3() {
   const { userInfo, setUserInfo } = useUserInfo()
-  const [selectedProfile, setSelectedProfile] = useState(userInfo.profileImage)
+  const [selectedProfileID, setSelectedProfileID] = useState(
+    userInfo.profileImage,
+  )
 
   const handleProfileSelect = (profile: string) => {
-    setSelectedProfile(profile)
+    setSelectedProfileID(profile)
     setUserInfo({ ...userInfo, profileImage: profile })
   }
 
@@ -41,34 +27,50 @@ export default function Step3() {
       </h2>
 
       <div className="relative w-full flex justify-center items-center mt-150">
-        {profiles.map(({ id, Component }) => (
+        {profiles.map((id) => (
           <div
             key={id}
             className={cn(
-              'absolute transition-opacity duration-300 opacity-0 ',
-              selectedProfile === id && 'opacity-100',
+              'absolute transition-opacity duration-300 opacity-0',
+              selectedProfileID === id && 'opacity-100',
             )}
           >
-            <Component active width={180} height={180} />
+            <div className="absolute inset-0 bg-accent-10 blur-[20px] -z-10" />
+            <Image
+              alt="image"
+              src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/profile/profile${id}.svg`}
+              width={208}
+              height={208}
+            />
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-4 gap-y-22 gap-x-4 w-full justify-items-stretch mt-170">
-        {profiles.map(({ id, Component }) => (
+      <div className="grid grid-cols-4 gap-y-22 gap-x-10 w-full justify-items-stretch mt-170">
+        {profiles.map((id) => (
           <button
             type="button"
             key={id}
             onClick={() => handleProfileSelect(id)}
-            className="relative flex justify-center"
+            className={cn(
+              'relative w-full aspect-square border rounded-full overflow-hidden p-20',
+              selectedProfileID === id && 'border-accent-50 bg-accent-10',
+            )}
             tabIndex={0}
           >
-            {selectedProfile === id && (
+            {selectedProfileID === id && (
               <div className="absolute -top-18">
                 <SelectProfile />
               </div>
             )}
-            <Component active={selectedProfile === id} />
+
+            <Image
+              alt="image"
+              src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/profile/profile${id}.svg`}
+              layout="fill"
+              objectFit="cover"
+              className="p-5"
+            />
           </button>
         ))}
       </div>
