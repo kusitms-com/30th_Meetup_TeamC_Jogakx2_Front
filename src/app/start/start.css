@@ -5,3 +5,15 @@
 .subtitle {
   @apply text-lg font-semibold leading-relaxed mt-44;
 }
+
+.white-gradient {
+  background: linear-gradient(
+    180deg,
+    #fff 8.4%,
+    rgba(255, 255, 255, 0.93) 27.34%,
+    rgba(255, 255, 255, 0.79) 46.73%,
+    rgba(255, 255, 255, 0.15) 63.21%,
+    rgba(255, 255, 255, 0) 79.36%
+  );
+  backdrop-filter: blur(1.5px);
+}

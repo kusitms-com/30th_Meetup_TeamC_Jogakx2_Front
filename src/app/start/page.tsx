@@ -1,7 +1,7 @@
 'use client'
 
 import { Button, If } from '@/components/common'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { cn } from '@/util'
 import { HeaderWithBack } from '@/components'
 import useUserInfo from '@/store/useUserInfo'
@@ -12,9 +12,20 @@ export default function Start() {
   const [step, setStep] = useState(1)
   const [text, setText] = useState('다음')
   const [error, setError] = useState(true)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const { mutate } = usePostOnboard()
   const { userInfo } = useUserInfo()
+
+  useEffect(() => {
+    if (userInfo.nickname) {
+      setIsLoaded(true)
+    }
+  }, [userInfo.nickname])
+
+  if (!isLoaded) {
+    return <div>loading...</div>
+  }
 
   const handleBack = () => {
     setStep((prevStep) => Math.max(prevStep - 1, 1))
@@ -54,7 +65,7 @@ export default function Start() {
           />
         </div>
 
-        <div>
+        <div className="h-full">
           <If condition={step === 1}>
             <Step1 setError={setError} />
           </If>
