@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useCalendarContext } from '../api/fetcher'
 import Activities from './Activities'
 import Calendar from './Calendar/Calendar'
@@ -9,6 +10,7 @@ interface CalendarViewProps {
 
 export default function CalendarView({ currentDate }: CalendarViewProps) {
   const { days } = useCalendar(currentDate)
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>()
 
   const { monthlyActivities } = useCalendarContext()
   return (
@@ -18,11 +20,11 @@ export default function CalendarView({ currentDate }: CalendarViewProps) {
           currentDate={currentDate}
           activities={monthlyActivities}
           days={days}
-          selectedDate={null}
-          onDateClick={(date) => console.log(date)}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
         />
       </div>
-      <Activities />
+      <Activities selectedDate={selectedDate} />
     </>
   )
 }

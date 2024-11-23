@@ -4,12 +4,20 @@ import { useRouter } from 'next/navigation'
 import { useCalendarContext } from '../api/fetcher'
 import { categoryLabels } from '../api/types'
 
-export default function Activities() {
+export default function Activities({ selectedDate }: { selectedDate?: Date }) {
   const { push } = useRouter()
   const { monthlyActivities } = useCalendarContext()
 
+  const filteredActivities = selectedDate
+    ? monthlyActivities?.filter(
+        (activity) =>
+          format(parseISO(activity.activityCreatedAt), 'yyyy-MM-dd') ===
+          format(selectedDate, 'yyyy-MM-dd'),
+      )
+    : monthlyActivities
+
   const groupedActivities =
-    monthlyActivities?.reduce(
+    filteredActivities?.reduce(
       (acc, activity) => {
         const dateKey = format(
           parseISO(activity.activityCreatedAt),
@@ -28,7 +36,7 @@ export default function Activities() {
 
   return (
     <>
-      <If condition={!monthlyActivities}>
+      <If condition={!filteredActivities}>
         <div className="bg-primary_foundation-5 flex items-center justify-center p-24">
           <div className="mt-35 mb-20 flex flex-col items-center gap-8">
             <h2 className="text-18">아직 모은 시간 조각이 없어요!</h2>
@@ -43,7 +51,7 @@ export default function Activities() {
         </div>
       </If>
 
-      <If condition={!!monthlyActivities}>
+      <If condition={!!filteredActivities}>
         <div className="p-16 bg-primary_foundation-5">
           {sortedDates?.map((date) => (
             <div key={date} className="mb-20">

@@ -7,7 +7,7 @@ import { useGetCalendarData } from './queries'
 
 export const [CalendarProvider, useCalendarContext] =
   generateContext<CalendarResponse>({
-    name: 'homeData',
+    name: 'calendar',
   })
 
 interface CalendarFetcherProps extends StrictPropsWithChildren {

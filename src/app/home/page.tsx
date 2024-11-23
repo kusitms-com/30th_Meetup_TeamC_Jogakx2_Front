@@ -9,6 +9,7 @@ import NoQuickBox from './components/NoQuickBox'
 import NoTimePiece from './components/NoTimePiece'
 import TimePiece from './components/TimePiece'
 import './home.css'
+import FooterButtons from '@/components/ui/FooterButtons'
 
 export default function Home() {
   const { quickStart, totalSavedTime, activities } = useHomeContext()
@@ -50,20 +51,7 @@ export default function Home() {
           {activities.length ? <TimePiece /> : <NoTimePiece />}
         </Div>
 
-        <div className="flex justify-center gap-12 bg-white pt-10 pb-40">
-          <Button
-            leftIcon={<House />}
-            className="rounded-8 w-133 h-44 bg-primary_foundation_100"
-          >
-            홈
-          </Button>
-          <Button
-            leftIcon={<Category />}
-            className="bg-transparent text-textColor px-0 rounded-8 w-133 h-44"
-          >
-            아카이빙
-          </Button>
-        </div>
+        <FooterButtons />
       </div>
     </HomeHeader>
   )
