@@ -1,9 +1,9 @@
 'use client'
 
+import Cookies from 'js-cookie'
 import { Suspense, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { SendData } from './type'
-import Cookies from 'js-cookie'
 
 function LoginCheck() {
   const searchParams = useSearchParams()
