@@ -1,14 +1,13 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { HomeHeader, If, TabList } from '@/components'
+import { FooterButtons, HomeHeader, If, TabList } from '@/components'
 import { subMonths, addMonths, getYear, getMonth } from 'date-fns'
 import { AsyncBoundaryWithQuery } from '@/react-utils'
 import ArchiveTotal from './components/ArchiveTotal'
 import { CalendarFetcher } from './api/fetcher'
 import OverviewHeader from './components/OverviewHeader'
 import CalendarView from './components/CalendarView'
-import FooterButtons from '@/components/ui/FooterButtons'
 
 const tabs = [
   { label: '활동 키워드', value: 'keywords' },

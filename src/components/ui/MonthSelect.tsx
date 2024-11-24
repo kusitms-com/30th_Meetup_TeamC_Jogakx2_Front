@@ -1,22 +1,21 @@
+import useUserInfo from '@/store/useUserInfo'
 import { addMonths, differenceInMonths, format } from 'date-fns'
 
 interface MonthSelectProps {
   currentDate: Date
   setCurrentDate: (date: Date) => void
-  startDate: Date
 }
 
 export default function MonthSelect({
   currentDate,
   setCurrentDate,
-  startDate,
 }: MonthSelectProps) {
-
   const today = new Date()
+  const { registrationDate } = useUserInfo().userInfo
 
   const months = Array.from(
-    { length: differenceInMonths(today, startDate) + 2 },
-    (_, i) => addMonths(startDate, i - 1),
+    { length: differenceInMonths(today, registrationDate) + 2 },
+    (_, i) => addMonths(registrationDate, i - 1),
   )
 
   const handleMonthSelect = (date: Date) => {
@@ -27,6 +26,7 @@ export default function MonthSelect({
     <div className="flex flex-col">
       {months.map((month) => (
         <button
+          type="button"
           key={month.toISOString()}
           onClick={() => handleMonthSelect(month)}
           className="flex justify-between items-center h-48 py-12 rounded-lg"

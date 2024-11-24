@@ -3,7 +3,7 @@ import { UserInfo } from '@/store/useUserInfo'
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
-export const postOnboard = (data: UserInfo) => {
+export const postOnboard = (data: Partial<UserInfo>) => {
   return http.post({
     url: '/members/onboard',
     data,
@@ -20,7 +20,7 @@ export const usePostOnboard = () => {
   const router = useRouter()
 
   return useMutation({
-    mutationFn: (data: UserInfo) => postOnboard(data),
+    mutationFn: (data: Partial<UserInfo>) => postOnboard(data),
     onSuccess: () => {
       router.push('/home')
     },

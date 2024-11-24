@@ -1,7 +1,7 @@
+import { cn } from '@/util'
 import { useRouter } from 'next/navigation'
 import { Button } from '../common'
 import { Category, House } from '../Icons'
-import { cn } from '@/util'
 
 export default function FooterButtons({ className }: { className?: string }) {
   const { push } = useRouter()

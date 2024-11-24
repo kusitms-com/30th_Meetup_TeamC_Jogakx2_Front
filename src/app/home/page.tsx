@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Category, HomeHeader, House, Div, Right } from '@/components'
+import { Button, HomeHeader, Div, Right, FooterButtons } from '@/components'
 import useUserInfo from '@/store/useUserInfo'
 import { useRouter } from 'next/navigation'
 import { useHomeContext } from './fast/components/Fetcher'
@@ -9,7 +9,6 @@ import NoQuickBox from './components/NoQuickBox'
 import NoTimePiece from './components/NoTimePiece'
 import TimePiece from './components/TimePiece'
 import './home.css'
-import FooterButtons from '@/components/ui/FooterButtons'
 
 export default function Home() {
   const { quickStart, totalSavedTime, activities } = useHomeContext()
