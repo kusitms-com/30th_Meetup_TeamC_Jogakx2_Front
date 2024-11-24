@@ -4,9 +4,11 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState, useRef } from 'react'
 import { Button } from '@/components'
 import useUserInfo from '@/store/useUserInfo'
-import { ActivityData } from '@/types/activityTypes'
+import {
+  SeletedActivityDone,
+  SelectedActivityResponse,
+} from '@/types/activityTypes'
 import Image from 'next/image'
-import { PayloadType } from './types/type'
 
 export default function ActivityPage() {
   const router = useRouter()
@@ -14,27 +16,65 @@ export default function ActivityPage() {
   const { nickname } = userInfo
   const [isTimeUp, setIsTimeUp] = useState(false)
   const [selectedActivityData, setSelectedActivityData] =
-    useState<ActivityData | null>(null)
-  const [elapsedTime, setElapsedTime] = useState<number>(0) // 경과 시간 (분 단위)
+    useState<SeletedActivityDone>()
+  const [elapsedTime, setElapsedTime] = useState<number>(0)
+  const [activityId, setActivityId] = useState<number>(0)
+  const [spareTimeLocal, setSpareTimeLocal] = useState<number>()
 
   // 타이머 ID를 useRef로 관리하여 리렌더링 방지
   const intervalId = useRef<number | null>(null)
   const timeoutId = useRef<number | null>(null)
 
   useEffect(() => {
-    const payload = localStorage.getItem('selectedActivity')
-    if (!payload) {
-      // 선택된 활동이 없을 경우 바로 활동 종료 화면으로 전환
-      setIsTimeUp(true)
-      return () => {
-        // 빈 클린업 함수
+    const getData = localStorage.getItem('selectedActivity')
+    if (!getData) {
+      alert('선택한 활동이 없습니다.')
+      router.push('/home')
+      return () => {}
+    }
+
+    const selectedActivityLocal: SeletedActivityDone = JSON.parse(getData)
+    const spareTimeMs = selectedActivityLocal.spareTime * 60 * 1000
+    let startTime = localStorage.getItem('startTime')
+    const now = Date.now()
+    const remainActivityId = localStorage.getItem('activityId')
+
+    setSpareTimeLocal(selectedActivityLocal.spareTime)
+
+    const postSelectData = async () => {
+      try {
+        const response = await fetch('https://cnergy.p-e.kr/v1/activities', {
+          method: 'POST',
+          body: JSON.stringify(selectedActivityLocal),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_MASTER_TOKEN}`,
+          },
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const { data } = await response.json()
+        const responseData: SelectedActivityResponse = data
+        console.log('받은 데이터', responseData)
+
+        localStorage.setItem('activityId', responseData.id.toString())
+
+        setActivityId(responseData.id)
+
+        setActivityId(data.id)
+      } catch (error) {
+        console.error('Error sending POST request:', error)
       }
     }
 
-    const { selectedActivity, spareTime }: PayloadType = JSON.parse(payload)
-    const spareTimeMs = parseInt(spareTime, 10) * 60 * 1000 // 분을 밀리초로 변환
-    let startTime = localStorage.getItem('startTime')
-    const now = Date.now()
+    if (!remainActivityId) {
+      postSelectData()
+    } else {
+      setActivityId(parseInt(remainActivityId, 10))
+    }
 
     if (!startTime) {
       // 새로운 타이머 시작
@@ -43,8 +83,8 @@ export default function ActivityPage() {
     }
 
     const startTimeValue = parseInt(startTime, 10)
-    const elapsed = now - startTimeValue // 경과 시간
-    const remainingTimeMs = spareTimeMs - elapsed // 남은 시간
+    const elapsed = now - startTimeValue
+    const remainingTimeMs = spareTimeMs - elapsed
 
     const updateRemainingTime = () => {
       const currentTime = Date.now()
@@ -71,7 +111,6 @@ export default function ActivityPage() {
       setIsTimeUp(true)
       setElapsedTime(Math.ceil(elapsed / 60000))
     } else {
-      // 타이머 설정
       timeoutId.current = window.setTimeout(
         () => setIsTimeUp(true),
         remainingTimeMs,
@@ -80,7 +119,7 @@ export default function ActivityPage() {
       intervalId.current = window.setInterval(updateRemainingTime, 1000)
     }
 
-    setSelectedActivityData(selectedActivity)
+    setSelectedActivityData(selectedActivityLocal)
 
     // 컴포넌트 언마운트 시 타이머 정리
     return () => {
@@ -95,20 +134,51 @@ export default function ActivityPage() {
     }
   }, [])
 
+  const activityDone = async () => {
+    try {
+      const activityDonePatch = await fetch(
+        `https://cnergy.p-e.kr/v1/activities/${activityId}/finish`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_MASTER_TOKEN}`,
+          },
+        },
+      )
+
+      if (!activityDonePatch.ok) {
+        throw new Error(`HTTP error! status: ${activityDonePatch.status}`)
+      }
+
+      const toJson = await activityDonePatch.json()
+      console.log('받은 데이터', toJson)
+    } catch (error) {
+      console.error('Error sending POST request:', error)
+    }
+  }
+
   const handleFinishActivity = () => {
     if (!isTimeUp) {
       const confirmFinish = window.confirm(
-        '활동을 종료하시겠습니까? 지금까지의 시간이 누적되어 저장됩니다.',
+        '활동을 종료하시겠습니까? 지금까지의 시간이 저장됩니다.',
       )
       if (!confirmFinish) return
+
+      activityDone()
 
       // 경과 시간 계산
       const startTime = localStorage.getItem('startTime')
       const now = Date.now()
       if (startTime) {
         const elapsedMs = now - parseInt(startTime, 10)
-        const elapsedMinutes = Math.ceil(elapsedMs / 60000)
-        setElapsedTime(elapsedMinutes)
+        const elapsedMinutes = Math.round(elapsedMs / 60000)
+
+        if (spareTimeLocal && elapsedMinutes > spareTimeLocal) {
+          setElapsedTime(spareTimeLocal)
+        } else {
+          setElapsedTime(elapsedMinutes)
+        }
       } else {
         setElapsedTime(0)
       }
@@ -117,6 +187,7 @@ export default function ActivityPage() {
     // 활동 종료 처리
     localStorage.removeItem('startTime')
     localStorage.removeItem('selectedActivity')
+    localStorage.removeItem('activityId')
     setIsTimeUp(true)
 
     // 타이머 정리
@@ -129,6 +200,8 @@ export default function ActivityPage() {
       timeoutId.current = null
     }
   }
+
+  console.log('id', activityId)
 
   return (
     <>
@@ -197,7 +270,7 @@ export default function ActivityPage() {
             </h3>
           </div>
           <Image
-            src={`/gif/${selectedActivityData?.keywordCategory || 'NATURE'}_ing.gif`}
+            src={`/gif/${selectedActivityData?.keyword.category || 'NATURE'}_ing.gif`}
             alt={selectedActivityData?.title || '활동 이미지'}
             width={390}
             height={390}

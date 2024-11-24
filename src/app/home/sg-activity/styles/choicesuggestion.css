@@ -6,10 +6,6 @@
   @apply bg-primary_foundation_100;
 }
 
-.custom-pagination {
-  gap: 3px;
-}
-
 /* 이전 및 다음 카드 스타일 */
 .swiper-slide-prev,
 .swiper-slide-next {

@@ -11,13 +11,47 @@ export interface ActivityStore {
 }
 
 // response 데이터
+
+export interface ActivityResponse {
+  data: ActivityResponseData
+}
+
+export interface ActivityResponseData {
+  offlineRecommendations: ActivityData[]
+  onlineRecommendations: ActivityData[]
+}
+
 export interface ActivityData {
   order: number
   title: string
   content: string
-  keywordCategory: string
+  keyword: KeywordType
+  url?: string
+  placeUrl?: string
   placeName?: string
   mapx?: string
   mapy?: string
-  placeUrl?: string
+}
+
+export interface KeywordType {
+  category: string
+  image: string
+}
+
+export interface SeletedActivityDone {
+  type: string
+  spareTime: number
+  keyword: {
+    category: string
+    image: string
+  }
+  title: string
+  content: string
+  location?: string
+}
+
+export interface SelectedActivityResponse {
+  id: number
+  title: string
+  keyword: KeywordType
 }

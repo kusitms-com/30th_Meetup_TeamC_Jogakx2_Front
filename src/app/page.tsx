@@ -2,22 +2,19 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import SplashLogo from '@/components/Icons/SplashLogo'
-import SplashTop from '@/components/Icons/SplashTop'
-import SplashBottom from '@/components/Icons/SplashBottom'
+import Image from 'next/image'
+import SplashLogoNew from '@/components/Icons/SplashLogoNew'
 import { socialTypes } from '@/components/Oauth/SocialTypeData'
 import OauthBtn from '@/components/Oauth/OauthBtn'
 
 export default function Home() {
   const [isSplash, setIsSplash] = useState(true)
   const [logoColor, setlogoColor] = useState('white')
-  const [splashBoxColor, setSplashBoxColor] = useState('#31313B')
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsSplash(false)
-      setSplashBoxColor('#F3F3F4')
-    }, 1000)
+    }, 1200)
 
     const logotimer = setTimeout(() => {
       setlogoColor('#1A1A25')
@@ -40,37 +37,19 @@ export default function Home() {
         }}
         transition={{ duration: 0.5 }}
       >
-        <SplashLogo
-          className="absolute left-[127px] top-[248px] z-50"
-          firstPieceColor={logoColor}
+        <SplashLogoNew
+          className="absolute left-[127px] top-[178px] z-50"
+          pieceColor={logoColor}
         />
 
-        <motion.div
-          initial={{ x: 0, y: -200, opacity: 1 }}
-          animate={{ x: 0, y: -17, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <SplashTop
-            elementColor={splashBoxColor}
-            className="absolute right-0 top-[186px]"
+        {isSplash && (
+          <Image
+            src="/gif/splash_gif.gif"
+            alt="splash_start"
+            width={390}
+            height={748}
           />
-        </motion.div>
-
-        <motion.div
-          initial={{ x: 0, y: 553, opacity: 1 }}
-          animate={{
-            x: 0,
-            y: 264,
-            opacity: 1,
-            backgroundColor: splashBoxColor,
-          }}
-          transition={{ duration: 0.5 }}
-        >
-          <SplashBottom
-            elementColor={splashBoxColor}
-            className="absolute left-0"
-          />
-        </motion.div>
+        )}
       </motion.div>
       {!isSplash && (
         <>

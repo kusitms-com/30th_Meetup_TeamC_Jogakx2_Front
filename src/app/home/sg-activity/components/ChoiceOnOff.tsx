@@ -24,6 +24,10 @@ export default function ChoiceOnOff({
   }
 
   useEffect(() => {
+    setActivityType([])
+  }, [])
+
+  useEffect(() => {
     if (activityType.length > 0) {
       setError(false)
     }

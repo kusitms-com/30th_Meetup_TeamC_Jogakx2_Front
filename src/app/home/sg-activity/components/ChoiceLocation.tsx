@@ -95,7 +95,6 @@ export default function ChoiceLocation({ setError }: SetErrorProps) {
 
   // 위치 검색 데이터를 가져와 state에 넣는 로직
   const filterAddress = (data: LocationDataType[]) => {
-    console.log('필터에 전달한 데이터', data)
     const filterData = data
       .map((item) => {
         const match = item.address_name.match(/.+(구|군|시)\s.+?(동|리)/)
@@ -180,7 +179,7 @@ export default function ChoiceLocation({ setError }: SetErrorProps) {
     setSearchlist([])
   }
 
-  if (kakaoLoaded) return <div>Loaded</div>
+  if (kakaoLoaded) return <div className="w-full h-500 bg-white" />
   if (kakaoerror) return <div>Error</div>
 
   return (

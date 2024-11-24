@@ -13,7 +13,6 @@ export default function ChoiceKeyword({ setError }: SetErrorProps) {
   const keywordList = [
     'SELF_DEVELOPMENT',
     'HEALTH',
-    'NATURE',
     'CULTURE_ART',
     'ENTERTAINMENT',
     'RELAXATION',

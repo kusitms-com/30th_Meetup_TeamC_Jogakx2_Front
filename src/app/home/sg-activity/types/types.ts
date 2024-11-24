@@ -11,6 +11,7 @@ export interface ChoiceSuggestionProps {
   setText: Dispatch<SetStateAction<string>>
   setSeletedActivity: Dispatch<SetStateAction<ActivityData | undefined>>
   setActivityLink: Dispatch<SetStateAction<string>>
+  setPostActivityType: Dispatch<SetStateAction<string>>
 }
 
 export interface ActivityResponse {

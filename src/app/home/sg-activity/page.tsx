@@ -4,7 +4,7 @@ import { Button, If } from '@/components/common'
 import { HeaderWithBack } from '@/components'
 import { useState } from 'react'
 import { cn } from '@/util'
-import { ActivityData } from '@/types/activityTypes'
+import { ActivityData, SeletedActivityDone } from '@/types/activityTypes'
 import { useActivityStore } from '@/store/activityStore'
 import { useRouter } from 'next/navigation'
 import ArrowIcon from '@/components/Icons/ArrowIcon'
@@ -23,7 +23,8 @@ export default function SuggestActivity() {
 
   const [selectedActivity, setSeletedActivity] = useState<ActivityData>()
   const [activityLink, setActivityLink] = useState('')
-  const { spareTime } = useActivityStore()
+  const [postActivityType, setPostActivityType] = useState('')
+  const { spareTime, address } = useActivityStore()
   const router = useRouter()
 
   const handleBack = () => {
@@ -52,10 +53,18 @@ export default function SuggestActivity() {
             window.open(activityLink, '_blank')
           }
 
-          const seletedActivityData = {
-            selectedActivity,
-            spareTime,
+          const seletedActivityData: SeletedActivityDone = {
+            type: postActivityType,
+            spareTime: parseInt(spareTime, 10),
+            keyword: {
+              category: selectedActivity.keyword.category,
+              image: selectedActivity.keyword.image,
+            },
+            title: selectedActivity.title,
+            content: selectedActivity.content,
+            ...(address && { location: address }),
           }
+
           localStorage.setItem(
             'selectedActivity',
             JSON.stringify(seletedActivityData),
@@ -108,6 +117,7 @@ export default function SuggestActivity() {
               setText={setText}
               setSeletedActivity={setSeletedActivity}
               setActivityLink={setActivityLink}
+              setPostActivityType={setPostActivityType}
             />
           </If>
         </div>
