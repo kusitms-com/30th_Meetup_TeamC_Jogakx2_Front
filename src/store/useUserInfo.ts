@@ -5,6 +5,8 @@ export interface UserInfo {
   birthYear: string
   gender: GenderType
   profileImage: string
+  registrationDate: Date
+  role: 'MEMBER' | 'GUEST'
 }
 
 export type GenderType = 'FEMALE' | 'MALE' | 'NONE'
@@ -23,6 +25,8 @@ const defaultState: UserInfo = {
   gender: 'FEMALE',
   birthYear: '',
   profileImage: '1',
+  registrationDate: new Date(2023, 4, 1),
+  role: 'GUEST',
 }
 
 const isClient = typeof window !== 'undefined'

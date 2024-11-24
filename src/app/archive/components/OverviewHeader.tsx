@@ -1,7 +1,7 @@
 import { Button, IconLeft, IconRight } from '@/components'
 import Modal from '@/components/common/Modal'
 import MonthSelect from '@/components/ui/MonthSelect'
-import { format, set } from 'date-fns'
+import { format } from 'date-fns'
 import { useEffect, useState } from 'react'
 
 interface OverviewHeaderProps {
@@ -20,7 +20,6 @@ export default function OverviewHeader({
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const today = new Date()
-  const registrationDate = new Date(2023, 4, 1)
 
   const canMoveToNextMonth =
     currentDate.getFullYear() < today.getFullYear() ||
@@ -65,7 +64,6 @@ export default function OverviewHeader({
         <MonthSelect
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}
-          startDate={registrationDate}
         />
       </Modal>
     </>
