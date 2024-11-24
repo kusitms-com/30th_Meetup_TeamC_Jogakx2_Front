@@ -16,7 +16,7 @@ export default function Activities({ selectedDate }: { selectedDate?: Date }) {
       )
     : monthlyActivities
 
-  const groupedActivities =
+  const activitiesByDate =
     filteredActivities?.reduce(
       (acc, activity) => {
         const dateKey = format(
@@ -32,7 +32,7 @@ export default function Activities({ selectedDate }: { selectedDate?: Date }) {
       {} as Record<string, typeof monthlyActivities>,
     ) ?? {}
 
-  const sortedDates = Object.keys(groupedActivities)
+  const sortedDates = Object.keys(activitiesByDate)
 
   return (
     <>
@@ -63,7 +63,7 @@ export default function Activities({ selectedDate }: { selectedDate?: Date }) {
               </h3>
 
               <div className="flex flex-col gap-8 bg-white p-12 relative rounded-12">
-                {groupedActivities[date].map((activity) => (
+                {activitiesByDate[date].map((activity) => (
                   <div
                     key={activity.title}
                     className="flex items-center justify-between"
