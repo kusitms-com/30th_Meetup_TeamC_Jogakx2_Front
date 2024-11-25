@@ -212,7 +212,7 @@ export default function ActivityPage() {
           </header>
           <article>
             <h3 className="font-semibold text-24 mt-70 mx-20">
-              {nickname || '사용자'}님 오늘도
+              {nickname}님 오늘도
               <br />
               {elapsedTime}분의 시간 조각을 모았어요!
             </h3>
@@ -263,7 +263,7 @@ export default function ActivityPage() {
         <article className="w-full h-screen bg-primary_foundation-100 pt-100">
           <div className="w-267 mx-auto text-center">
             <p className="font-medium text-14 text-primary_foundation-40">
-              지금 {nickname && nickname}님은
+              지금 {nickname}님은
             </p>
             <h3 className="w-260 font-medium text-20 text-white text-center mt-8">
               {selectedActivityData?.title}를 하고 있어요.
