@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
 import useUserInfo from '@/store/useUserInfo'
 import { useActivityStore } from '@/store/activityStore'
 
@@ -43,9 +44,6 @@ export default function ChoiceSuggestion({
   const { spareTime, activityType, keywords, address } = useActivityStore()
   const [responseData, setResponseData] = useState<ActivityData[]>()
   const [isloading, setIsLoading] = useState(true)
-
-  const masterToken =
-    'eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsIm1lbWJlcklkIjoiNDQ0OTYxMzMtZTU5Ny00NTc0LWIyMGUtZjYxNjdkNDk5MzQyIiwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTczMDIwODQxMiwiZXhwIjo5NzMwMjk0ODEyfQ.DFLME8d-IRhCOOJ_PXKtcxcrDWGIwAOVX8VSepai-PD2XJj1hk_l2hZhtTLSLPjGiAC7y8xaG2LCLQx5jhkqHA'
   const activeType = getActiveType(activityType)
   const postData = {
     spareTime: parseInt(spareTime, 10),
@@ -63,6 +61,8 @@ export default function ChoiceSuggestion({
       try {
         setIsLoading(true)
 
+        const accessToken = Cookies.get('accessToken')
+
         const response = await fetch(
           'https://cnergy.p-e.kr/v1/recommendations',
           {
@@ -70,7 +70,7 @@ export default function ChoiceSuggestion({
             body: JSON.stringify(postData),
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${masterToken}`,
+              Authorization: `Bearer ${accessToken}`,
             },
           },
         )

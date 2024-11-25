@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState, useRef } from 'react'
+import Cookies from 'js-cookie'
 import { Button } from '@/components'
 import useUserInfo from '@/store/useUserInfo'
 import {
@@ -20,6 +21,7 @@ export default function ActivityPage() {
   const [elapsedTime, setElapsedTime] = useState<number>(0)
   const [activityId, setActivityId] = useState<number>(0)
   const [spareTimeLocal, setSpareTimeLocal] = useState<number>()
+  const [accessToken, setAccessToken] = useState<string>()
 
   // 타이머 ID를 useRef로 관리하여 리렌더링 방지
   const intervalId = useRef<number | null>(null)
@@ -33,12 +35,14 @@ export default function ActivityPage() {
       return () => {}
     }
 
+    const token = Cookies.get('accessToken')
     const selectedActivityLocal: SeletedActivityDone = JSON.parse(getData)
     const spareTimeMs = selectedActivityLocal.spareTime * 60 * 1000
     let startTime = localStorage.getItem('startTime')
     const now = Date.now()
     const remainActivityId = localStorage.getItem('activityId')
 
+    setAccessToken(token)
     setSpareTimeLocal(selectedActivityLocal.spareTime)
 
     const postSelectData = async () => {
@@ -48,8 +52,7 @@ export default function ActivityPage() {
           body: JSON.stringify(selectedActivityLocal),
           headers: {
             'Content-Type': 'application/json',
-            Authorization:
-              'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsIm1lbWJlcklkIjoiNDQ0OTYxMzMtZTU5Ny00NTc0LWIyMGUtZjYxNjdkNDk5MzQyIiwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTczMDIwODQxMiwiZXhwIjo5NzMwMjk0ODEyfQ.DFLME8d-IRhCOOJ_PXKtcxcrDWGIwAOVX8VSepai-PD2XJj1hk_l2hZhtTLSLPjGiAC7y8xaG2LCLQx5jhkqHA',
+            Authorization: `Bearer ${token}`,
           },
         })
 
@@ -143,8 +146,7 @@ export default function ActivityPage() {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
-            Authorization:
-              'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsIm1lbWJlcklkIjoiNDQ0OTYxMzMtZTU5Ny00NTc0LWIyMGUtZjYxNjdkNDk5MzQyIiwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTczMDIwODQxMiwiZXhwIjo5NzMwMjk0ODEyfQ.DFLME8d-IRhCOOJ_PXKtcxcrDWGIwAOVX8VSepai-PD2XJj1hk_l2hZhtTLSLPjGiAC7y8xaG2LCLQx5jhkqHA',
+            Authorization: `Bearer ${accessToken}`,
           },
         },
       )
