@@ -13,7 +13,7 @@ export default function TimeCard({ time, category, title }: TimeCardProps) {
     <Div className="relative bg-white px-12">
       <div className="">
         <Cup className="absolute left-0 top-0" />
-        <div className="bg-black text-white flex items-center justify-center rounded-bl-12 rounded-tr-12 absolute top-0 right-0 w-fit h-[20%] p-8 whitespace-nowrap">
+        <div className="bg-black text-white flex items-center justify-center rounded-bl-12 rounded-tr-12 absolute top-0 right-0 w-59 h-38 whitespace-nowrap text-14">
           +{time}분
         </div>
       </div>

@@ -86,14 +86,6 @@ export default function Step1({ setError }: Step1Props) {
         error={errorMessage}
         onChange={handleChangeName}
       />
-
-      <Image
-        className="absolute right-0 bottom-0"
-        src="/images/bg-start.png"
-        alt="bg"
-        width={292}
-        height={291}
-      />
     </div>
   )
 }
