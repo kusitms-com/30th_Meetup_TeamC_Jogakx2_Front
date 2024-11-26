@@ -11,7 +11,7 @@ interface ArchiveTotalProps {
 export default function ArchiveTotal({ year, month }: ArchiveTotalProps) {
   const { nickname } = useUserInfo().userInfo
 
-  const { totalSavedTime } = useGetCalendarData(year, month).data.data.summary
+  const { totalSavedTime } = useGetCalendarData(year, month).data.summary
 
   return (
     <div className="flex flex-col mt-24 mb-40">

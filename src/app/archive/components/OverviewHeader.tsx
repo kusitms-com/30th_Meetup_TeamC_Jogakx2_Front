@@ -3,6 +3,7 @@ import Modal from '@/components/common/Modal'
 import MonthSelect from '@/components/ui/MonthSelect'
 import { format } from 'date-fns'
 import { useEffect, useState } from 'react'
+import { useCalendarContext } from '../api/fetcher'
 
 interface OverviewHeaderProps {
   currentDate: Date
@@ -18,6 +19,7 @@ export default function OverviewHeader({
   goToNextMonth,
 }: OverviewHeaderProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { monthlyActivityCount } = useCalendarContext().summary
 
   const today = new Date()
 
@@ -32,28 +34,37 @@ export default function OverviewHeader({
 
   return (
     <>
-      <div className="flex gap-15 items-center px-35">
-        <Button
-          onClick={goToPreviousMonth}
-          className="bg-primary_foundation-5 w-24 h-24 rounded-8"
-        >
-          <IconLeft height={13} />
-        </Button>
-        <button
-          type="button"
-          onClick={() => setIsModalOpen(true)}
-          className="text-18 font-[500] underline underline-offset-4"
-        >
-          {format(currentDate, 'yyyy년 MM월')}
-        </button>
-        <Button
-          onClick={goToNextMonth}
-          className="bg-primary_foundation-5 w-24 h-24 rounded-8"
-          disabled={!canMoveToNextMonth}
-        >
-          <IconRight height={13} color={!canMoveToNextMonth ? '#D1D1D3' : ''} />
-        </Button>
-      </div>
+      <header className="flex flex-row justify-between  px-35">
+        <div className="flex gap-15 items-center">
+          <Button
+            onClick={goToPreviousMonth}
+            className="bg-primary_foundation-5 w-24 h-24 rounded-8"
+          >
+            <IconLeft height={13} />
+          </Button>
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="text-18 font-[500] underline underline-offset-4"
+          >
+            {format(currentDate, 'yyyy년 MM월')}
+          </button>
+          <Button
+            onClick={goToNextMonth}
+            className="bg-primary_foundation-5 w-24 h-24 rounded-8"
+            disabled={!canMoveToNextMonth}
+          >
+            <IconRight
+              height={13}
+              color={!canMoveToNextMonth ? '#D1D1D3' : ''}
+            />
+          </Button>
+        </div>
+
+        <span className="text-primary_foundation-60">
+          총 {monthlyActivityCount}개의 조각
+        </span>
+      </header>
 
       <Modal
         isOpen={isModalOpen}

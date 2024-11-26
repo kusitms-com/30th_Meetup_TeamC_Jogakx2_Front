@@ -71,7 +71,7 @@ export default function Activities({ selectedDate }: { selectedDate?: Date }) {
                         {categoryLabels[activity.category]}의 조각
                       </span>
                       <span className="mt-8 text-14">{activity.title}</span>
-                      <span className="text-14 font-[500] text-white bg-black absolute top-0 right-0 p-8 rounded-tr-12 rounded-bl-12 w-53 text-center whitespace-nowrap">
+                      <span className="text-14 font-[500] text-white bg-black absolute top-0 right-0 p-8 rounded-tr-12 rounded-bl-12 w-56 text-center whitespace-nowrap">
                         +{activity.savedTime}분
                       </span>
                     </div>
