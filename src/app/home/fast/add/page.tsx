@@ -15,7 +15,6 @@ import { useQuerykeyStore } from '@/store/querykeyStore'
 import { usePostQuickStart } from '../../api/queries'
 
 export default function FastPage() {
-  
   const searchParams = useSearchParams()
   const [hasError, setHasError] = useState<boolean>(true)
   const [errorName, setErrorName] = useState<string>('')
@@ -24,10 +23,18 @@ export default function FastPage() {
   const [name, setName] = useState<string>(searchParams.get('name') || '')
   const [hour, setHour] = useState<string>(searchParams.get('hour') || '')
   const [minute, setMinute] = useState<string>(searchParams.get('minute') || '')
-  const [extraTime, setExtraTime] = useState<string>(searchParams.get('spareTime') || '')
-  const [time, setTime] = useState<'오전' | '오후'>(searchParams.get('meridiem') as '오전' | '오후' || '오전')
-  const [isOnline, setIsOnline] = useState<boolean>(searchParams.get('isOnline') === 'true')    
-  const [isOffline, setIsOffline] = useState<boolean>(searchParams.get('isOffline') === 'true')
+  const [extraTime, setExtraTime] = useState<string>(
+    searchParams.get('spareTime') || '',
+  )
+  const [time, setTime] = useState<'오전' | '오후'>(
+    (searchParams.get('meridiem') as '오전' | '오후') || '오전',
+  )
+  const [isOnline, setIsOnline] = useState<boolean>(
+    searchParams.get('isOnline') === 'true',
+  )
+  const [isOffline, setIsOffline] = useState<boolean>(
+    searchParams.get('isOffline') === 'true',
+  )
 
   const router = useRouter()
 
