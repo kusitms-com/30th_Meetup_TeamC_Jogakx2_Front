@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react'
 import '@/app/start/start.css'
 import CheckboxWithLabel from '@/components/common/CheckBox'
 import { useRouter } from 'next/navigation'
-import { usePostQuickStart } from '../../api/queries'
 import { useQuerykeyStore } from '@/store/querykeyStore'
+import { usePostQuickStart } from '../../api/queries'
 
 export default function FastPage() {
   const [hasError, setHasError] = useState<boolean>(true)

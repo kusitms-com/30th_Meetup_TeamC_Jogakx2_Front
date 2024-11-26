@@ -3,7 +3,6 @@
 import { Input } from '@/components/common'
 import CheckboxWithLabel from '@/components/common/CheckBox'
 import useUserInfo, { GenderType } from '@/store/useUserInfo'
-import Image from 'next/image'
 import { ChangeEvent, useState } from 'react'
 
 interface Step2Props {

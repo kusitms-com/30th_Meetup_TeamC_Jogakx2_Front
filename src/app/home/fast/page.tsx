@@ -4,9 +4,8 @@ import { Button, HeaderWithBack, Div, Plus } from '@/components'
 import { useRouter } from 'next/navigation'
 import FastCard from './components/FastCard'
 import { useQuickStartContext } from './components/Fetcher'
-import { QuickStart } from '../api/type'
 
-export default function FastPage({} : QuickStart) {
+export default function FastPage() {
   const router = useRouter()
   const { quickStartResponses } = useQuickStartContext()
 

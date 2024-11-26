@@ -2,7 +2,6 @@
 
 import { Input } from '@/components/common'
 import useUserInfo from '@/store/useUserInfo'
-import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { getNicknamePossible } from '../api/api'
 

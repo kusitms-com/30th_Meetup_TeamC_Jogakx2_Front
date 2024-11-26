@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { FooterButtons, HomeHeader, If, TabList } from '@/components'
+import { HomeHeader, If, TabList } from '@/components'
 import { subMonths, addMonths, getYear, getMonth } from 'date-fns'
 import { AsyncBoundaryWithQuery } from '@/react-utils'
 import ArchiveTotal from './components/ArchiveTotal'
@@ -56,17 +56,14 @@ export default function ArchivePage() {
                   year={getYear(currentDate)}
                   month={getMonth(currentDate) + 1}
                 >
-                
-                    <OverviewHeader
-                      currentDate={currentDate}
-                      setCurrentDate={setCurrentDate}
-                      goToPreviousMonth={goToPreviousMonth}
-                      goToNextMonth={goToNextMonth}
-                    />
-                   
-                      <CalendarView currentDate={currentDate} />
-                   
-                 
+                  <OverviewHeader
+                    currentDate={currentDate}
+                    setCurrentDate={setCurrentDate}
+                    goToPreviousMonth={goToPreviousMonth}
+                    goToNextMonth={goToNextMonth}
+                  />
+
+                  <CalendarView currentDate={currentDate} />
                 </CalendarFetcher>
               </AsyncBoundaryWithQuery>
             </If>

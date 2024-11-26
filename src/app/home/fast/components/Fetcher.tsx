@@ -2,9 +2,9 @@
 
 import { generateContext } from '@/react-utils'
 import { StrictPropsWithChildren } from '@/types'
+import { useQuerykeyStore } from '@/store/querykeyStore'
 import { HomeResponse, QuickStartResponse } from '../../api/type'
 import { useGetHomeData, useGetQuickList } from '../../api/queries'
-import { useQuerykeyStore } from '@/store/querykeyStore'
 
 export const [HomeProvider, useHomeContext] = generateContext<HomeResponse>({
   name: 'homeData',
