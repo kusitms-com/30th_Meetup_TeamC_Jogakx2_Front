@@ -6,13 +6,25 @@ import { useQuickStart } from '../../hook/useQuickStart'
 
 export default function FastCard(quickStart: QuickStart) {
   const { push } = useRouter()
-  const { setQuickStartLocal, goToActivity } = useQuickStart()
+  const { goToActivity } = useQuickStart()
 
   const { name, hour, minute, spareTime, meridiem, type } = quickStart
 
   const handleClickEdit = () => {
-    setQuickStartLocal(quickStart)
-    push('fast/add')
+    const isOnline = type === 'ONLINE' || type === 'ONLINE_AND_OFFLINE'
+    const isOffline = type === 'OFFLINE' || type === 'ONLINE_AND_OFFLINE'
+
+    const query = new URLSearchParams({
+      name,
+      hour: hour.toString(),
+      minute: minute.toString(),
+      spareTime: spareTime.toString(),
+      meridiem,
+      isOnline: isOnline.toString(),
+      isOffline: isOffline.toString(),
+    }).toString()
+
+    push(`/home/fast/add?${query}`)
   }
   return (
     <div className="px-16 py-12 flex justify-between w-full items-center border border-primary_foundation_10 rounded-8">

@@ -1,25 +1,33 @@
 'use client'
 
-import { Button, HeaderWithBack, Input, Toggle, Div } from '@/components'
+import {
+  Button,
+  HeaderWithBack,
+  Input,
+  Toggle,
+  Div,
+  CheckboxWithLabel,
+} from '@/components'
 import { useState, useEffect } from 'react'
 import '@/app/start/start.css'
-import CheckboxWithLabel from '@/components/common/CheckBox'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useQuerykeyStore } from '@/store/querykeyStore'
 import { usePostQuickStart } from '../../api/queries'
 
 export default function FastPage() {
+  
+  const searchParams = useSearchParams()
   const [hasError, setHasError] = useState<boolean>(true)
   const [errorName, setErrorName] = useState<string>('')
   const [errorTime, setErrorTime] = useState<string>('')
   const [errorExtra, setErrorExtra] = useState<string>('')
-  const [name, setName] = useState<string>('')
-  const [hour, setHour] = useState<string>('')
-  const [minute, setMinute] = useState<string>('')
-  const [extraTime, setExtraTime] = useState<string>('')
-  const [time, setTime] = useState<'오전' | '오후'>('오전')
-  const [isOnline, setIsOnline] = useState<boolean>(false)
-  const [isOffline, setIsOffline] = useState<boolean>(false)
+  const [name, setName] = useState<string>(searchParams.get('name') || '')
+  const [hour, setHour] = useState<string>(searchParams.get('hour') || '')
+  const [minute, setMinute] = useState<string>(searchParams.get('minute') || '')
+  const [extraTime, setExtraTime] = useState<string>(searchParams.get('spareTime') || '')
+  const [time, setTime] = useState<'오전' | '오후'>(searchParams.get('meridiem') as '오전' | '오후' || '오전')
+  const [isOnline, setIsOnline] = useState<boolean>(searchParams.get('isOnline') === 'true')    
+  const [isOffline, setIsOffline] = useState<boolean>(searchParams.get('isOffline') === 'true')
 
   const router = useRouter()
 
