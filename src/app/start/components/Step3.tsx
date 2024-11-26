@@ -1,32 +1,11 @@
-'use client'
-
 import { Left } from '@/components'
-import useUserInfo from '@/store/useUserInfo'
 import { cn } from '@/util'
 import Image from 'next/image'
-import { useState } from 'react'
-
-const profiles = ['1', '2', '3', '4', '5', '6']
+import { useProfileSelector } from '../hooks'
 
 export default function Step3() {
-  const { userInfo, setUserInfo } = useUserInfo()
-
-  const extractProfileID = (profileImage: string) => {
-    const match = profileImage.match(/profile(\d+)\.svg$/)
-    return match ? match[1] : '1'
-  }
-
-  const [selectedProfileID, setSelectedProfileID] = useState(
-    extractProfileID(userInfo.profileImage),
-  )
-
-  const handleProfileSelect = (profile: string) => {
-    setSelectedProfileID(profile)
-    setUserInfo({
-      ...userInfo,
-      profileImage: `https://kr.object.ncloudstorage.com/cnergy-bucket/front_image/profile/profile${profile}.svg`,
-    })
-  }
+  const { profiles, selectedProfileID, handleProfileSelect } =
+    useProfileSelector()
 
   return (
     <div className="h-full px-20 w-full flex flex-col relative">
