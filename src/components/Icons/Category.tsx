@@ -19,8 +19,8 @@ export default function Category({
         width="7"
         height="7"
         rx="2.5"
-        fill="#484851"
-        stroke="#484851"
+        fill={color || '#484851'}
+        stroke={color || '#484851'}
         strokeWidth="1.5"
       />
       <rect
@@ -29,8 +29,8 @@ export default function Category({
         width="7"
         height="7"
         rx="2.5"
-        fill="#484851"
-        stroke="#484851"
+        fill={color || '#484851'}
+        stroke={color || '#484851'}
         strokeWidth="1.5"
       />
       <rect
@@ -39,8 +39,8 @@ export default function Category({
         width="7"
         height="7"
         rx="2.5"
-        fill="#484851"
-        stroke="#484851"
+        fill={color || '#484851'}
+        stroke={color || '#484851'}
         strokeWidth="1.5"
       />
       <rect
@@ -49,8 +49,8 @@ export default function Category({
         width="7"
         height="7"
         rx="2.5"
-        fill="#484851"
-        stroke="#484851"
+        fill={color || '#484851'}
+        stroke={color || '#484851'}
         strokeWidth="1.5"
       />
     </svg>
