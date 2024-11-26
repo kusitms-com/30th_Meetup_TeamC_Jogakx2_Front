@@ -3,6 +3,7 @@ import { useCalendarContext } from '../api/fetcher'
 import Activities from './Activities'
 import Calendar from './Calendar/Calendar'
 import useCalendar from './Calendar/useCalendar'
+import { FooterButtons } from '@/components'
 
 interface CalendarViewProps {
   currentDate: Date
@@ -25,6 +26,7 @@ export default function CalendarView({ currentDate }: CalendarViewProps) {
         />
       </div>
       <Activities selectedDate={selectedDate} />
+      <FooterButtons />
     </>
   )
 }

@@ -33,7 +33,7 @@ export default function HomeHeader({ children, title }: HomeHeaderProps) {
           />
         </div>
       </header>
-      <main className="h-full mt-52">{children}</main>
+      <main className="min-h-screen mt-52">{children}</main>
     </div>
   )
 }

@@ -15,7 +15,7 @@ export default function FastCard(quickStart: QuickStart) {
     push('fast/add')
   }
   return (
-    <div className="px-16 py-12 flex justify-between w-full items-center border border-primary_foundation_10">
+    <div className="px-16 py-12 flex justify-between w-full items-center border border-primary_foundation_10 rounded-8">
       <div className="flex flex-col items-start gap-12">
         <div className="flex gap-10 items-center">
           <p>{name}</p>

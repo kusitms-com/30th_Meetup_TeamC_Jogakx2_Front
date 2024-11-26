@@ -35,7 +35,7 @@ export default function ArchivePage() {
   return (
     <>
       <HomeHeader title="아카이빙">
-        <main className="flex flex-col w-full h-full">
+        <main className="flex flex-col w-full relative">
           <div
             className="px-24 bg-[linear-gradient(180deg,_rgba(255,255,255),_rgba(255,248,246,0.8)_38%,_rgba(255,220,215,0.8)_98%)] py-10 mt-15 h-full"
             style={{ minHeight: `calc(100% - 50px)` }}
@@ -74,7 +74,6 @@ export default function ArchivePage() {
               </If>
             </div>
           </div>
-          <FooterButtons className="static" />
         </main>
       </HomeHeader>
     </>
