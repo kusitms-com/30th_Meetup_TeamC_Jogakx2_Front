@@ -9,9 +9,9 @@ export const useGetHomeData = () =>
     select: (data) => data.data,
   })
 
-export const useGetQuickList = () =>
+export const useGetQuickList = (key: number) =>
   useSuspenseQuery({
-    queryKey: ['quick-list'],
+    queryKey: ['quick-list', key],
     queryFn: () => getQuickList(),
     select: (data) => data.data,
   })

@@ -6,6 +6,7 @@ import '@/app/start/start.css'
 import CheckboxWithLabel from '@/components/common/CheckBox'
 import { useRouter } from 'next/navigation'
 import { usePostQuickStart } from '../../api/queries'
+import { useQuerykeyStore } from '@/store/querykeyStore'
 
 export default function FastPage() {
   const [hasError, setHasError] = useState<boolean>(true)
@@ -23,24 +24,25 @@ export default function FastPage() {
   const router = useRouter()
 
   const { mutate } = usePostQuickStart()
+  const { refreshKey } = useQuerykeyStore()
 
   useEffect(() => {
-    const quickStartData = localStorage.getItem('quickstart')
+    const quickStartData = localStorage.getItem('quickStart')
     if (quickStartData) {
-      const { quickstart } = JSON.parse(quickStartData)
+      const { quickStart } = JSON.parse(quickStartData)
 
-      setName(quickstart.name)
-      setHour(quickstart.hour?.toString())
-      setMinute(quickstart.minute?.toString())
-      setExtraTime(quickstart.spareTime?.toString())
-      setTime(quickstart.meridiem)
+      setName(quickStart.name)
+      setHour(quickStart.hour?.toString())
+      setMinute(quickStart.minute?.toString())
+      setExtraTime(quickStart.spareTime?.toString())
+      setTime(quickStart.meridiem)
       setIsOnline(
-        quickstart.type === 'ONLINE' ||
-          quickstart.type === 'ONLINE_AND_OFFLINE',
+        quickStart.type === 'ONLINE' ||
+          quickStart.type === 'ONLINE_AND_OFFLINE',
       )
       setIsOffline(
-        quickstart.type === 'OFFLINE' ||
-          quickstart.type === 'ONLINE_AND_OFFLINE',
+        quickStart.type === 'OFFLINE' ||
+          quickStart.type === 'ONLINE_AND_OFFLINE',
       )
     }
   }, [])
@@ -124,7 +126,7 @@ export default function FastPage() {
       },
       {
         onSuccess: () => {
-          // TODO: toast 구현
+          refreshKey()
           alert('빠른 시작이 등록되었습니다.')
           router.push('/home/fast')
         },
