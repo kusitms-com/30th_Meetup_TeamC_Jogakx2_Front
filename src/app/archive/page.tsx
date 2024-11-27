@@ -5,9 +5,11 @@ import { HomeHeader, If, TabList } from '@/components'
 import { subMonths, addMonths, getYear, getMonth } from 'date-fns'
 import { AsyncBoundaryWithQuery } from '@/react-utils'
 import ArchiveTotal from './components/ArchiveTotal'
-import { CalendarFetcher } from './api/fetcher'
+import { CalendarFetcher, KeywordsFetcher } from './api/fetcher'
 import OverviewHeader from './components/OverviewHeader'
+import OverviewHeaderForKeyword from './components/OverviewHeaderForKeyword'
 import CalendarView from './components/CalendarView'
+import KeywordView from './components/KeywordsView'
 
 const tabs = [
   { label: '활동 키워드', value: 'keywords' },
@@ -65,6 +67,24 @@ export default function ArchivePage() {
 
                   <CalendarView currentDate={currentDate} />
                 </CalendarFetcher>
+              </AsyncBoundaryWithQuery>
+            </If>
+
+            <If condition={activeTab === 'keywords'}>
+              <AsyncBoundaryWithQuery>
+                <KeywordsFetcher
+                  year={getYear(currentDate)}
+                  month={getMonth(currentDate) + 1}
+                >
+                  <OverviewHeaderForKeyword
+                    currentDate={currentDate}
+                    setCurrentDate={setCurrentDate}
+                    goToPreviousMonth={goToPreviousMonth}
+                    goToNextMonth={goToNextMonth}
+                  />
+
+                  <KeywordView currentDate={currentDate} />
+                </KeywordsFetcher>
               </AsyncBoundaryWithQuery>
             </If>
           </div>
