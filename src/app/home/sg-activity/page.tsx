@@ -2,7 +2,7 @@
 
 import { Button, If } from '@/components/common'
 import { HeaderWithBack } from '@/components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { cn } from '@/util'
 import { ActivityData, SeletedActivityDone } from '@/types/activityTypes'
 import { useActivityStore } from '@/store/activityStore'
@@ -91,6 +91,19 @@ export default function SuggestActivity() {
   }
 
   const progressBarWidth = `${(step / 4) * 100}%`
+
+  useEffect(() => {
+    const quickStartData = localStorage.getItem('quickStart')
+    if (quickStartData) {
+      const { quickStart } = JSON.parse(quickStartData)
+      if (quickStart.type === 'ONLINE') {
+        setStep(4)
+      } else {
+        setStep(3)
+      }
+      setSeletOnOff([quickStart.type === 'ONLINE' ? '온라인' : '오프라인'])
+    }
+  }, [])
   return (
     <div className="w-full h-screen overflow-hidden">
       <HeaderWithBack onBack={handleBack} title="활동 추천받기">
