@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useActivityStore } from '@/store/activityStore'
 import { Caution } from '@/components'
 import { SetErrorProps } from '../types/types'
+import { getQuickStartData, updateQuickStartData } from '@/util/localStorage'
 
 export default function ChoiceTime({ setError }: SetErrorProps) {
   const [state, setState] = useState(
@@ -13,6 +14,8 @@ export default function ChoiceTime({ setError }: SetErrorProps) {
   const [isValid, setIsValid] = useState(false)
 
   const { spareTime, setSpareTime } = useActivityStore()
+
+  const [isInitialized, setIsInitialized] = useState(false)
 
   const validateTime = (inputTime: string) => {
     const timetoNum: number = parseInt(inputTime, 10)
@@ -43,12 +46,25 @@ export default function ChoiceTime({ setError }: SetErrorProps) {
     setSpareTime(inputTime)
     const validate = validateTime(inputTime)
     setIsValid(validate)
-    setError(!validate) // 모든 조건을 만족하면 다음 버튼을 활성화
+    setError(!validate)
+    updateQuickStartData('spareTime', inputTime)
   }
 
   useEffect(() => {
-    handleChangeTime(spareTime)
-  }, [spareTime])
+    if (!isInitialized) {
+      const quickStartData = getQuickStartData()
+      if (quickStartData) {
+        setSpareTime(quickStartData.spareTime.toString())
+        setIsInitialized(true)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isInitialized) {
+      handleChangeTime(spareTime)
+    }
+  }, [spareTime, isInitialized])
 
   return (
     <div className="w-342 mx-auto mt-50">

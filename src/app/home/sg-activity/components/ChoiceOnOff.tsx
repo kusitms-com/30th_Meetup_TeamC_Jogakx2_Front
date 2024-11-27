@@ -1,8 +1,20 @@
 'use client'
 
 import CheckboxWithLabel from '@/components/common/CheckBox'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useActivityStore } from '@/store/activityStore'
+import { getQuickStartData, updateQuickStartData } from '@/util/localStorage'
+
+const koreanToEnglish = (option: String) => {
+  switch (option) {
+    case '온라인':
+      return 'ONLINE'
+    case '오프라인':
+      return 'OFFLINE'
+    default:
+      return '활동유형을 선택해주세요'
+  }
+}
 
 export default function ChoiceOnOff({
   setError,
@@ -14,17 +26,42 @@ export default function ChoiceOnOff({
   const { activityType, setActivityType } = useActivityStore()
 
   const handleOptionChange = (option: string) => {
-    const includeOption = activityType.includes(option)
+    const currentActivityType = Array.isArray(activityType) ? activityType : []
+    const includeOption = currentActivityType.includes(option)
 
     const updateOptions = includeOption
-      ? activityType.filter((item) => item !== option)
-      : [...activityType, option]
+      ? currentActivityType.filter((item) => item !== option)
+      : [...currentActivityType, option]
 
     setActivityType(updateOptions)
+
+    if (updateOptions.length == 2) {
+      updateQuickStartData('type', 'ONLINE_AND_OFFLINE')
+    } else if (updateOptions.length == 1) {
+      updateQuickStartData('type', koreanToEnglish(updateOptions[0]))
+    }
   }
 
   useEffect(() => {
-    setActivityType([])
+    const quickStartData = getQuickStartData()
+
+    if (quickStartData && quickStartData.type) {
+      switch (quickStartData.type) {
+        case 'ONLINE_AND_OFFLINE':
+          setActivityType(['온라인', '오프라인'])
+          break
+        case 'ONLINE':
+          setActivityType(['온라인'])
+          break
+        case 'OFFLINE':
+          setActivityType(['오프라인'])
+          break
+        default:
+          setActivityType([])
+      }
+    } else {
+      setActivityType([])
+    }
   }, [])
 
   useEffect(() => {
@@ -39,12 +76,14 @@ export default function ChoiceOnOff({
   }, [activityType])
 
   const getSeletOption = () => {
-    if (activityType.length === 2) {
+    const currentActivityType = Array.isArray(activityType) ? activityType : []
+
+    if (currentActivityType.length === 2) {
       return '온라인, 오프라인'
     }
 
-    return activityType.length > 0
-      ? activityType.join(', ')
+    return currentActivityType.length > 0
+      ? currentActivityType.join(', ')
       : '활동유형을 선택해주세요'
   }
 
