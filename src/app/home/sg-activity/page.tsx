@@ -24,14 +24,21 @@ export default function SuggestActivity() {
   const [selectedActivity, setSeletedActivity] = useState<ActivityData>()
   const [activityLink, setActivityLink] = useState('')
   const [postActivityType, setPostActivityType] = useState('')
-  const { spareTime, address } = useActivityStore()
+  const { spareTime, setSpareTime, address } = useActivityStore()
   const router = useRouter()
 
   const handleBack = () => {
+    if (step === 1) {
+      setSpareTime('')
+      router.push('/home')
+      return
+    }
+
     setStep((prevStep) => {
       if (prevStep === 4 && !selectOnOff.includes('오프라인')) {
         return 2
       }
+
       return Math.max(prevStep - 1, 1)
     })
   }
@@ -84,7 +91,6 @@ export default function SuggestActivity() {
   }
 
   const progressBarWidth = `${(step / 4) * 100}%`
-
   return (
     <div className="w-full h-screen overflow-hidden">
       <HeaderWithBack onBack={handleBack} title="활동 추천받기">
