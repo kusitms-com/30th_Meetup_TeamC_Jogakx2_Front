@@ -1,11 +1,11 @@
 'use client'
 
 import CheckboxWithLabel from '@/components/common/CheckBox'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useActivityStore } from '@/store/activityStore'
 import { getQuickStartData, updateQuickStartData } from '@/util/localStorage'
 
-const koreanToEnglish = (option: String) => {
+const koreanToEnglish = (option: string) => {
   switch (option) {
     case '온라인':
       return 'ONLINE'
@@ -35,9 +35,9 @@ export default function ChoiceOnOff({
 
     setActivityType(updateOptions)
 
-    if (updateOptions.length == 2) {
+    if (updateOptions.length === 2) {
       updateQuickStartData('type', 'ONLINE_AND_OFFLINE')
-    } else if (updateOptions.length == 1) {
+    } else if (updateOptions.length === 1) {
       updateQuickStartData('type', koreanToEnglish(updateOptions[0]))
     }
   }

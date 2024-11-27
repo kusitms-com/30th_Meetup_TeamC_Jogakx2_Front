@@ -27,7 +27,7 @@ export default function ChoiceKeyword({ setError }: SetErrorProps) {
     } else {
       setError(true)
     }
-  }, [keywords])
+  }, [keywords, setError])
 
   const filteredKeywordList = useMemo(() => {
     if (activityType.includes('오프라인') && !activityType.includes('온라인')) {

@@ -64,7 +64,7 @@ export default function ChoiceTime({ setError }: SetErrorProps) {
     if (isInitialized) {
       handleChangeTime(spareTime)
     }
-  }, [spareTime, isInitialized])
+  }, [spareTime, isInitialized, handleChangeTime])
 
   return (
     <div className="w-342 mx-auto mt-50">
