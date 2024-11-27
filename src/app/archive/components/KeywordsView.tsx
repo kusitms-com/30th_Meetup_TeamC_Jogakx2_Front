@@ -5,7 +5,7 @@ import { getYear, getMonth } from 'date-fns'
 import { Button, Right } from '@/components'
 import { FooterButtons } from '@/components'
 import TreemapChart from './Treemap/Treemap'
-import { useKeywordsContext } from './api/fetcher'
+import { useKeywordsContext } from '../api/fetcher'
 
 const transMonth = (payloadMonth: string) => {
   switch (payloadMonth) {
@@ -65,6 +65,8 @@ export default function KeywordView({ currentDate }: { currentDate: Date }) {
         </div>
       ) : (
         <TreemapChart
+          joinedYear={data.joinedYear}
+          joinedMonth={transMonth(data.joinedMonth)}
           activitiesByKeywordSummary={data.activitiesByKeywordSummary}
           monthlySavedTimeAndActivityCount={
             data.monthlySavedTimeAndActivityCount

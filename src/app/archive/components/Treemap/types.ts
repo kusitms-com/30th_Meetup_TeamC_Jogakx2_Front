@@ -1,4 +1,4 @@
-import { KeywordsPerSummary, KeywordsTotal } from '../api/types'
+import { KeywordsPerSummary, KeywordsTotal } from '../../api/types'
 
 export interface TreemapItem {
   keyword: {
@@ -11,6 +11,8 @@ export interface TreemapItem {
 export interface KeywordsDataForTreemap {
   monthlySavedTimeAndActivityCount: KeywordsTotal
   activitiesByKeywordSummary: KeywordsPerSummary[]
+  joinedYear: number
+  joinedMonth: number
 }
 
 export interface ItemType {

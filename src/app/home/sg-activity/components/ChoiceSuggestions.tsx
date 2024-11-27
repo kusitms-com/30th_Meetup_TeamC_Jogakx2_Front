@@ -146,7 +146,7 @@ export default function ChoiceSuggestion({
                     <SwiperSlide key={cardData.title}>
                       <div className="bg-primary_foundation-100 w-320 h-320 rounded-16 flex flex-col items-center">
                         <Image
-                          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/image/keyword/${cardData.keyword.category.toLowerCase()}.svg`}
+                          src={`${cardData.keyword.image}`}
                           alt={cardData.keyword.category}
                           width={170}
                           height={170}
