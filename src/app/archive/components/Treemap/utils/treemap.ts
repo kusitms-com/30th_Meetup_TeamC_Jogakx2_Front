@@ -1,4 +1,4 @@
-import { KeywordsPerSummary } from '../../api/types'
+import { KeywordsPerSummary } from '@/app/archive/api/types'
 
 export const calculateKeywordsTwo = (
   CONTAINER_HEIGHT: number,
@@ -7,7 +7,7 @@ export const calculateKeywordsTwo = (
   sortedKeywords: KeywordsPerSummary[],
   totalActivity: number,
 ) => {
-  let smaller = Math.floor(
+  const smaller = Math.floor(
     (CONTAINER_HEIGHT * sortedKeywords[1].activityCount) / totalActivity,
   )
   let heights = [

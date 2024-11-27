@@ -2,8 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { getYear, getMonth } from 'date-fns'
-import { Button, Right } from '@/components'
-import { FooterButtons } from '@/components'
+import { Button, Right, FooterButtons } from '@/components'
 import TreemapChart from './Treemap/Treemap'
 import { useKeywordsContext } from '../api/fetcher'
 

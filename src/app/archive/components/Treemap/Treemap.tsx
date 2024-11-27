@@ -122,8 +122,9 @@ export default function TreemapChart({
   return (
     <div className="w-345 h-345 mx-auto flex flex-wrap gap-4 rounded-12 mt-20">
       {layouts.map(({ width, height, item }) => (
-        <div
+        <button
           key={item.keyword.category}
+          type="button"
           style={{
             width: `${width}px`,
             height: `${height}px`,
@@ -135,7 +136,7 @@ export default function TreemapChart({
           <span className="font-pretendard font-semibold text-white text-20">
             {transKeyword(item.keyword.category)}
           </span>
-        </div>
+        </button>
       ))}
     </div>
   )

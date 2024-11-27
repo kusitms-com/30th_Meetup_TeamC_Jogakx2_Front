@@ -1,110 +1,110 @@
 'use client'
 
-import { useSearchParams, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { format, parseISO } from 'date-fns'
-import { ko } from 'date-fns/locale'
-import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
+// import { useEffect, useState } from 'react'
+// import { format, parseISO } from 'date-fns'
+// import { ko } from 'date-fns/locale'
+// import Cookies from 'js-cookie'
 import { IconLeft } from '@/components'
-import { KeywordMonthDataResponse, MonthActivity } from './types/type'
-import { transKeyword } from '../components/Treemap/Treemap'
+// import { KeywordMonthDataResponse, MonthActivity } from './types/type'
+// import { transKeyword } from '../components/Treemap/Treemap'
 
 export default function KeywordDetailPage() {
-  const searchParams = useSearchParams()
+  //   const searchParams = useSearchParams()
   const router = useRouter()
-  const [accessToken, setAccessToken] = useState('')
-  const [year, setYear] = useState(0)
-  const [month, setMonth] = useState(0)
-  const [keyword, setKeyword] = useState('')
+  //   const [accessToken, setAccessToken] = useState('')
+  //   const [year, setYear] = useState(0)
+  //   const [month, setMonth] = useState(0)
+  //   const [keyword, setKeyword] = useState('')
 
-  const [keywordData, setKeywordData] = useState<KeywordMonthDataResponse>()
-  const [sortedDates, setSortedDates] = useState<string[]>()
-  const [activitiesByDate, setActivitiesByDate] =
-    useState<Record<string, MonthActivity[] | undefined>>()
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>()
+  //   const [keywordData, setKeywordData] = useState<KeywordMonthDataResponse>()
+  //   const [sortedDates, setSortedDates] = useState<string[]>()
+  //   const [activitiesByDate, setActivitiesByDate] =
+  //     useState<Record<string, MonthActivity[] | undefined>>()
+  //   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
 
-  useEffect(() => {
-    const token = Cookies.get('accessToken')
-    if (token) {
-      setAccessToken(token)
-    }
+  //   useEffect(() => {
+  //     const token = Cookies.get('accessToken')
+  //     if (token) {
+  //       setAccessToken(token)
+  //     }
 
-    const queryYear = searchParams.get('year')
-    const queryMonth = searchParams.get('month')
-    const quertKeyword = searchParams.get('keyword')
-    if (queryYear && queryMonth && quertKeyword) {
-      const transYear = parseInt(queryYear, 10)
-      const transMonth = parseInt(queryMonth, 10)
+  //     const queryYear = searchParams.get('year')
+  //     const queryMonth = searchParams.get('month')
+  //     const quertKeyword = searchParams.get('keyword')
+  //     if (queryYear && queryMonth && quertKeyword) {
+  //       const transYear = parseInt(queryYear, 10)
+  //       const transMonth = parseInt(queryMonth, 10)
 
-      setYear(transYear)
-      setMonth(transMonth)
-      setKeyword(quertKeyword)
+  //       setYear(transYear)
+  //       setMonth(transMonth)
+  //       setKeyword(quertKeyword)
 
-      getMonthData(transYear, transMonth, quertKeyword)
-    }
-  }, [])
+  //       getMonthData(transYear, transMonth, quertKeyword)
+  //     }
+  //   }, [])
 
-  const getMonthData = async (
-    reqyear: number,
-    reqmonth: number,
-    reqkeyword: string,
-  ) => {
-    try {
-      console.log('dddd', accessToken)
-      const response = await fetch(
-        `https://cnergy.p-e.kr/v1/activities?year=${reqyear}&month=${reqmonth}&keywordCategory=${reqkeyword}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      )
+  //   const getMonthData = async (
+  //     reqyear: number,
+  //     reqmonth: number,
+  //     reqkeyword: string,
+  //   ) => {
+  //     try {
+  //       console.log('dddd', accessToken)
+  //       const response = await fetch(
+  //         `https://cnergy.p-e.kr/v1/activities?year=${reqyear}&month=${reqmonth}&keywordCategory=${reqkeyword}`,
+  //         {
+  //           method: 'GET',
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //             Authorization: `Bearer ${accessToken}`,
+  //           },
+  //         },
+  //       )
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`)
+  //       }
 
-      const { data } = await response.json()
-      console.log('받은 데이터', data)
-      setKeywordData(data)
-    } catch (error) {
-      console.error('Error sending POST request:', error)
-    }
-  }
+  //       const { data } = await response.json()
+  //       console.log('받은 데이터', data)
+  //       setKeywordData(data)
+  //     } catch (error) {
+  //       console.error('Error sending POST request:', error)
+  //     }
+  //   }
 
-  useEffect(() => {
-    const monthlyActivities = keywordData?.activities
+  //   useEffect(() => {
+  //     const monthlyActivities = keywordData?.activities
 
-    const filteredActivities = selectedDate
-      ? monthlyActivities?.filter(
-          (activity) =>
-            format(parseISO(activity.dateOfActivity), 'yyyy-MM-dd') ===
-            format(selectedDate, 'yyyy-MM-dd'),
-        )
-      : monthlyActivities
+  //     const filteredActivities = selectedDate
+  //       ? monthlyActivities?.filter(
+  //           (activity) =>
+  //             format(parseISO(activity.dateOfActivity), 'yyyy-MM-dd') ===
+  //             format(selectedDate, 'yyyy-MM-dd'),
+  //         )
+  //       : monthlyActivities
 
-    const activitiesByDate =
-      filteredActivities?.reduce(
-        (acc, activity) => {
-          const dateKey = format(
-            parseISO(activity.dateOfActivity),
-            'yyyy-MM-dd',
-          )
-          if (!acc[dateKey]) {
-            acc[dateKey] = []
-          }
-          acc[dateKey].push(activity)
-          return acc
-        },
-        {} as Record<string, typeof monthlyActivities>,
-      ) ?? {}
+  //     const activitiesByDate =
+  //       filteredActivities?.reduce(
+  //         (acc, activity) => {
+  //           const dateKey = format(
+  //             parseISO(activity.dateOfActivity),
+  //             'yyyy-MM-dd',
+  //           )
+  //           if (!acc[dateKey]) {
+  //             acc[dateKey] = []
+  //           }
+  //           acc[dateKey].push(activity)
+  //           return acc
+  //         },
+  //         {} as Record<string, typeof monthlyActivities>,
+  //       ) ?? {}
 
-    const sortedDates = Object.keys(activitiesByDate)
-    setActivitiesByDate(activitiesByDate)
-    setSortedDates(sortedDates)
-  }, [keywordData])
+  //     const sortedDates = Object.keys(activitiesByDate)
+  //     setActivitiesByDate(activitiesByDate)
+  //     setSortedDates(sortedDates)
+  //   }, [keywordData])
 
   const onBack = () => {
     router.back()
@@ -116,7 +116,7 @@ export default function KeywordDetailPage() {
         <IconLeft className="absolute left-20" onClick={onBack} />
         <span>조각 별 상세정보</span>
       </header>
-      <section></section>
+      {/* <section></section>
       <section className="p-16 bg-primary_foundation-5">
         {sortedDates?.map((date) => (
           <div key={date} className="mb-20">
@@ -145,7 +145,7 @@ export default function KeywordDetailPage() {
             </div>
           </div>
         ))}
-      </section>
+      </section> */}
     </div>
   )
 }
