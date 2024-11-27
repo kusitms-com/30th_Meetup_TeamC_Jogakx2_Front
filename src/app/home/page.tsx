@@ -8,11 +8,19 @@ import { QuickBox } from './components/QuickBox'
 import NoQuickBox from './components/NoQuickBox'
 import NoTimePiece from './components/NoTimePiece'
 import TimePiece from './components/TimePiece'
+import { useEffect } from 'react'
+import { useActivityStore } from '@/store/activityStore'
 
 export default function Home() {
   const { quickStart, totalSavedTime, activities } = useHomeContext()
   const { userInfo } = useUserInfo()
   const { push } = useRouter()
+  const { reset } = useActivityStore()
+
+  useEffect(() => {
+    localStorage.removeItem('quickStart')
+    reset()
+  }, [])
 
   return (
     <HomeHeader title="홈">
