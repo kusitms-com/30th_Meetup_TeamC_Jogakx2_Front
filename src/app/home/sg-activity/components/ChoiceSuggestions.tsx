@@ -125,7 +125,7 @@ export default function ChoiceSuggestion({
                 <br />딱 맞는 활동을 가져왔어요!
               </h1>
               <p className="text-14 text-primary_foundation-60 mt-8">
-                아 중 원하는 활동을 하나 선택해 보세요.
+                이 중 원하는 활동을 하나 선택해 보세요.
               </p>
             </section>
 

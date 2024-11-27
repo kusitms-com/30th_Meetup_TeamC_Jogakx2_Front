@@ -10,6 +10,8 @@ export default function ChoiceTime({ setError }: SetErrorProps) {
     '시간은 최소 10분부터 최대 300분까지 입력할 수 있어요.',
   )
 
+  const [isValid, setIsValid] = useState(false)
+
   const { spareTime, setSpareTime } = useActivityStore()
 
   const validateTime = (inputTime: string) => {
@@ -40,6 +42,7 @@ export default function ChoiceTime({ setError }: SetErrorProps) {
   const handleChangeTime = (inputTime: string) => {
     setSpareTime(inputTime)
     const validate = validateTime(inputTime)
+    setIsValid(validate)
     setError(!validate) // 모든 조건을 만족하면 다음 버튼을 활성화
   }
 
@@ -71,16 +74,14 @@ export default function ChoiceTime({ setError }: SetErrorProps) {
         </div>
         <p className="font-semibold text-28">의 시간이 남아요.</p>
       </div>
-      <p
-        className={`flex font-medium text-12 gap-5 mt-8 
-          ${state !== '시간은 최소 10분부터 최대 300분까지 입력할 수 있어요.' ? 'text-system_red' : 'text-primary_foundation-50'}
-        `}
-      >
-        {state !== '시간은 최소 10분부터 최대 300분까지 입력할 수 있어요.' && (
-          <Caution className="my-auto" />
-        )}
-        {state}
-      </p>
+      {(spareTime === '' || !isValid) && (
+        <p
+          className={`flex font-medium text-12 gap-5 mt-8 ${spareTime === '' ? 'text-primary_foundation-50' : 'text-system_red'}`}
+        >
+          {spareTime !== '' && !isValid && <Caution className="my-auto" />}
+          {state}
+        </p>
+      )}
     </div>
   )
 }
