@@ -9,6 +9,7 @@ interface ModalProps {
   title?: string
   children: ReactNode
   className?: string
+  bgClassName?: string
 }
 
 export default function Modal({
@@ -17,12 +18,16 @@ export default function Modal({
   title,
   children,
   className,
+  bgClassName,
 }: ModalProps) {
   if (!isOpen) return null
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      className={cn(
+        'fixed inset-0 z-50 flex items-center justify-center bg-black/50',
+        bgClassName,
+      )}
       role="dialog"
       aria-modal="true"
       aria-labelledby={title ? 'modal-title' : undefined}
@@ -47,7 +52,7 @@ export default function Modal({
             </h2>
           </header>
         )}
-        <div className="mt-45 p-24">{children}</div>
+        <div className="mt-45">{children}</div>
       </div>
     </div>
   )

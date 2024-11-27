@@ -8,7 +8,6 @@ import { QuickBox } from './components/QuickBox'
 import NoQuickBox from './components/NoQuickBox'
 import NoTimePiece from './components/NoTimePiece'
 import TimePiece from './components/TimePiece'
-import './home.css'
 
 export default function Home() {
   const { quickStart, totalSavedTime, activities } = useHomeContext()
