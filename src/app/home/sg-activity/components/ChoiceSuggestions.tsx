@@ -56,6 +56,14 @@ export default function ChoiceSuggestion({
     setError(false)
     setText('이 활동하기')
 
+    if (localStorage.getItem('quickStart')) {
+      const { quickStart } = JSON.parse(
+        localStorage.getItem('quickStart') || '',
+      )
+      postData.activityType = quickStart.type
+      postData.spareTime = quickStart.spareTime
+    }
+
     const fetchData = async () => {
       console.log('보내는 데이터 확인', postData)
       try {
