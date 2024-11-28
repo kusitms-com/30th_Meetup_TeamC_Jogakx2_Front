@@ -9,7 +9,7 @@ export default function MobileWrapper({ children }: { children: ReactNode }) {
           <SplashLogoNew className="my-auto" />
         </div>
       </aside>
-      <div className="relative flex flex-col min-w-390 h-844 border-1 overflow-y-auto scrollbar-hide overflow-x-hidden">
+      <div className="relative flex flex-col min-w-390 border-1 overflow-y-auto scrollbar-hide overflow-x-hidden">
         {children}
       </div>
     </div>
