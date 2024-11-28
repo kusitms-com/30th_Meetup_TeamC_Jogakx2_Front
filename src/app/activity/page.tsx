@@ -81,7 +81,6 @@ export default function ActivityPage() {
     }
 
     if (!startTime) {
-      // 새로운 타이머 시작
       startTime = now.toString()
       localStorage.setItem('startTime', startTime)
     }
@@ -96,18 +95,18 @@ export default function ActivityPage() {
       const remainingTimeMsRm = spareTimeMs - elapsedRm
 
       if (remainingTimeMsRm <= 0) {
-        // 시간이 다 되었을 때 처리
         setIsTimeUp(true)
-        setElapsedTime(Math.ceil(elapsed / 60000)) // 경과 시간을 분 단위로 저장
+        setElapsedTime(Math.ceil(elapsed / 60000))
         if (intervalId.current !== null) {
           clearInterval(intervalId.current)
           intervalId.current = null
         }
-      } else {
-        // 남은 시간 로그 (디버깅 용도)
-        const remainingSeconds = Math.ceil(remainingTimeMsRm / 1000)
-        console.log(`남은 시간: ${remainingSeconds}초`)
       }
+      // else {
+      //   // 남은 시간 로그 (디버깅 용도)
+      //   const remainingSeconds = Math.ceil(remainingTimeMsRm / 1000)
+      //   console.log(`남은 시간: ${remainingSeconds}초`)
+      // }
     }
 
     if (elapsed >= spareTimeMs) {

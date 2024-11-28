@@ -24,7 +24,7 @@ export default function SuggestActivity() {
   const [selectedActivity, setSeletedActivity] = useState<ActivityData>()
   const [activityLink, setActivityLink] = useState('')
   const [postActivityType, setPostActivityType] = useState('')
-  const { spareTime, setSpareTime, address } = useActivityStore()
+  const { spareTime, setSpareTime, address, reset } = useActivityStore()
   const router = useRouter()
 
   const handleBack = () => {
@@ -76,6 +76,7 @@ export default function SuggestActivity() {
             'selectedActivity',
             JSON.stringify(seletedActivityData),
           )
+          reset()
           router.push('/activity')
         }
         nextStep = step + 1
