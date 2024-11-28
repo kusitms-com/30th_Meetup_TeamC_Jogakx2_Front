@@ -120,6 +120,7 @@ export default function SuggestActivity() {
           <If condition={step === 5}>
             <ChoiceSuggestion
               setError={setError}
+              isSuggestLoading={isSuggestLoading}
               setIsSuggestLoading={setIsSuggestLoading}
               setText={setText}
               setSeletedActivity={setSeletedActivity}

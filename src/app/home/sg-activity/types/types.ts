@@ -6,6 +6,7 @@ export interface SetErrorProps {
 }
 
 export interface ChoiceSuggestionProps {
+  isSuggestLoading: boolean
   setIsSuggestLoading: Dispatch<SetStateAction<boolean>>
   setError: Dispatch<SetStateAction<boolean>>
   setText: Dispatch<SetStateAction<string>>
