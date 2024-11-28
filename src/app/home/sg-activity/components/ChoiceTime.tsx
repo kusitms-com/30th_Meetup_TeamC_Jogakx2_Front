@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useActivityStore } from '@/store/activityStore'
 import { Caution } from '@/components'
-import { SetErrorProps } from '../types/types'
 import { getQuickStartData, updateQuickStartData } from '@/util/localStorage'
+import { SetErrorProps } from '../types/types'
 
 export default function ChoiceTime({ setError }: SetErrorProps) {
   const [state, setState] = useState(
