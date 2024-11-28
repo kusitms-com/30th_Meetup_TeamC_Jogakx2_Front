@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 import { QueryProvider } from '@/lib'
 import { cn } from '@/util'
 import { pretendard, wavvepado } from '../../public/fonts'
+import MobileWrapper from '@/components/MobileWrapper/MobileWrapper'
 
 export const metadata: Metadata = {
   title: '나의 시간조각을 모아, 조각조각',
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className={cn(pretendard.variable, wavvepado.variable)}>
         <GlobalErrorBoundary renderFallback={<div>에러가 발생했어요 !</div>}>
           <Suspense fallback={<div>로딩 중입니다...</div>}>
-            <QueryProvider>{children}</QueryProvider>
+            <QueryProvider>
+              <MobileWrapper>{children}</MobileWrapper>
+            </QueryProvider>
           </Suspense>
         </GlobalErrorBoundary>
       </body>

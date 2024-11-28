@@ -204,8 +204,6 @@ export default function ActivityPage() {
     }
   }
 
-  console.log('id', activityId)
-
   return (
     <>
       {isTimeUp ? (
@@ -273,7 +271,7 @@ export default function ActivityPage() {
             </h3>
           </div>
           <Image
-            src={`/gif/${selectedActivityData?.keyword.category || 'NATURE'}_ing.gif`}
+            src={`/gif/${selectedActivityData?.keyword.category}_ing.gif`}
             alt={selectedActivityData?.title || '활동 이미지'}
             width={390}
             height={390}

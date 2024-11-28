@@ -45,7 +45,7 @@ export default function SuggestionWait({
       <Image
         src="/gif/suggest_waiting.gif"
         alt="suggest_waiting"
-        width={390}
+        width={388}
         height={390}
         unoptimized
         priority
@@ -55,7 +55,7 @@ export default function SuggestionWait({
       <Image
         src="/images/bg-suggestchoice.png"
         alt="suggestchoice_background"
-        width={390}
+        width={388}
         height={304}
         className="absolute bottom-0 transform -translate-x-1/2"
       />

@@ -18,13 +18,17 @@ export default function HomeHeader({ children, title }: HomeHeaderProps) {
     <div className="flex w-full flex-col">
       <header
         className={cn(
-          'fixed z-10 max-w-[600px] w-full font-semibold flex items-center justify-between py-10 h-52 px-24 transition-colors duration-300 font-wavvepado bg-white',
+          'fixed z-10 max-w-[388px] w-full font-semibold flex items-center justify-between py-10 h-52 px-24 transition-colors duration-300 font-wavvepado bg-white',
         )}
       >
-        <div className="flex gap-12 items-center h-32">
+        <button
+          className="flex gap-12 items-center h-32"
+          type="button"
+          onClick={() => push('/home')}
+        >
           <Logo />
           <span className="text-20 pt-3">{title}</span>
-        </div>
+        </button>
         <button
           type="button"
           onClick={() => push('/mypage')}

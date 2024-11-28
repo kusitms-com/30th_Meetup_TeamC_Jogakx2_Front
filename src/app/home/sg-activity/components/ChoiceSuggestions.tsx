@@ -119,7 +119,7 @@ export default function ChoiceSuggestion({
         <SuggestionWait nickname={nickname} keywords={keywords} />
       ) : (
         <>
-          <div>
+          <div className="max-w-390">
             <section className="w-342 mx-auto mt-50 text-center">
               <h1 className="font-semibold text-20">
                 조각조각이 {nickname} 님에게

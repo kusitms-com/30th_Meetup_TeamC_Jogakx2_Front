@@ -81,6 +81,6 @@ const config: Config = {
       '300': '300%',
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide')],
 }
 export default config
