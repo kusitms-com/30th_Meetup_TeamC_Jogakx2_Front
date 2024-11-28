@@ -106,6 +106,7 @@ export default function ChoiceSuggestion({
     fetchData()
 
     return () => {
+      setIsSuggestLoading(false)
       setText('다음')
     }
   }, [])

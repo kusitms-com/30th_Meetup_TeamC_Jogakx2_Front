@@ -219,7 +219,10 @@ export default function ActivityPage() {
             </h3>
 
             <Image
-              src="/images/NATURE_result.png"
+              src={
+                selectedActivityData?.keyword.image ||
+                '/images/NATURE_result.png'
+              }
               alt="NATURE"
               width={256}
               height={256}

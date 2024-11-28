@@ -61,7 +61,7 @@ export default function Home() {
       {!isSplash && (
         <>
           <p className="z-50 font-semibold absolute top-[388px]">
-            여기에는 캐치프레이즈가 들어갑니다
+            흘려보내는 시간의 조각, 이제는 모아봐요!
           </p>
 
           <motion.div
